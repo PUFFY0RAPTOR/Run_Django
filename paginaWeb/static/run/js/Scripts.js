@@ -40,6 +40,5 @@ function closeSession(){
     window.open('../index.html', "_self");
     
 
-    //otro cambio
-    //Cambio
+    //uno mas
 }
