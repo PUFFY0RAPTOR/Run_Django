@@ -41,4 +41,5 @@ function closeSession(){
     
 
     //otro cambio
+    //Cambio
 }
