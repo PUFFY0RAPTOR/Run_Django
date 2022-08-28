@@ -40,8 +40,12 @@ function closeSession(){
     window.open('../index.html', "_self");
     
 
+    //hola hola
     //Soy Sebas probando Django
     //Soy Sebas
     //soy mateo
     //Probando cambios
+
+
+    //mateo mateo
 }
