@@ -39,5 +39,5 @@ function closeSession(){
     //alert("cierre de sesion exitoso")
     window.open('../index.html', "_self");
     
-    //Soy Sebas
+    //Soy Sebas probando Django
 }
