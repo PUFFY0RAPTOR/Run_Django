@@ -40,4 +40,5 @@ function closeSession(){
     window.open('../index.html', "_self");
     
     //Soy Sebas
+    //soy mateo
 }
