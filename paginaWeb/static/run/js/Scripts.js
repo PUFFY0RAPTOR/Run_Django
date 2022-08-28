@@ -32,6 +32,10 @@ function interface(){
     }
 }
 
+function imprimir(){
+    console.log("Funcion de sebas")
+}
+
 function closeSession(){
 
     sessionStorage.setItem("nameSession", "null");
