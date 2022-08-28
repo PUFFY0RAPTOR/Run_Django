@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="javaScript/Scripts.js"></script>
+
+</head>
+
+
+<body onload="interface()">
+    <div id="posicionNav">
+        <!--fixed-top deja la barra de navegacion arriba independientemente del  scrool-->
+        <div id="banner">
+            <a href="index.html" id="logo">
+                <img src="imagenes/logoBar.png" alt="logo" width="350px" height="250px">
+            </a>
+            <img src="imagenes/banner2Si.png" alt="banner" width="100%" height="300px">
+        </div>
+        <nav class="navbar navbar-light" id="bar1">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                    </form>
+                </li>
+            </ul>
+            <div id="navegacion2">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Usuarios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="registro.html">Registrar usuarios</a>
+                            <a class="dropdown-item" href="listarUsuarios.html">Listar usuarios</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Motos
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="RegistrarMotos.html">Registrar Moto</a>
+                            <a class="dropdown-item" href="ListarMotos.html">Listar Motos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Repuestos
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="listarRepuestos.html">Listar repuestos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Compras
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="compras.html">Ver productos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Inventario
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="registroInventario.html">Registrar inventario</a>
+                            <a class="dropdown-item" href="listarInventario.html">Listar inventario</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Ayuda
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="ayuda.html">Formulario de ayuda</a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+            <ul class="navbar-nav navbar-expand-lg ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown ml-auto">
+                        <form action="registro.html">
+                            <button type="submit" id="colorBoton">Registrar</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <div class="dropdown ml-auto">
+                        <a class="nav-link" href="" data-toggle="modal" data-target="#iniciarSesion"
+                            style="color: black; padding: 0.5em;">Iniciar
+                            Sesión</a>
+                    </div>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="carritoCompras.html" style="color: black; padding: 0.5em;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                            class="bi bi-cart3" viewBox="0 0 16 16">
+                            <path
+                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg> </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-------------------------------------------------------------------------------------CODIGO NUEVO----------------------------------------------------------------------------------------->
+
+    <a href="ayuda.html">
+        <button id="flotante"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                class="bi bi-headset" viewBox="0 0 16 16">
+                <path
+                    d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z" />
+            </svg></button>
+    </a>
+
+    <br>
+    <h1 id="tituloFormularios">REGISTRARSE</h1>
+    <p class="alinear"> ¿No tienes cuenta? no te preocupes, aqui nos registraremos</p>
+
+    <form action="" onsubmit="fechacorrect()">
+
+        <div class="datosRegistro">
+            <h4>Ingresa los siguientes datos</h4><br>
+
+            <label class="Cedula" for="Cedula">Cédula: </label>
+            <input class="inputregis" type="text" name="Cedula" size="20" placeholder="Cédula" />
+
+            <label for="nombre">Nombre: </label>
+            <input class="inputregis" type="text" name="nombre" size="20" placeholder="Nombre" />
+
+            <label for="Apellidos">Apellidos: </label>
+            <input class="inputregis" type="text" name="Apellidos" ssize="20" placeholder="Apellidos" />
+
+            <label for="correo"> Correo: </label>
+            <input type="text" name="Correo" placeholder="Correo Electronico" />
+
+            <label for="telef"> Teléfono: </label>
+            <input type="number" name="Telefono" placeholder="Telefono" />
+
+            <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
+            <input type="date" name="fechaNacim" placeholder="Fecha de nacimiento" min="1950-04-01" max="2022-05-04"
+                id="f1" />
+
+            <label for="direccion"> Dirección: </label>
+            <input type="text" name="Direccion" placeholder="Direccion" />
+
+            <label for="contrasena"> Contraseña: </label>
+            <input type="password" name="contrasena" placeholder="Contraseña" />
+
+            <label for="contrasenaconfirm"> Confirmar contraseña: </label>
+            <input type="password" name="contrasenaconfirm" placeholder="Digite contraseña nuevamente" /><br>
+
+            ¿Cuál es su género?
+            <input type="radio" name="sexo" value=""> Hombre
+            <input type="radio" name="sexo" value=""> Mujer
+            <input type="radio" name="sexo" value=""> Otro
+        </div>
+
+        <div class="datos1">
+            <br> <input type="submit" value="Crear Cuenta" /><br>
+        </div><br>
+
+
+    </form><br>
+
+    <div id="footer2">
+        <div id="columna1">
+            <h5>¿Quienes somos?</h5>
+            <p> Somos la mejor página de venta y distribución de repuestos para motos en Colombia, contamos con buenos
+                productos y buen personal.</p>
+        </div>
+
+        <div id="columna2">
+            <ul>
+                <a href="marcas.html">
+                    <h5>Marcas</h5>
+                </a>
+                <a href="marcas.html">
+                    <li> YAMAHA</li>
+                </a>
+                <a href="marcas.html">
+                    <li> TVS </li>
+                </a>
+                <a href="marcas.html">
+                    <li> AKT </li>
+                </a>
+                <a href="marcas.html">
+                    <li> KYMCO </li>
+                </a>
+                <a href="marcas.html">
+                    <li> HONDA </li>
+                </a>
+            </ul>
+        </div>
+
+        <div id="columna3">
+            <ul>
+                <a href="compras.html">
+                    <h5>Categorias</h5>
+                </a>
+                <a href="compras.html">
+                    <li> Accesorios</li>
+                </a>
+                <a href="compras.html">
+                    <li> Herramientas </li>
+                </a>
+                <a href="compras.html">
+                    <li> Iluminación </li>
+                </a>
+                <a href="compras.html">
+                    <li> Lubricantes </li>
+                </a>
+                <a href="compras.html">
+                    <li> Descuentos </li>
+                </a>
+            </ul>
+        </div>
+
+        <div id="columna4">
+            <ul>
+                <a href="#">
+                    <h5>Políticas</h5>
+                </a>
+                <a href="#">
+                    <li> Compras y devoluciones</li>
+                </a>
+                <a href="#">
+                    <li> Términos y condiciones </li>
+                </a>
+                <a href="#">
+                    <li> Métodos de pago </li>
+                </a>
+            </ul>
+        </div>
+
+        <div id="columna5">
+            <h5>Redes</h5>
+            <a href="https://www.facebook.com/profile.php?id=100081341222102"><button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-facebook" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                </svg> Facebook</button></a><br>
+            <a href="https://api.whatsapp.com/send?phone=573116540851"><button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-whatsapp" viewBox="0 0 16 16">
+                    <path
+                        d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                </svg> WhatsApp</button></a><br>
+            <a href="https://instagram.com/rununitall?igshid=YmMyMTA2M2Y="><button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-instagram" viewBox="0 0 16 16">
+                    <path
+                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                </svg> Instagram</button></a><br>
+            <a href="https://twitter.com/rununitall"><button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-twitter" viewBox="0 0 16 16">
+                    <path
+                        d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                </svg> Twitter</button></a>
+        </div>
+
+    </div>
+
+    <div id="footer">
+        <p> © 2022 by students of ADSI Copyright: SENA </p>
+    </div>
+
+    <div class="modal fade" id="iniciarSesion">
+        <!--Inicio de sesión-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Inicio de sesión</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="inicioSesion">
+                        <div id="intoInicio">
+                            <form class="form-group" action="" method="post">
+                                <input type="email" name="correo" size="auto"
+                                    placeholder="Correo electrónico o número" />
+                                <br>
+
+                                <br> <input type="password" name="contrasena" placeholder="Contraseña" /> <br>
+
+                                <br><button type="submit" onclick="cookieSesion()" class="btn btn-outline-primary">
+                                    Iniciar sesión </button><br>
+
+                                <br> <a href="olvcontra.html"> ¿Olvidaste tu contraseña? </a> <br>
+
+                                <br> <a href="registro.html"> Registrarse </a>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

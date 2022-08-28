@@ -1,0 +1,21 @@
+#bannerRegistro{
+    width: 100%;
+    height: 100px;
+    background-color: #4DA8E9;
+}
+h1, .alinear, .datos, #crearBoton, .datos1{
+    text-align: center;
+}
+.datos{
+    border-radius: 30px;
+    border:solid 2px;
+
+}
+/*.separador{
+    height: 10px;
+    background-color: #ffffff;
+}*/
+
+.datos input{
+    margin-top: 10px;
+}

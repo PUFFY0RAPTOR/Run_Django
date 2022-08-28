@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'run/css/estilos.css' %}">
+    <script src="{% static 'run/js/Scripts.js' %}"></script>
+
+</head>
+
+
+<body onload="interface()">
+    <div id="posicionNav">
+        <!--fixed-top deja la barra de navegacion arriba independientemente del  scrool-->
+        <div id="banner">
+            <a href="{% url 'run:index' %}" id="logo">
+                <img src="{% static 'run/img/logoBar.png' %}" alt="logo" width="350px" height="250px">
+            </a>
+            <img src="{% static 'run/img/banner2Si.png' %}" alt="banner" width="100%" height="300px">
+        </div>
+        <nav class="navbar navbar-light" id="bar1">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                    </form>
+                </li>
+            </ul>
+            <div id="navegacion2">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Usuarios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="registro.html">Registrar usuarios</a>
+                            <a class="dropdown-item" href="listarUsuarios.html">Listar usuarios</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Motos
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="RegistrarMotos.html">Registrar Moto</a>
+                            <a class="dropdown-item" href="ListarMotos.html">Listar Motos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Repuestos
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="listarRepuestos.html">Listar repuestos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Compras
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="compras.html">Ver productos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Inventario
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="registroInventario.html">Registrar inventario</a>
+                            <a class="dropdown-item" href="listarInventario.html">Listar inventario</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Ayuda
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="ayuda.html">Formulario de ayuda</a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+            <ul class="navbar-nav navbar-expand-lg ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown ml-auto">
+                        <form action="registro.html">
+                            <button type="submit" id="colorBoton">Registrar</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <div class="dropdown ml-auto">
+                        <a class="nav-link" href="" data-toggle="modal" data-target="#iniciarSesion"
+                            style="color: black; padding: 0.5em;">Iniciar
+                            Sesión</a>
+                    </div>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="carritoCompras.html" style="color: black; padding: 0.5em;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                            class="bi bi-cart3" viewBox="0 0 16 16">
+                            <path
+                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg> </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% block body %}
+    -----------------Codigo Nuevo-------------------
+    {% endblock  %}
+
+
+</body>
+</html>

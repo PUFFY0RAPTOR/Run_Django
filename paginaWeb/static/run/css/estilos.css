@@ -1,0 +1,437 @@
+#index{
+    background-color: #a1a1a1 ;
+}
+
+#navBar{
+    background-color:#cccccc;
+}
+
+#navegacion2{
+    margin: auto ;
+    background-color:#cccccc;
+}
+
+#logo{
+    position: absolute;
+    margin-top: 2.5%;
+}
+
+#banner{
+    margin-top: -50px;
+    margin-bottom: -53px;
+}
+
+#footer{   
+    padding-top: 10px;
+    text-align: center;
+    height: 45px;
+    background-color: #002742;
+    color: white;
+}
+
+#footer2{
+    display: flex;
+    align-items: flex-start; 
+    color: white;
+    background-color: #0b5386;
+}
+
+#inicioSesion{
+    text-align: center;
+    width: 100%;
+    border: solid black 1px;
+    padding: 20px;
+}
+
+#olvContra{
+    margin: auto;
+    text-align: center;
+    width: 33%;
+    border: solid black 1px;
+    padding: 20px;
+    margin-bottom: 8%;
+} 
+
+#bar1{
+    background-color: #cccccc;
+}
+
+#bar2{
+    margin-top: -60px;
+    position: static;
+}
+
+#colorBoton{
+    background-color: #4DA8E9;
+    border-style:solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#bannerRegistro{
+    width: 100%;
+    height: 100px;
+    background-color: #4DA8E9;
+}
+
+h1, .alinear, #crearBoton, .datos1{
+    text-align: center;
+}
+
+.datos{
+    margin: auto;
+    /*width: 33%;*/
+    border: solid black 1px;
+    padding: 20px;
+}
+
+.datos label{
+    width: 45%;
+}
+
+#imagenPerfil{
+    margin: auto;
+}
+
+.datosPerfil{
+    margin: auto;
+    text-align: center;
+    /*width: 33%;*/
+    padding: 20px;
+}
+
+.datosDiv{
+    margin: auto;
+    width: 33%;
+    border: solid black 1px;
+    padding: 20px;
+}
+
+.datosDiv label{
+    width: 50%;
+}
+
+.datosRegistro{
+    margin: 0 auto; /*Centrarlo*/
+    width: 33%;
+    border: solid black 1px;
+    padding: 20px;
+}
+
+.datosRegistro h4{
+    text-align: center;
+}
+
+.datosRegistro label {
+    width: 43%;
+}
+
+/*.formRegistro{
+    display: grid;
+    grid-template-columns: 50%;
+    grid-template-rows: 50%;
+    column-gap: 5%;
+    row-gap: 5%;
+}
+
+.formRegistro label{
+    grid-template-columns: 50%;
+    grid-template-rows: 50%;
+    column-gap: 5%;
+    row-gap: 5%;
+}
+
+.formRegistro input{
+    grid-template-columns: 50%;
+    grid-template-rows: 50%;
+    column-gap: 5%;
+    row-gap: 5%;
+}*/
+
+/*#tituloFormularios{
+    margin-top: 15%;
+}*/
+
+/*#tituloTables{
+    margin-top: 23%;
+}*/
+
+.datos1 input{
+    background-color: #4DA8E9;
+    border-radius: 5px;
+}
+
+.datos input{
+    margin-top: 10px;
+}
+
+#flotante{
+    position: fixed;
+	bottom: 40px;
+	right: 40px;
+    border-radius: 40px;
+    background-color: #4DA8E9;
+    color: #ffffff;
+    padding: 8px;
+}
+
+#flotante:hover{
+    background-color: #0079cf;
+}
+
+#fondoContenedor{
+    display: flex;
+    justify-content: center;
+    /*margin-top: 15%;*/
+}
+
+/*#contenedorImagenes{
+    padding: 38px;
+}*/
+
+.textoEncima{
+    position: absolute;
+    top: 500px;
+    right: 117px;
+    margin-right: 0.2em;
+    font-size: xx-large;
+    color: #ffffff;
+    text-align: end;
+}
+
+#imagenesFondo2{
+    /*background-color: tomato;*/
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 94%;
+    height: 525px;
+    margin-left: 3%;
+    margin-top: 2em;
+}
+
+#imgIzq1{
+    float: left;
+    padding: 1%;
+}
+
+#imgDer1{
+    float: right;
+    padding: 1%;
+}
+
+.textoEncimaDer{
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    margin-right: 0.2em;
+    font-size: xx-large;
+    color: #ffffff;
+    text-align: end;
+}
+
+.textoEncimaIzq{
+    position: absolute;
+    top: 120px;
+    left: 20px;
+    margin-right: 0.2em;
+    font-size: xx-large;
+    color: #ffffff;
+    text-align: start;
+}
+
+#footer2 a{
+    color: white;
+}
+
+#columna1, #columna2, #columna3, #columna4, #columna5{
+    padding: 20px;
+    width: 20%;
+}
+
+#columna2 ul{
+    list-style-type: none;
+}
+
+#columna3 ul{
+    list-style-type: none;
+}
+
+#columna4 ul{
+    list-style-type: none;
+}
+
+#columna5 button{
+    color: white;
+}
+
+/*#posicionNav{
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}*/
+
+select{
+    margin-left: 5%;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+#padre{
+    display: flex;
+	justify-content: center;
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#opciones{
+	width: 20%;
+    height: 850px;
+}
+
+#productos{
+    border-radius: 5px;
+	width: 74%;
+    height: 850px;
+    margin-left: 2%;
+}
+
+#opciones ul li, ul li h5, #opciones h3, ul, span{
+    color: #000000;
+    list-style-type: none;
+    padding-left: 1%;
+}
+
+#opciones ul li span{
+    color: #616161;
+}
+
+#opciones a{
+    text-decoration: none;
+}
+
+#opciones h5, #opciones h3 {
+    color: #2c9ae9;
+}
+
+#productos{
+    background-color: #cccccc;
+}
+
+#galeriaProductos{
+    display: flex;
+}
+
+#producto1, #producto2, #producto3{
+    border: solid 2px #ffffff;
+    background-color: #ffffff;
+    border-radius: 7px;    
+    width: 31%;
+    height: 370px;
+    margin-top: 1.5em;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-bottom: 1em;
+}
+
+#producto4, #producto5, #producto6{
+    border: solid 1px #ffffff;
+    background-color: #ffffff;
+    border-radius: 7px;    
+    width: 31%;
+    height: 370px;
+    margin-top: 1.5em;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-bottom: 1em;
+}
+
+#espaciosIzq{
+    margin-top: 6%;
+    margin-left: 5%;
+}
+
+#galeriaProductos button{
+    margin-top: 3%;
+    float: left;
+}
+
+#galeriaProductos a{
+    color: #000000;
+    text-decoration: none;
+}
+
+#conteProducto1{
+    display: flex;
+	justify-content: center;
+    width: 100%;
+    height: 600px;
+}
+
+#descProducto{
+    border: solid 1px #000000;
+    border-radius: 5px;
+    width: 40%;
+    height: 500px;
+    padding: 20px;
+}
+
+#descProducto h3{
+    text-align: center;
+}
+
+#cantidad{
+    width: 50px;
+}
+
+#modalImagen{
+    margin-top: 0.5em;
+    margin-left: 4%;
+}
+
+#padre img{
+    margin: auto;
+}
+
+#padre2{
+    display: flex;
+	justify-content: center;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#productosMarcas{
+    border-radius: 5px;
+	width: 90%;
+    height: 1000px;
+    margin-left: 13%;
+}
+
+#marca1{
+    /* border: solid 2px #ffffff; */
+    /* background-color: #ffffff; */
+    /* border-radius: 7px; */
+    width: 47%;
+    /* height: 370px; */
+    margin-top: 1.5em;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-bottom: 1em;
+}
+
+/* Invisible texto 
+figcaption {
+    display:none; 
+    transition: all .5s;
+}
+
+/* Visible texto 
+figure:hover > figcaption {
+    display:block;
+    transition: all .5s;
+}*/
