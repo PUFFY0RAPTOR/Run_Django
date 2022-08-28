@@ -39,5 +39,10 @@ function closeSession(){
     //alert("cierre de sesion exitoso")
     window.open('../index.html', "_self");
     
+<<<<<<< HEAD
     //Soy Sebas probando Django
+=======
+    //Soy Sebas
+    //soy mateo
+>>>>>>> master
 }
