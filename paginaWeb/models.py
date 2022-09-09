@@ -13,7 +13,6 @@ class Marcas(models.Model):
     id_marca = models.IntegerField(primary_key=True)
     nombre_marca = models.CharField(max_length=100)
     
-    
     def __str__(self):
         return self.nombre_marca
        
@@ -23,7 +22,7 @@ class Permisos(models.Model):
     description = models.CharField(max_length=100)
     #intermedia = models.ManyToManyField(Roles,blank=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre_permiso
 
 class RolesPermisos(models.Model):
@@ -31,7 +30,7 @@ class RolesPermisos(models.Model):
     roles = models.ForeignKey(Roles, on_delete = models.DO_NOTHING)
     permisos = models.ForeignKey(Permisos, on_delete = models.DO_NOTHING)
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre_rol
 
 class Usuarios(models.Model):
@@ -39,8 +38,8 @@ class Usuarios(models.Model):
     contrasena = models.CharField(max_length=14)
     roles = models.ForeignKey(Roles, on_delete = models.DO_NOTHING)
 
-    def _str_(self):
-        return "correo"
+    def __str__(self):
+        return self.id_correo
 
 class Empleados(models.Model):
     id_empleado = models.IntegerField(primary_key=True)
@@ -51,7 +50,7 @@ class Empleados(models.Model):
     eps = models.CharField(max_length=50)
     correo = models.ForeignKey(Usuarios, on_delete = models.DO_NOTHING)
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre_empleado
 
 class Clientes(models.Model):
@@ -63,7 +62,7 @@ class Clientes(models.Model):
     direccion = models.CharField(max_length=125)
     correo = models.ForeignKey(Usuarios, on_delete = models.DO_NOTHING)
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre_cliente
 
 class Pedidos(models.Model):
@@ -88,7 +87,7 @@ class Productos(models.Model):
     marca = models.ForeignKey(Marcas, on_delete = models.DO_NOTHING)
     descripcion = models.TextField(default="")
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre_producto
 
 class PedidosProductos(models.Model):
@@ -121,7 +120,7 @@ class MediosDePagos(models.Model):
     nombre_medio_pago = models.CharField(max_length=50)
     estado_medio_pago = models.CharField(max_length=35)
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre_medio_pago
 
 class Pagos(models.Model):

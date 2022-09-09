@@ -33,7 +33,8 @@ function interface(){
 }
 
 function imprimir(){
-    console.log("Funcion de sebas")
+    console.log("Funcion de sebas");
+    alert("Probando las dos ramas");
 }
 
 function closeSession(){

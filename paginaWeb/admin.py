@@ -29,13 +29,19 @@ class UsuariosAdmin(admin.ModelAdmin):
 
 @admin.register(Empleados)
 class EmpleadosAdmin(admin.ModelAdmin):
-    list_display = ('id_empleado','nombre_empleado', 'apellido_empleado', 'celular_empleado', 'fecha_nacimiento', 'eps', 'correo')
+    list_display = ('id_empleado','nombre_empleado', 'apellido_empleado', 'celular_empleado', 'fecha_nacimiento', 'eps', 'Correo_Usuario')
     search_fields = ['id_empleado', 'nombre_empleado', 'apellido_empleado', 'celular_empleado', 'fecha_nacimiento', 'eps', 'usuarios__correo']
+
+    def Correo_Usuario(obj, self):
+        return self.correo.id_correo
 
 @admin.register(Clientes)
 class ClientesAdmin(admin.ModelAdmin):
-    list_display = ('id_cliente','nombre_cliente', 'apellido_cliente', 'celular_cliente', 'fecha_nacimiento', 'direccion', 'correo')
+    list_display = ('id_cliente','nombre_cliente', 'apellido_cliente', 'celular_cliente', 'fecha_nacimiento', 'direccion', 'Correo_Usuario')
     search_fields = ['id_cliente', 'nombre_cliente', 'apellido_cliente', 'celular_cliente', 'fecha_nacimiento', 'direccion', 'usuarios__correo']
+
+    def Correo_Usuario(obj, self):
+        return self.correo.id_correo
 
 @admin.register(Pedidos)
 class PedidosAdmin(admin.ModelAdmin):

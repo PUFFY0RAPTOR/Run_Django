@@ -61,12 +61,12 @@
     position: static;
 }
 
-#colorBoton{
+/*#colorBoton{
     background-color: #4DA8E9;
     border-style:solid;
     border-radius: 5px;
     padding: 5px;
-}
+}*/
 
 #bannerRegistro{
     width: 100%;
@@ -156,10 +156,10 @@ h1, .alinear, #crearBoton, .datos1{
     margin-top: 23%;
 }*/
 
-.datos1 input{
+/*.datos1 input{
     background-color: #4DA8E9;
     border-radius: 5px;
-}
+}*/
 
 .datos input{
     margin-top: 10px;
