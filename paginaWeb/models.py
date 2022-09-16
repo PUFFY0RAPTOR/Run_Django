@@ -5,6 +5,7 @@ from django.db import models
 class Roles(models.Model):
     id_roles = models.IntegerField(primary_key=True)
     nombre_rol = models.CharField(max_length=100)
+    descripcion = models.TextField(default="Descripción del rol...")
     
     def __str__(self):
         return self.nombre_rol
