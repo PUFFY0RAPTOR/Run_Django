@@ -64,7 +64,7 @@ def crearInventario(request):
         ) 
         q.save()
         return redirect('paginaWeb:list_inv')
-        
+        #comentario
     except Exception as e:
         return HttpResponse("Error: "+ e)
 
