@@ -63,7 +63,7 @@ def crearInventario(request):
             descripcion = request.POST['descripcion'],
         ) 
         q.save()
-        return redirect('paginaWeb:list_inv')
+        return redirect('paginaWeb:list_rep')
         #comentario
     except Exception as e:
         return HttpResponse("Error: "+ e)

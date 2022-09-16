@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Roles, Marcas, Permisos, RolesPermisos, Usuarios, Empleados, Clientes, Pedidos, Marcas, Productos, PedidosProductos, Envios, Ventas, Historial, MediosDePagos, Pagos
+from .models import Roles, Marcas, Usuarios, Empleados, Clientes, Pedidos, Marcas, Productos, PedidosProductos, Envios, Ventas, Historial, MediosDePagos, Pagos
 # Register your models here.
 
 @admin.register(Roles)
@@ -7,20 +7,20 @@ class RolesAdmin(admin.ModelAdmin):
     list_display = ('id_roles', 'nombre_rol')
     search_fields = ['id_roles', 'nombre_rol']
     
-@admin.register(Permisos)
+""" @admin.register(Permisos)
 class PermisosAdmin(admin.ModelAdmin):
     list_display = ('nombre_permiso', 'description')
-    search_fields = ['nombre_permiso', 'description']   
+    search_fields = ['nombre_permiso', 'description']    """
     
 @admin.register(Marcas)
 class MarcasAdmin(admin.ModelAdmin):
     list_display = ('id_marca','nombre_marca',)
     search_fields = ['id_marca', 'nombre_marca',]
 
-@admin.register(RolesPermisos)
+""" @admin.register(RolesPermisos)
 class RolesPermisosAdmin(admin.ModelAdmin):
     list_display = ('id_roles_permisos','roles','permisos',)
-    search_fields = ['id_roles_permisos',]
+    search_fields = ['id_roles_permisos',] """
 
 @admin.register(Usuarios)
 class UsuariosAdmin(admin.ModelAdmin):
