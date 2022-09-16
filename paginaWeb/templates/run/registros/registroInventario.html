@@ -27,12 +27,12 @@
                 <label for="precio">Precio: </label>
                 <input type="number" name="precio" placeholder="20000" /> <br>
                 
-                {% if datos %}
+                {% if dataMarcas %}
                 <label for="marca">Marcas: </label>
                 <select name="marca">
                     <option value="" selected>Seleccione una opción</option>
-                    {% for i in datos %}
-                    <option value="{{i.id_producto}}">{{i.nombre_producto}}</option>
+                    {% for i in dataMarcas %}
+                    <option value="{{i.id_marca}}">{{i.nombre_marca}}</option>
                     {% endfor %}
                 </select>
                 {% endif %}

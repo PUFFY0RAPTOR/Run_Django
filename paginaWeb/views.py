@@ -42,9 +42,9 @@ def verProductos(request):
 
 #Inventario
 def registroInventario(request):
-    q = Productos.objects.all()
+    q = Marcas.objects.all()
 
-    contexto = {'datos': q}
+    contexto = {'dataMarcas': q}
 
     return render(request, 'run/registros/registroInventario.html', contexto)
 
@@ -59,7 +59,7 @@ def crearInventario(request):
             nombre_producto = request.POST['nombreRes'],
             stock = request.POST['stock'],
             precio = request.POST['precio'],
-            marca = Productos.objects.get(pk = request.POST['marca']),
+            marca = Marcas.objects.get(pk = request.POST['marca']),
             descripcion = request.POST['descripcion'],
         ) 
         q.save()
