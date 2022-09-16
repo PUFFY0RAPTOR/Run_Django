@@ -19,6 +19,6 @@ from paginaWeb import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('run/', include('paginaWeb.urls')),
+    path('run/', include('paginaWeb.urls')),#borrar?
     path('', include('paginaWeb.urls')),
 ]
