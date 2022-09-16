@@ -21,6 +21,7 @@ urlpatterns = [
     #Inventario
     path('regInventario/', views.registroInventario, name='reg_inv'),
     path('inventario/', views.listarInventario, name='list_inv'),
+    path('crearInv/', views.crearInventario, name='crear_inv'),
 
     #Ayuda
     path('ayuda/', views.ayuda, name='ayuda'),

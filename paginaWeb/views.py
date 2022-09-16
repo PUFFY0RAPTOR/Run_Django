@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
@@ -41,10 +42,31 @@ def verProductos(request):
 
 #Inventario
 def registroInventario(request):
-    return render(request, 'run/registros/registroInventario.html')
+    q = Productos.objects.all()
+
+    contexto = {'datos': q}
+
+    return render(request, 'run/registros/registroInventario.html', contexto)
+
 
 def listarInventario(request):
     return render(request, 'run/inventario/listarInventario.html')
+
+def crearInventario(request): 
+    try:
+        q = Productos(
+            id_producto = request.POST['codigo'],
+            nombre_producto = request.POST['nombreRes'],
+            stock = request.POST['stock'],
+            precio = request.POST['precio'],
+            marca = Productos.objects.get(pk = request.POST['marca']),
+            descripcion = request.POST['descripcion'],
+        ) 
+        q.save()
+        return HttpResponseRedirect(reverse('paginaWeb:reg_inv'))
+        
+    except Exception as e:
+        return HttpResponse("Error: "+ e)
 
 
 #Ayuda

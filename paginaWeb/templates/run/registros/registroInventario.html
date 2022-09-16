@@ -8,7 +8,7 @@
         <br>
         <h1 id="tituloFormularios"> Inventario </h1>
 
-        <form action="#" method="post">
+        <form action="{% url 'paginaWeb:crear_inv' %}" method="post">
             {% csrf_token %}
             <div class="datosDiv">
 
@@ -21,13 +21,23 @@
                 <label for="stock">Stock: </label>
                 <input type="number" name="stock" placeholder="64" /> <br>
 
-                <label for="costo">Costo: </label>
-                <input type="number" name="costo" placeholder="15000" /> <br>
+                <!-- <label for="costo">Costo: </label>
+                <input type="number" name="costo" placeholder="15000" /> <br> -->
 
                 <label for="precio">Precio: </label>
                 <input type="number" name="precio" placeholder="20000" /> <br>
+                
+                {% if datos %}
+                <label for="marca">Marcas: </label>
+                <select name="marca">
+                    <option value="" selected>Seleccione una opción</option>
+                    {% for i in datos %}
+                    <option value="{{i.id_producto}}">{{i.nombre_producto}}</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
 
-                <label for="categ">Categorias: </label>
+                <!-- <label for="categ">Categorias: </label>
                 <select name="categ" id="">
 
                     <option value="acce">Accesorios</option>
@@ -36,9 +46,9 @@
                     <option value="lubr">Lubricantes</option>
                     <option value="descue">Descuentos</option>
 
-                </select>
+                </select> -->
 
-                <label for="desc"></label>
+                <label for="desc">Descripción: </label>
                 <textarea name="descripcion" id="desc" cols="30" rows="5" placeholder="Descripción del producto..."></textarea>
 
             </div>
