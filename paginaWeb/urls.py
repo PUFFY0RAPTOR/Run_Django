@@ -10,6 +10,9 @@ urlpatterns = [
 
     #Registros usuarios
     path('registro/', views.registro, name='registro'),
+    path('guardarUsu/', views.guardarCliente, name='guardarCliente'),
+    path('eliminarCliente/<int:id>', views.eliminarCliente, name='delCliente'),
+    path('updateCliente/', views.updateCliente, name='updCliente'),
     path('listarUsuarios/', views.listarUsuarios, name='list_usu'),
 
     #Repuestos

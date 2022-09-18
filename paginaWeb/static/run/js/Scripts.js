@@ -4,7 +4,11 @@
     //alert (v1);
     //recorrer texto 
 //}
-
+function confirmarEliminar(url){
+    if (confirm("Estas seguro?")){
+        location.href = url;
+    }
+}
 
 function cookieSesion() {
     let v1 = document.getElementById("iniciarSesion1").value

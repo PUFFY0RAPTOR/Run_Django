@@ -5,7 +5,13 @@
 
 {% block motos %}{% endblock%}
 <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
-
+{% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags != 'error' %}{{ message.tags }}{% elif message.tags == 'error' %}danger{% endif %}"
+                role="alert">
+                {{ message }}</div>
+        {% endfor %}
+    {% endif %}
 <div class="container">
     <br />
     <h2 id="tituloTables">Usuarios Registrados</h2>
@@ -20,6 +26,7 @@
                     <th>Fecha de nacimiento</th>
                     <th>Dirección</th>
                     <th>Correo</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -33,6 +40,7 @@
                     <td>{{i.fecha_nacimiento}}</td>
                     <td>{{i.direccion}}</td>
                     <td>{{i.correo}}</td>
+                    <td>{{ i.correo.roles.nombre_rol }}</td>
                     <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#alex1"> <svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -49,7 +57,71 @@
                                 <path fill-rule="evenodd"
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                             </svg></button>
-                        <button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                            <div class="modal fade" id="alex1Editar" role="dialog">
+                                <!--Alex editar------------------------------------------------------>
+                                <!-- The Modal -->
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                            
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Información del usuario</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                            
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <form action="{% url 'paginaWeb:updCliente' %}" method="post">
+                                                {% csrf_token %}
+                            
+                                                <div class="datos">
+                                                    <label for="cedula"> Cédula: </label>
+                                                    <input type="number" name="cedula" size="10" value="{{i.id_cliente}}" readonly />
+                            
+                                                    <br><label for="nombre"> Nombre: </label>
+                                                    <input type="text" name="nombre" size="10" value="{{i.nombre_cliente}}"  />
+                            
+                                                    <br><label for="apellidos"> Apellidos: </label>
+                                                    <input type="text" name="apellidos" size="10" value="{{i.apellido_cliente}}" /><br>
+                            
+                                                    <label for="correo"> Correo: </label>
+                                                    <input type="email" name="correo" value="{{i.correo}}" readonly /> <br>
+                            
+                                                    <!--<div class="separador"></div>-->
+                                                    <label for="telefono"> Teléfono: </label>
+                                                    <input type="tel" name="telefono" value="{{i.celular_cliente}}" /> <br>
+                            
+                                                    <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
+                                                    <input type="text" name="fechaNacim" value="{{i.fecha_nacimiento}}" readonly /><br>
+                                                    
+                                                    <label for="direccion"> Dirección: </label>
+                                                    <input type="text" name="direccion" value="{{i.direccion}}" /> <br>
+                            
+                                                    <!--<label for="contrasena"> Contraseña: </label>
+                                                        <input type="password" name="contrasena" value="*********" readonly/> <br>-->
+                            
+                                                    <!--<label for="contrasenaconfirm"> Confirmar <br>contraseña: </label>
+                                                        <input type="password" name="contrasenaconfirm" value="*********" readonly/><br>-->
+                                                    <label for="rol"> rol: </label>
+                                                    <input type="text" name="rol" value="{{ i.correo.roles.nombre_rol }}" readonly/> <br>
+                                                        
+                                                        
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <input class="btn btn-primary" type="submit" value="submit" /><br>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                            
+                                        <!-- Modal footer -->
+                                        
+                            
+                                    </div>
+                                </div>
+                            </div>
+                        <button type="button" class="btn btn-danger" onclick="confirmarEliminar('{% url 'paginaWeb:delCliente' i.id_cliente %}')"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                 height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path
                                     d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
@@ -127,66 +199,7 @@
 
 <!--Editar-->
 
-<div class="modal fade" id="alex1Editar" role="dialog">
-    <!--Alex editar-->
-    <!-- The Modal -->
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Información del usuario</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="" method="post">
-
-                    <div class="datos">
-                        <label for="cedula"> Cédula: </label>
-                        <input type="number" name="cedula" size="10" value="1001284578" readonly />
-
-                        <br><label for="nombre"> Nombre: </label>
-                        <input type="text" name="nombre" size="10" value="Alex" readonly />
-
-                        <br><label for="apellidos"> Apellidos: </label>
-                        <input type="text" name="apellidos" size="10" value="Perez" readonly /><br>
-
-                        <label for="correo"> Correo: </label>
-                        <input type="email" name="correo" value="aleP@gmail.com" /> <br>
-
-                        <!--<div class="separador"></div>-->
-                        <label for="telef"> Teléfono: </label>
-                        <input type="tel" name="telef" value="3116548975" /> <br>
-
-                        <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
-                        <input type="date" name="fechaNacim" value="" readonly /><br>
-
-                        <label for="direccion"> Dirección: </label>
-                        <input type="text" name="direccion" value="Carrera 76# 34 c 56" /> <br>
-
-                        <!--<label for="contrasena"> Contraseña: </label>
-                            <input type="password" name="contrasena" value="*********" readonly/> <br>-->
-
-                        <!--<label for="contrasenaconfirm"> Confirmar <br>contraseña: </label>
-                            <input type="password" name="contrasenaconfirm" value="*********" readonly/><br>-->
-
-                        <label for="sexo"> Género: </label>
-                        <input type="text" name="sexo" value="Hombre"> <br />
-
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
