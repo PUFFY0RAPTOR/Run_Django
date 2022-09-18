@@ -198,6 +198,45 @@ def crearInventario(request):
     except Exception as e:
         return HttpResponse("Error: "+ e)
 
+def deleteInventario(request, id):
+    try:
+        producto = Productos.objects.get(pk=id)
+        producto.delete()
+        messages.success(request, 'Producto eliminado correctamente')
+        return redirect('paginaWeb:list_inv')
+    except Exception as e:
+        messages.error(request, f'Hubo un problema al intentareliminar : {e}')
+        return redirect('paginaWeb:list_inv')
+
+def updateInventarioForm(request, id):
+
+    q = Productos.objects.get(pk=id)
+    m = Marcas.objects.all()
+
+    contexto = {'productos': q, 'dataMarcas': m}
+    
+    return render(request, 'run/inventario/editarInventario.html', contexto)
+
+def updateInventario(request):
+    if request.method == "POST":
+        try:
+            productos = Productos.objects.get(pk = request.POST['codigo'])
+
+            productos.nombre_producto = request.POST['nombreRes']
+            productos.stock = request.POST['stock']
+            productos.precio = request.POST['precio']
+            productos.marca = Marcas.objects.get(pk = request.POST['marca'])
+            productos.descripcion = request.POST['descripcion']
+            productos.save()
+            messages.success(request, 'Producto correctamente editado')
+            return redirect('paginaWeb:list_inv')
+
+        except Exception as e:
+            messages.error(request, f'Ha ocurrido un error al intenar editar: {e}')
+            return redirect('paginaWeb:list_inv')
+    else:
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:list_inv')
 
 #Ayuda
 def ayuda(request):

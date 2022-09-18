@@ -71,6 +71,8 @@
                             Marcas
                         </a>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:marcas' %}">Marcas aliadas</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'paginaWeb:form_marcas' %}">Añadir marcas</a>
                             <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar marcas</a>
                         </div>
@@ -351,8 +353,10 @@
     <div id="footer">
         <p> © 2022 by students of ADSI Copyright: SENA </p>
     </div>
-
+    
     {% endblock %}
+
+    {% comment %} <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> {% endcomment %}
 
 </body>
 

@@ -30,6 +30,10 @@ urlpatterns = [
     path('regInventario/', views.registroInventario, name='reg_inv'),
     path('inventario/', views.listarInventario, name='list_inv'),
     path('crearInv/', views.crearInventario, name='crear_inv'),
+    path('elimInv/<int:id>', views.deleteInventario, name='del_inv'),
+    path('updateInvForm/<int:id>', views.updateInventarioForm, name='upd_inv_form'),
+    path('updateInv/', views.updateInventario, name='upd_inv'),
+
 
     #Ayuda
     path('ayuda/', views.ayuda, name='ayuda'),

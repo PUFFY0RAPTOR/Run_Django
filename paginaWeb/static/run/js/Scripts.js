@@ -7,11 +7,6 @@
 function confirmarEliminar(url){
     if (confirm("¿Estás seguro?")){
         location.href = url;
-        swal({
-            title: "Eliminado correctamente",
-            icon: "success",
-            timer: 9000
-          });
     }
 }
 
