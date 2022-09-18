@@ -5,6 +5,7 @@ from django.db import models
 class Roles(models.Model):
     id_roles = models.IntegerField(primary_key=True)
     nombre_rol = models.CharField(max_length=100)
+    descripcion = models.TextField(default="Descripción del rol...")
     
     def __str__(self):
         return self.nombre_rol
@@ -16,7 +17,7 @@ class Marcas(models.Model):
     def __str__(self):
         return self.nombre_marca
        
-class Permisos(models.Model):
+""" class Permisos(models.Model):
     id_permiso = models.IntegerField(primary_key=True)
     nombre_permiso = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
@@ -31,7 +32,7 @@ class RolesPermisos(models.Model):
     permisos = models.ForeignKey(Permisos, on_delete = models.DO_NOTHING)
 
     def __str__(self):
-        return self.nombre_rol
+        return self.nombre_rol """
 
 class Usuarios(models.Model):
     id_correo = models.CharField(max_length=150, primary_key=True)
