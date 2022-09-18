@@ -50,10 +50,9 @@
                         Usuarios
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'paginaWeb:registro' %}">Registrar usuarios</a>
+                        <a class="dropdown-item" href="{% url 'paginaWeb:registro' %}">Registrar empleado</a>
                         <a class="dropdown-item" href="{% url 'paginaWeb:list_usu' %}">Listar usuarios</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'paginaWeb:list_usu' %}">Listar usuarios</a>
+                        {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
                     </div>
                 </li>
                 {% block motos %}
