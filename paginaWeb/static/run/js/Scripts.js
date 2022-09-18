@@ -5,8 +5,13 @@
     //recorrer texto 
 //}
 function confirmarEliminar(url){
-    if (confirm("Estas seguro?")){
+    if (confirm("¿Estás seguro?")){
         location.href = url;
+        swal({
+            title: "Eliminado correctamente",
+            icon: "success",
+            timer: 9000
+          });
     }
 }
 

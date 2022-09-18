@@ -19,6 +19,9 @@ urlpatterns = [
     path('formuMarcas/', views.formMarcas, name='form_marcas'),
     path('listarMarcas/', views.listarMarcas, name='list_marcas'),
     path('addMarcas/', views.addMarcas, name='add_marcas'),
+    path('elimMarcas/<int:id>', views.deleteMarcas, name='del_marcas'),
+    path('updateMarcasForm/<int:id>', views.updateMarcasForm, name='upd_marcas_form'),
+    path('updateMarcas/', views.updateMarcas, name='upd_marcas'),
 
     #Compras
     path('verProductos/', views.verProductos, name='ver_prod'),

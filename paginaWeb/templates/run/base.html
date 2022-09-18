@@ -246,6 +246,15 @@
     </div>
     --> {% endcomment %}
     {% endblock %}
+    
+    
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{% if message.tags != 'error' %}{{ message.tags }}{% elif message.tags == 'error' %}danger{% endif %}"
+            role="alert">
+            {{ message }}</div>
+    {% endfor %}
+{% endif %}
 
 
     {% block body %}
@@ -342,6 +351,7 @@
     <div id="footer">
         <p> © 2022 by students of ADSI Copyright: SENA </p>
     </div>
+
     {% endblock %}
 
 </body>

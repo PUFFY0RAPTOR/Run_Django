@@ -1,4 +1,5 @@
 from email import message
+from urllib import request
 from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -123,6 +124,40 @@ def addMarcas(request):
     except Exception as e: 
         return HttpResponse(e)
 
+def deleteMarcas(request, id):
+    try:
+        marca = Marcas.objects.get(pk = id)
+        marca.delete()
+        messages.success(request, 'Marca eliminada correctamente')
+        return redirect('paginaWeb:list_marcas')
+    except Exception as e: 
+        messages.error(request, f'Hubo un problema al eliminar una marca: {e}')
+
+def updateMarcasForm(request, id):
+
+    q = Marcas.objects.get(pk = id)
+
+    contexto = {'marcas': q}
+
+    return render(request, 'run/marcas/editarMarcas.html', contexto)
+
+def updateMarcas(request):
+    
+    if request.method == "POST":
+        try:
+            marcas = Marcas.objects.get(pk = request.POST['code'])
+            
+            marcas.nombre_marca = request.POST['marcas']
+            marcas.save()
+            messages.success(request, 'Marca actualizada correctamente')
+            return redirect('paginaWeb:list_marcas')  
+            
+        except Exception as e:
+            messages.error(request, f'Ha ocurrido un error al intentar editar una marca: {e}')
+            return redirect('paginaWeb:list_marcas')  
+    else: 
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:list_marcas')
 
 #Compras
 def verProductos(request):
@@ -140,7 +175,12 @@ def registroInventario(request):
 
 
 def listarInventario(request):
-    return render(request, 'run/inventario/listarInventario.html')
+
+    q = Productos.objects.all()
+
+    contexto = {'productos': q}
+
+    return render(request, 'run/inventario/listarInventario.html', contexto)
 
 def crearInventario(request): 
     try:
@@ -153,7 +193,7 @@ def crearInventario(request):
             descripcion = request.POST['descripcion'],
         ) 
         q.save()
-        return redirect('paginaWeb:list_rep')
+        return redirect('paginaWeb:list_inv')
         
     except Exception as e:
         return HttpResponse("Error: "+ e)
