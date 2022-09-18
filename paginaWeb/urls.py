@@ -12,8 +12,10 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),
     path('listarUsuarios/', views.listarUsuarios, name='list_usu'),
 
-    #Repuestos
-    path('listarRepuestos/', views.listarRepuestos, name='list_rep'),
+    #Marcas
+    path('formuMarcas/', views.formMarcas, name='form_marcas'),
+    path('listarMarcas/', views.listarMarcas, name='list_marcas'),
+    path('addMarcas/', views.addMarcas, name='add_marcas'),
 
     #Compras
     path('verProductos/', views.verProductos, name='ver_prod'),

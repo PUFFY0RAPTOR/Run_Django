@@ -25,14 +25,29 @@ def listarUsuarios(request):
     return render(request, 'run/clientes/listarUsuarios.html', contexto)
 
 
-#Repuestos
-def listarRepuestos(request):
+#Marcas
+def formMarcas(request):
+    return render(request, 'run/marcas/marcasForm.html')
 
-    q = Productos.objects.all()
+def listarMarcas(request):
+
+    q = Marcas.objects.all()
 
     contexto = {'datos': q}
 
-    return render(request, 'run/repuestos/listarRepuestos.html', contexto)
+    return render(request, 'run/marcas/listarMarcas.html', contexto)
+
+def addMarcas(request):
+    try:
+        q = Marcas(
+            id_marca = request.POST['code'],
+            nombre_marca = request.POST['marcas'],
+        )
+        q.save()
+        return redirect('paginaWeb:list_marcas')
+
+    except Exception as e: 
+        return HttpResponse(e)
 
 
 #Compras
@@ -45,6 +60,7 @@ def registroInventario(request):
     q = Marcas.objects.all()
 
     contexto = {'dataMarcas': q}
+    #print(contexto)
 
     return render(request, 'run/registros/registroInventario.html', contexto)
 

@@ -68,10 +68,11 @@
                     {% endblock %}
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Repuestos
+                            Marcas
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:list_rep' %}">Listar repuestos</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_marcas' %}">Añadir marcas</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar marcas</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown active">
@@ -131,7 +132,7 @@
     </nav>
 
 
-    <!--<div id="posicionNav">
+    {% comment %} <!--<div id="posicionNav">
         fixed-top deja la barra de navegacion arriba independientemente del  scrool
         <div id="banner">
             <a href="{% url 'paginaWeb:index' %}" id="logo">
@@ -181,7 +182,7 @@
                             Repuestos
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:list_rep' %}">Listar repuestos</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar repuestos</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -243,7 +244,7 @@
             </ul>
         </nav>
     </div>
-    -->
+    --> {% endcomment %}
     {% endblock %}
 
 
