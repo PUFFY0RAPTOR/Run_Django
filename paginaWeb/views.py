@@ -257,3 +257,70 @@ def carritoCompras(request):
 
     return render(request, 'run/carritoCompras.html', contexto)
 
+
+#Admin - Roles
+def listRoles(request):
+
+    q = Roles.objects.all()
+
+    contexto = {'roles': q}
+
+    return render(request, 'run/listarRoles.html', contexto)
+
+def regRolesForm(request):
+    return render(request, 'run/registros/registroRoles.html')
+
+def rolRegistro(request):
+
+    if request.method == 'POST':
+        try:
+            q = Roles(
+                id_roles = request.POST['idRol'],
+                nombre_rol = request.POST['nameRol'],
+                descripcion = request.POST['descripcion'],
+            )
+            q.save()
+            messages.success(request, 'Rol añadido correctamente')
+            return redirect('paginaWeb:list_roles')
+
+        except Exception as e:
+            messages.error(request, f'Hubo un error al intentar añadir un rol: {e}')
+            return redirect('paginaWeb:list_roles')
+    else: 
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:list_roles')
+
+def deleteRol(request, id):
+    try:
+        rol = Roles.objects.get(pk=id)
+        rol.delete()
+        messages.success(request, 'Rol eliminado correctamente')
+        return redirect('paginaWeb:list_roles')
+    except Exception as e:
+        messages.error(request, f'Hubo un error al intentar eliminar un rol: {e}')
+        return redirect('paginaWeb:list_roles')
+
+def updateRolForm(request, id):
+
+    q = Roles.objects.get(pk=id)
+
+    contexto = {'roles':q}
+
+    return render(request, 'run/roles/editarRoles.html', contexto)
+
+def updateRol(request):
+    if request.method == 'POST':
+        try:
+            roles = Roles.objects.get(pk = request.POST['idRol'])
+
+            roles.nombre_rol = request.POST['nameRol']
+            roles.descripcion = request.POST['descripcion']
+            roles.save()
+            messages.success(request, 'Rol actualizado correctamente')
+            return redirect('paginaWeb:list_roles')
+        except Exception as e:
+            messages.error(request, f'Hubo un error al intentar actualizar un rol: {e}')
+            return redirect('paginaWeb:list_roles')
+    else:
+        messages.warning(request, '¿Qué estás intentando?')
+        return redirect('paginaWeb:list_roles')

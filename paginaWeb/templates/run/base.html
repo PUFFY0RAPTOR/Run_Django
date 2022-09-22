@@ -102,6 +102,15 @@
                             <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}">Formulario de ayuda</a>
                         </div>
                     </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:reg_roles_form' %}">Registrar roles</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_roles' %}">Listar roles</a>
+                        </div>
+                    </li>
             </ul>
             <ul class="navbar-nav navbar-expand-lg ml-auto">
                 <li class="nav-item">
