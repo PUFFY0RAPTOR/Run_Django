@@ -11,8 +11,40 @@ from .models import *
 def index(request):
     return render(request, 'run/index.html')
 
-def login(request):
+
+#Login
+def loginForm(request):
     return render(request, 'run/login/login.html')
+
+def login(request):
+    if request.method == 'POST':
+        try:
+            correo = request.POST['email']
+            passw = request.POST['passw']
+
+            q = Usuarios.objects.get(id_correo = correo, contrasena = passw)
+
+            request.session['auth'] = [q.id_correo, q.contrasena]
+
+            messages.success(request, 'Bienvenido!!')
+            return redirect('paginaWeb:index')
+        except Exception as e:
+            messages.error(request, f'Un error ha ocurrido durante el logueo... {e}')
+            return redirect('paginaWeb:index')
+    else:
+        messages.warning(request, '¿Qué estás haciendo?')
+        return redirect('paginaWeb:index')
+
+
+def logout(request):
+    try:
+        del request.session['auth']
+        messages.success(request, 'Sesión cerrada correctamente')
+
+    except Exception as e:
+        messages.error(request, f"Ocurrió un error, intente de nuevo...")
+    
+    return redirect('paginaWeb:index')
 
 
 #Registros usuarios
