@@ -72,7 +72,7 @@ class Pedidos(models.Model):
     cliente = models.ForeignKey(Clientes, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return "Pedidos"
+        return "Pedidos"  #what?
 
 class Marcas(models.Model):
     id_marca = models.IntegerField(primary_key=True)
