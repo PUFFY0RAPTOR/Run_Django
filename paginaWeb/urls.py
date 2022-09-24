@@ -10,12 +10,31 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
 
-    #Registros usuarios
-    path('registro/', views.registro, name='registro'),
-    path('guardarUsu/', views.guardarCliente, name='guardarCliente'),
+    #clientes
+    path('registroClientes/', views.registro, name='registro'),
+    path('guardarClientes/', views.guardarCliente, name='guardarCliente'),
     path('eliminarCliente/<int:id>', views.eliminarCliente, name='delCliente'),
+    path('clienteEditar/<int:id>', views.buscarClienteEditar, name="upd_clientes_form"),
     path('updateCliente/', views.updateCliente, name='updCliente'),
-    path('listarUsuarios/', views.listarUsuarios, name='list_usu'),
+    path('listarClientes/', views.listarClientes, name='list_usu'),
+
+
+    #Empleados
+    path('formuEmpleados/', views.formEmpleados, name='form_empleados'),
+    path('listarEmpleados/', views.listarEmpleados, name='list_empleados'),
+    path('addEmpleados/', views.addEmpleados, name='add_empleados'),
+    path('elimEmpleados/<id>', views.deleteEmpleados, name='del_empleados'),
+    path('updateEmpleadosForm/<id>', views.updateEmpleadosForm, name='upd_empleados_form'),
+    path('updateEmpleados/', views.updateEmpleados, name='upd_empleados'),
+
+    #Usuarios
+    path('formuUsuarios/', views.formUsuarios, name='form_usuarios'),
+    path('listarUsuarios/', views.listarUsuarios, name='list_usuarios'),
+    path('addUsuarios/', views.addUsuarios, name='add_usuarios'),
+    path('elimUsuarios/<id>', views.deleteUsuarios, name='del_usuarios'),
+    path('updateUsuariosForm/<id>', views.updateUsuariosForm, name='upd_usuarios_form'),
+    path('updateUsuarios/', views.updateUsuarios, name='upd_usuarios'),
+
 
     #Marcas
     path('formuMarcas/', views.formMarcas, name='form_marcas'),
