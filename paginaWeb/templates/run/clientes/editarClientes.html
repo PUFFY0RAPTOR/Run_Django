@@ -1,0 +1,59 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Marcas Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Editar Usuario --- {{usuarios.id_correo}}</h1>
+
+        <form action="{% url 'paginaWeb:updCliente' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+
+                <label for="cedula"> Cédula: </label>
+                <input type="number" name="cedula" size="10" value="{{clientes.id_cliente}}" readonly />
+
+                <br><label for="nombre"> Nombre: </label>
+                <input type="text" name="nombre" size="10" value="{{clientes.nombre_cliente}}"  />
+
+                <br><label for="apellidos"> Apellidos: </label>
+                <input type="text" name="apellidos" size="10" value="{{clientes.apellido_cliente}}" /><br>
+
+                <label for="correo"> Correo: </label>
+                <input type="email" name="correo" value="{{clientes.correo}}" readonly /> <br>
+
+                <label for="contrasena"> contrasena: </label>
+                <input type="password" name="contrasena" value="{{clientes.correo.contrasena}}" /> <br>
+
+                <div class="separador"></div>
+                <label for="telefono"> Teléfono: </label>
+                <input type="tel" name="telefono" value="{{clientes.celular_cliente}}" /> <br>
+
+                <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
+                <input type="text" name="fechaNacim" value="{{clientes.fecha_nacimiento}}" readonly /><br>
+                
+                <label for="direccion"> Dirección: </label>
+                <input type="text" name="direccion" value="{{clientes.direccion}}" /> <br>
+
+                <label for="rol">escoja su rol</label></br>
+                <select class="form-select" id="rol" name="rol" >
+                    <option value="1">Cliente</option>
+                    <option value="2">Empleado</option>
+                </select>
+
+                <div class="text-center">
+                    <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+                </div>
+                
+            
+            </div>
+
+            
+            
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

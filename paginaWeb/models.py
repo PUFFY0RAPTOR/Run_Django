@@ -48,6 +48,7 @@ class Empleados(models.Model):
     apellido_empleado = models.CharField(max_length=100)
     celular_empleado = models.IntegerField()
     fecha_nacimiento = models.DateField(default='2000-01-01')
+    direccion_empleado = models.CharField(max_length=100, default="Cerca de la empresa")
     eps = models.CharField(max_length=50)
     correo = models.ForeignKey(Usuarios, on_delete = models.DO_NOTHING)
 
