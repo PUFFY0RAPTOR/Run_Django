@@ -7,5 +7,10 @@
     <h1> Bienvenido a Run...</h1>
     {# aqui deberiamos de agregar algo mas para que sea mas agradable #}
     <h1>Hay que agregar algo mas...</h1>
-    
+
+    {% if request.session.auth %}
+        Bienvenido usuario <strong>{{request.session.auth.0}}</strong>
+    {% else %}
+        No has iniciado sesión
+    {% endif %}
 {% endblock  %}

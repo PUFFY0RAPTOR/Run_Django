@@ -6,17 +6,43 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     #Login
+    path('loginForm/', views.loginForm, name='login_form'),
     path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
 
-    #Registros usuarios
-    path('registro/', views.registro, name='registro'),
-    path('guardarUsu/', views.guardarCliente, name='guardarCliente'),
+    #clientes
+    path('registroClientes/', views.registro, name='registro'),
+    path('guardarClientes/', views.guardarCliente, name='guardarCliente'),
     path('eliminarCliente/<int:id>', views.eliminarCliente, name='delCliente'),
+    path('clienteEditar/<int:id>', views.buscarClienteEditar, name="upd_clientes_form"),
     path('updateCliente/', views.updateCliente, name='updCliente'),
-    path('listarUsuarios/', views.listarUsuarios, name='list_usu'),
+    path('listarClientes/', views.listarClientes, name='list_usu'),
 
-    #Repuestos
-    path('listarRepuestos/', views.listarRepuestos, name='list_rep'),
+
+    #Empleados
+    path('formuEmpleados/', views.formEmpleados, name='form_empleados'),
+    path('listarEmpleados/', views.listarEmpleados, name='list_empleados'),
+    path('addEmpleados/', views.addEmpleados, name='add_empleados'),
+    path('elimEmpleados/<id>', views.deleteEmpleados, name='del_empleados'),
+    path('updateEmpleadosForm/<id>', views.updateEmpleadosForm, name='upd_empleados_form'),
+    path('updateEmpleados/', views.updateEmpleados, name='upd_empleados'),
+
+    #Usuarios
+    path('formuUsuarios/', views.formUsuarios, name='form_usuarios'),
+    path('listarUsuarios/', views.listarUsuarios, name='list_usuarios'),
+    path('addUsuarios/', views.addUsuarios, name='add_usuarios'),
+    path('elimUsuarios/<id>', views.deleteUsuarios, name='del_usuarios'),
+    path('updateUsuariosForm/<id>', views.updateUsuariosForm, name='upd_usuarios_form'),
+    path('updateUsuarios/', views.updateUsuarios, name='upd_usuarios'),
+
+
+    #Marcas
+    path('formuMarcas/', views.formMarcas, name='form_marcas'),
+    path('listarMarcas/', views.listarMarcas, name='list_marcas'),
+    path('addMarcas/', views.addMarcas, name='add_marcas'),
+    path('elimMarcas/<int:id>', views.deleteMarcas, name='del_marcas'),
+    path('updateMarcasForm/<int:id>', views.updateMarcasForm, name='upd_marcas_form'),
+    path('updateMarcas/', views.updateMarcas, name='upd_marcas'),
 
     #Compras
     path('verProductos/', views.verProductos, name='ver_prod'),
@@ -25,6 +51,10 @@ urlpatterns = [
     path('regInventario/', views.registroInventario, name='reg_inv'),
     path('inventario/', views.listarInventario, name='list_inv'),
     path('crearInv/', views.crearInventario, name='crear_inv'),
+    path('elimInv/<int:id>', views.deleteInventario, name='del_inv'),
+    path('updateInvForm/<int:id>', views.updateInventarioForm, name='upd_inv_form'),
+    path('updateInv/', views.updateInventario, name='upd_inv'),
+
 
     #Ayuda
     path('ayuda/', views.ayuda, name='ayuda'),
@@ -35,5 +65,13 @@ urlpatterns = [
     #Carrito
     path('carritoCompras/', views.carritoCompras, name='carrito'),
 
+
+    #Admin - Roles
+    path('listarRoles/', views.listRoles, name='list_roles'),
+    path('regRolesForm/', views.regRolesForm, name='reg_roles_form'),
+    path('registroRoles/', views.rolRegistro, name='reg_roles'),
+    path('deleteRoles/<int:id>', views.deleteRol, name='del_roles'),
+    path('updateRolesForm/<int:id>', views.updateRolForm, name='upd_roles_form'),
+    path('updateRoles/', views.updateRol, name='upd_roles'),
 
 ]

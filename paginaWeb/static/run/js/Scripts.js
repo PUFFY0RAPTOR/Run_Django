@@ -5,49 +5,49 @@
     //recorrer texto 
 //}
 function confirmarEliminar(url){
-    if (confirm("Estas seguro?")){
+    if (confirm("¿Estás seguro?")){
         location.href = url;
     }
 }
 
-function cookieSesion() {
-    let v1 = document.getElementById("iniciarSesion1").value
-    let v2 = document.getElementById("contrasena1").value
+// function cookieSesion() {
+//     let v1 = document.getElementById("iniciarSesion1").value
+//     let v2 = document.getElementById("contrasena1").value
 
-    primera = sessionStorage.getItem("nameSession").value;
-    if (primera == "null" || primera == null){
-        //alert("No has iniciado sesion, deberias de hacerlo")
-        if (v1 == "mateo.220@hotmail.com" && v2 == "1234"){
-            sessionStorage.setItem("nameSession", v1);//aqui en vez de definir las variables v1 y v2 puedo poner los  codigos directamente
-            sessionStorage.setItem("passSession", v2);
-            window.open('usuarios/indexUsuario.html', "_self");
-        }
-    }  
-}
+//     primera = sessionStorage.getItem("nameSession").value;
+//     if (primera == "null" || primera == null){
+//         //alert("No has iniciado sesion, deberias de hacerlo")
+//         if (v1 == "mateo.220@hotmail.com" && v2 == "1234"){
+//             sessionStorage.setItem("nameSession", v1);//aqui en vez de definir las variables v1 y v2 puedo poner los  codigos directamente
+//             sessionStorage.setItem("passSession", v2);
+//             window.open('usuarios/indexUsuario.html', "_self");
+//         }
+//     }  
+// }
 
-function interface(){
+// function interface(){
 
-    primera = sessionStorage.getItem("nameSession").value;
-    if (primera != "null"){ //esto esta malo
-        console.log(primera);
-        //alert("inicio de sesion exitoso")
-        window.open('usuarios/indexUsuario.html', "_self");
+//     primera = sessionStorage.getItem("nameSession").value;
+//     if (primera != "null"){ //esto esta malo
+//         console.log(primera);
+//         //alert("inicio de sesion exitoso")
+//         window.open('usuarios/indexUsuario.html', "_self");
 
-    }
-}
+//     }
+// }
 
-function imprimir(){
-    console.log("Funcion de sebas");
-    alert("Probando las dos ramas");
-}
+// function imprimir(){
+//     console.log("Funcion de sebas");
+//     alert("Probando las dos ramas");
+// }
 
-function closeSession(){
+// function closeSession(){
 
-    sessionStorage.setItem("nameSession", "null");
-    sessionStorage.setItem("passSession", "null");
-    //alert("cierre de sesion exitoso")
-    window.open('../index.html', "_self");
+//     sessionStorage.setItem("nameSession", "null");
+//     sessionStorage.setItem("passSession", "null");
+//     //alert("cierre de sesion exitoso")
+//     window.open('../index.html', "_self");
     
 
-    //uno mas
-}
+//     //uno mas
+// }

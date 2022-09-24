@@ -1,22 +1,16 @@
 {% extends 'run/base.html' %}{% load static %}
-{% block tituloPage %} Lista de usuarios {% endblock %}
+{% block tituloPage %} Lista de Clientes {% endblock %}
 
 {% block body %}
 
 {% block motos %}{% endblock%}
 <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
-{% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{% if message.tags != 'error' %}{{ message.tags }}{% elif message.tags == 'error' %}danger{% endif %}"
-                role="alert">
-                {{ message }}</div>
-        {% endfor %}
-    {% endif %}
+
 <div class="container">
     <br />
-    <h2 id="tituloTables">Usuarios Registrados</h2>
+    <h2 id="tituloTables">Clientes Registrados</h2>
     <div id="espacioTables">
-        <table id="listarUsuariosTable" class="table">
+        <table id="listarClientesTable" class="table">
             <thead class="thead-dark">
                 <tr>
                     <th>Código/cedula</th>
@@ -41,35 +35,34 @@
                     <td>{{i.direccion}}</td>
                     <td>{{i.correo}}</td>
                     <td>{{ i.correo.roles.nombre_rol }}</td>
-                    <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#alex1"> <svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                <path
-                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                            </svg>
-                        </button>
-                        <button type="button" class="btn btn-warning" data-toggle="modal"
-                            data-target="#alex1Editar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <td><a href="{% url 'paginaWeb:upd_clientes_form' i.id_cliente %}" class="btn btn-warning"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                        </svg></a>
+                        <!-- <button type="button" class="btn btn-warning" data-toggle="modal"
+                            data-target="#1000894577" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path
                                     d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                 <path fill-rule="evenodd"
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                             </svg></button>
-                            <div class="modal fade" id="alex1Editar" role="dialog">
-                                <!--Alex editar------------------------------------------------------>
-                                <!-- The Modal -->
+                            <div class="modal fade" id="{{ i.id_cliente }}" role="dialog">
+                                 The Modal 
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                             
-                                        <!-- Modal Header -->
+                                         Modal Header 
                                         <div class="modal-header">
                                             <h4 class="modal-title">Información del usuario</h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                             
-                                        <!-- Modal body -->
+                                         Modal body 
                                         <div class="modal-body">
                                             <form action="{% url 'paginaWeb:updCliente' %}" method="post">
                                                 {% csrf_token %}
@@ -87,7 +80,7 @@
                                                     <label for="correo"> Correo: </label>
                                                     <input type="email" name="correo" value="{{i.correo}}" readonly /> <br>
                             
-                                                    <!--<div class="separador"></div>-->
+                                                    <div class="separador"></div>
                                                     <label for="telefono"> Teléfono: </label>
                                                     <input type="tel" name="telefono" value="{{i.celular_cliente}}" /> <br>
                             
@@ -97,14 +90,8 @@
                                                     <label for="direccion"> Dirección: </label>
                                                     <input type="text" name="direccion" value="{{i.direccion}}" /> <br>
                             
-                                                    <!--<label for="contrasena"> Contraseña: </label>
-                                                        <input type="password" name="contrasena" value="*********" readonly/> <br>-->
-                            
-                                                    <!--<label for="contrasenaconfirm"> Confirmar <br>contraseña: </label>
-                                                        <input type="password" name="contrasenaconfirm" value="*********" readonly/><br>-->
                                                     <label for="rol"> rol: </label>
                                                     <input type="text" name="rol" value="{{ i.correo.roles.nombre_rol }}" readonly/> <br>
-                                                        
                                                         
                                                 </div>
 
@@ -115,12 +102,12 @@
                                             </form>
                                         </div>
                             
-                                        <!-- Modal footer -->
+                                         Modal footer 
                                         
                             
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         <button type="button" class="btn btn-danger" onclick="confirmarEliminar('{% url 'paginaWeb:delCliente' i.id_cliente %}')"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                 height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path
@@ -136,19 +123,19 @@
 
 <!--Ver-->
 
-<div class="modal fade" id="alex1" role="dialog">
-    <!--Alex-->
-    <!-- The Modal -->
+<!-- <div class="modal fade" id="alex1" role="dialog">
+    
+     The Modal 
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
+             Modal Header 
             <div class="modal-header">
                 <h4 class="modal-title">Información del usuario</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <!-- Modal body -->
+             Modal body 
             <div class="modal-body">
                 <form action="" method="post">
 
@@ -165,7 +152,7 @@
                         <label for="correo"> Correo: </label>
                         <input type="email" name="correo" value="aleP@gmail.com" readonly /> <br>
 
-                        <!--<div class="separador"></div>-->
+                        <div class="separador"></div>
                         <label for="telef"> Teléfono: </label>
                         <input type="tel" name="telef" value="3116548975" readonly /> <br>
 
@@ -175,11 +162,11 @@
                         <label for="direccion"> Dirección: </label>
                         <input type="text" name="direccion" value="Carrera 76# 34 c 56" readonly /> <br>
 
-                        <!--<label for="contrasena"> Contraseña: </label>
-                            <input type="password" name="contrasena" value="*********" readonly/> <br>-->
+                        <label for="contrasena"> Contraseña: </label>
+                            <input type="password" name="contrasena" value="*********" readonly/> <br>
 
-                        <!--<label for="contrasenaconfirm"> Confirmar <br>contraseña: </label>
-                            <input type="password" name="contrasenaconfirm" value="*********" readonly/><br>-->
+                        <label for="contrasenaconfirm"> Confirmar <br>contraseña: </label>
+                            <input type="password" name="contrasenaconfirm" value="*********" readonly/><br>
 
                         <label for="sexo"> Género: </label>
                         <input type="text" name="sexo" value="Hombre" readonly> <br />
@@ -188,14 +175,14 @@
                 </form>
             </div>
 
-            <!-- Modal footer -->
+             Modal footer 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
             </div>
 
         </div>
     </div>
-</div> <br>
+</div> <br> -->
 
 <!--Editar-->
 
@@ -205,7 +192,7 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#listarUsuariosTable').DataTable();
+        $('#listarClientesTable').DataTable();
     });
 </script>
 
