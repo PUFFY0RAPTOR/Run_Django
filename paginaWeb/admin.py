@@ -24,7 +24,7 @@ class RolesPermisosAdmin(admin.ModelAdmin):
 
 @admin.register(Usuarios)
 class UsuariosAdmin(admin.ModelAdmin):
-    list_display = ('id_correo','roles')
+    list_display = ('id_correo','contrasena', 'roles')
     search_fields = ['id_correo', 'roles__roles']
 
 @admin.register(Empleados)

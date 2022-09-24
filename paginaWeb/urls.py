@@ -6,7 +6,9 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     #Login
+    path('loginForm/', views.loginForm, name='login_form'),
     path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
 
     #Registros usuarios
     path('registro/', views.registro, name='registro'),
@@ -44,5 +46,13 @@ urlpatterns = [
     #Carrito
     path('carritoCompras/', views.carritoCompras, name='carrito'),
 
+
+    #Admin - Roles
+    path('listarRoles/', views.listRoles, name='list_roles'),
+    path('regRolesForm/', views.regRolesForm, name='reg_roles_form'),
+    path('registroRoles/', views.rolRegistro, name='reg_roles'),
+    path('deleteRoles/<int:id>', views.deleteRol, name='del_roles'),
+    path('updateRolesForm/<int:id>', views.updateRolForm, name='upd_roles_form'),
+    path('updateRoles/', views.updateRol, name='upd_roles'),
 
 ]
