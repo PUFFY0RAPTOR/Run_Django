@@ -163,7 +163,14 @@ def deleteMarcas(request, id):
         messages.success(request, 'Marca eliminada correctamente')
         return redirect('paginaWeb:list_marcas')
     except Exception as e: 
-        messages.error(request, f'Hubo un problema al eliminar una marca: {e}')
+        if str(e) == "FOREIGN KEY constraint failed":
+            print(type(e))
+            messages.error(request, f'La marca esta vinculada a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_marcas')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar una marca: {e}')
+            return redirect('paginaWeb:list_marcas')
+
 
 def updateMarcasForm(request, id):
 
