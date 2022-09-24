@@ -554,3 +554,190 @@ def updateEmpleados(request):
         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_empleados')
 
+#Ventas
+# def formVentas(request):
+#     return render(request, 'run/ventas/ventasForm.html')
+
+# def listarVentas(request):
+
+#     q = Ventas.objects.all()
+
+#     contexto = {'datos': q}
+
+#     return render(request, 'run/ventas/listarVentas.html', contexto)
+
+# def addVentas(request):
+#     if request.method == 'POST':
+#         try:    
+#             CoExistente = Usuarios.objects.filter(id_correo=request.POST['Correo'])
+#             ventaExistente = Ventas.objects.filter(id_empleado= request.POST['id_empleado'])
+#             if ventaExistente:
+#                 messages.error(request, "Venta ya registrada, ingrese una diferente por favor")
+#                 return render(request, 'run/ventas/ventasForm.html')
+#             else:
+#                 usuarioContrasena = Usuarios(
+#                     id_correo = request.POST['Correo'], 
+#                     contrasena = request.POST['contrasena'], 
+#                     roles = Roles.objects.get(pk=2)
+#                 )
+#                 usuarioContrasena.save()
+#                 q = Empleados(
+#                     id_empleado = request.POST['id_empleado'],
+#                     nombre_empleado = request.POST['nombre_empleado'],
+#                     apellido_empleado = request.POST['apellido_empleado'],
+#                     celular_empleado = request.POST['celular_empleado'],
+#                     fecha_nacimiento = request.POST['fecha_nacimiento'],
+#                     direccion_empleado = request.POST['direccion_empleado'],
+#                     eps = request.POST['eps'],
+#                     correo = Usuarios.objects.get(pk = request.POST['Correo'])) #aqui cambia la cosa)
+#                 q.save()
+#                 messages.success(request, "Empleado registrado exitosamente")
+#                 return redirect('paginaWeb:list_empleados')
+#         except Exception as e:
+#             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+#             return render(request, 'run/empleados/empleadosForm.html')
+#     else:
+#         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+#         return redirect('paginaWeb:list_empleados')
+
+# def deleteEmpleados(request, id):
+#     try:
+#         empleado = Empleados.objects.get(id_empleado = id)
+#         usuario = Usuarios.objects.get(id_correo = empleado.correo)
+#         empleado.delete()
+#         usuario.delete()
+#         messages.success(request, 'empleado eliminado correctamente')
+#         return redirect('paginaWeb:list_empleados')
+#     except Exception as e: 
+#         if str(e) == "FOREIGN KEY constraint failed":
+#             messages.error(request, f'El empleado esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+#             return redirect('paginaWeb:list_empleados')
+#         else:
+#             messages.error(request, f'Hubo un problema al eliminar un empleado: {e}')
+#             return redirect('paginaWeb:list_empleados')
+
+
+# def updateEmpleadosForm(request, id):
+
+#     q = Empleados.objects.get(pk = id)
+
+#     contexto = {'empleados': q}
+
+#     return render(request, 'run/empleados/editarEmpleados.html', contexto)
+
+# def updateEmpleados(request):
+    
+#     if request.method == "POST":
+#         try:
+#             empleado = Empleados.objects.get(pk=request.POST['id_empleado'])
+#             #editamos primero la contraseña y su rol
+#             usuarios = Usuarios.objects.get(id_correo=request.POST['correo'])
+#             usuarios.contrasena = request.POST['contrasena']
+#             usuarios.roles = Roles.objects.get(pk=request.POST['rol'])
+#             usuarios.save()
+ 
+#             empleado.nombre_empleado = request.POST['nombre_empleado']
+#             empleado.apellido_empleado = request.POST['apellido_empleado']
+#             empleado.celular_empleado = request.POST['celular_empleado']
+#             empleado.direccion_empleado = request.POST['direccion_empleado']
+#             empleado.eps = request.POST['eps']
+
+            
+#             empleado.save()
+#             messages.success(request, "Actualizado correctamente")
+#             return redirect('paginaWeb:list_empleados')
+#         except Exception as e:
+#             messages.error(request, f"Hubo un error al momento de actualizar: {e}")
+#             return redirect('paginaWeb:list_empleados')
+
+#     else:
+#         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
+#         return redirect('paginaWeb:list_empleados')
+
+#Pedidos
+def formPedidos(request):
+
+    q = Clientes.objects.all()
+
+    contexto = {'clientes': q}
+
+
+    return render(request, 'run/pedidos/pedidosForm.html', contexto)
+
+def listarPedidos(request):
+
+    q = Pedidos.objects.all()
+
+    contexto = {'datos': q}
+
+    return render(request, 'run/pedidos/listarPedidos.html', contexto)
+
+def addPedidos(request):
+    if request.method == 'POST':
+        try:    
+            CoExistente = Clientes.objects.filter(id_cliente=request.POST['cliente'])
+            pediExistente = Pedidos.objects.filter(id_pedido= request.POST['id_pedido'])
+            if not CoExistente:
+                messages.error(request, "usuario no encontrado, ingrese uno diferente por favor")
+                return render(request, 'run/pedidos/pedidosForm.html')
+            elif pediExistente:
+                messages.error(request, "id de pedido ya registrada, ingrese una diferente por favor")
+                return render(request, 'run/pedidos/pedidosForm.html')
+            else:
+                q = Pedidos(
+                    id_pedido = request.POST['id_pedido'],
+                    cliente = Clientes.objects.get(pk = request.POST['cliente']))
+                
+                q.save()
+                messages.success(request, "Pedido registrado exitosamente")
+                return redirect('paginaWeb:list_pedidos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_pedidos')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_pedidos')
+
+def deletePedidos(request, id):
+    try:
+        pedido = Pedidos.objects.get(pk= id)
+        pedido.delete()
+        messages.success(request, 'pedido eliminado correctamente')
+        return redirect('paginaWeb:list_pedidos')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El empleado esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_pedidos')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un pedido: {e}')
+            return redirect('paginaWeb:list_pedidos')
+
+
+def updatePedidosForm(request, id):
+
+    q = Pedidos.objects.get(pk = id)
+    c = Clientes.objects.all()
+    contexto = {'pedidos': q, 'clientes': c}
+
+    return render(request, 'run/pedidos/editarPedidos.html', contexto)
+
+def updatePedidos(request):
+    
+    if request.method == "POST":
+        try: 
+            cliente = Clientes.objects.get(pk=request.POST['id_cliente'])
+            #editamos primero la contraseña y su rol
+            pedido = Pedidos.objects.get(id_pedido=request.POST['id_pedido'])
+            pedido.cliente = cliente
+            pedido.save()
+
+            messages.success(request, "Actualizado correctamente")
+            return redirect('paginaWeb:list_pedidos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
+            return redirect('paginaWeb:list_pedidos')
+
+    else:
+        messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
+        return redirect('paginaWeb:list_pedidos')
+

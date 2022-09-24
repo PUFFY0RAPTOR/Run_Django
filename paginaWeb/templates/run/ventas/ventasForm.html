@@ -1,0 +1,64 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Empleados Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Añadir Empleados</h1>
+
+        <form action="{% url 'paginaWeb:add_empleados' %}" method="post">
+            {% csrf_token %}
+            <div class="datosRegistro">
+                <h4>Ingresa los siguientes datos</h4><br>
+    
+                <label class="Cedula" for="id_empleado">Cédula: </label>
+                <input class="inputregis" type="text" name="id_empleado" size="20" placeholder="Cédula" />
+    
+                <label for="nombre_empleado">Nombre: </label>
+                <input class="inputregis" type="text" name="nombre_empleado" size="20" placeholder="Nombre" />
+    
+                <label for="apellido_empleado">Apellidos: </label>
+                <input class="inputregis" type="text" name="apellido_empleado" ssize="20" placeholder="Apellidos" />
+    
+                <label for="celular_empleado"> Celular: </label>
+                <input type="number" name="celular_empleado" placeholder="celular" />
+    
+                <label for="fecha_nacimiento"> Fecha de <br> nacimiento: </label>
+                <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento" min="1950-04-01" max="2022-05-04"
+                    id="f1" />
+
+                <label for="direccion_empleado">direccion: </label>
+                <input class="inputregis" type="text" name="direccion_empleado" size="20" placeholder="direccion" />
+
+                <label for="eps"> eps: </label>
+                <input type="text" name="eps" placeholder="eps" />
+    
+                <label for="Correo"> Correo electronico: </label>
+                <input type="email" name="Correo" placeholder="Correo" />
+    
+                <label for="contrasena"> Contraseña: </label>
+                <input type="password" name="contrasena" placeholder="Contraseña" />
+    
+                <label for="contrasenaconfirm"> Confirmar contraseña: </label>
+                <input type="password" name="contrasenaconfirm" placeholder="Digite contraseña nuevamente" /><br>
+    
+                ¿Cuál es su género?
+                <input type="radio" name="sexo" value=""> Hombre
+                <input type="radio" name="sexo" value=""> Mujer
+                <input type="radio" name="sexo" value=""> Otro
+            </div>
+    
+            <div class="text-center">
+                <br> <input class="btn btn-primary" type="submit" value="Crear Cuenta" /><br>
+            </div><br>
+    
+    
+        </form><br>
+    
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}
