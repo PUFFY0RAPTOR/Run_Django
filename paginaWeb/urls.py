@@ -55,5 +55,4 @@ urlpatterns = [
     path('updateRolesForm/<int:id>', views.updateRolForm, name='upd_roles_form'),
     path('updateRoles/', views.updateRol, name='upd_roles'),
 
-
 ]
