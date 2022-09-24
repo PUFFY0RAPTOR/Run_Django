@@ -10,12 +10,22 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
 
-    #Registros usuarios
-    path('registro/', views.registro, name='registro'),
-    path('guardarUsu/', views.guardarCliente, name='guardarCliente'),
+    #Registros clientes
+    path('registroClientes/', views.registro, name='registro'),
+    path('guardarClientes/', views.guardarCliente, name='guardarCliente'),
     path('eliminarCliente/<int:id>', views.eliminarCliente, name='delCliente'),
     path('updateCliente/', views.updateCliente, name='updCliente'),
-    path('listarUsuarios/', views.listarUsuarios, name='list_usu'),
+    path('listarClientes/', views.listarClientes, name='list_usu'),
+
+
+    #Usuarios
+    path('formuUsuarios/', views.formUsuarios, name='form_usuarios'),
+    path('listarUsuarios/', views.listarUsuarios, name='list_usuarios'),
+    path('addUsuarios/', views.addUsuarios, name='add_usuarios'),
+    path('elimUsuarios/<id>', views.deleteUsuarios, name='del_usuarios'),
+    path('updateUsuariosForm/<id>', views.updateUsuariosForm, name='upd_usuarios_form'),
+    path('updateUsuarios/', views.updateUsuarios, name='upd_usuarios'),
+
 
     #Marcas
     path('formuMarcas/', views.formMarcas, name='form_marcas'),

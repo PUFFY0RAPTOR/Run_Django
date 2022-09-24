@@ -123,7 +123,7 @@ def updateCliente(request):
         return redirect('paginaWeb:list_usu')
 
 
-def listarUsuarios(request):
+def listarClientes(request):
 
     q = Clientes.objects.all()
 
@@ -163,7 +163,13 @@ def deleteMarcas(request, id):
         messages.success(request, 'Marca eliminada correctamente')
         return redirect('paginaWeb:list_marcas')
     except Exception as e: 
-        messages.error(request, f'Hubo un problema al eliminar una marca: {e}')
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'La marca esta vinculada a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:lsit_marcas')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar una marca: {e}')
+            return redirect('paginaWeb:lsit_marcas')
+
 
 def updateMarcasForm(request, id):
 
@@ -356,3 +362,68 @@ def updateRol(request):
     else:
         messages.warning(request, '¿Qué estás intentando?')
         return redirect('paginaWeb:list_roles')
+
+#Usuarios
+def formUsuarios(request):
+    return render(request, 'run/usuarios/usuariosForm.html')
+
+def listarUsuarios(request):
+
+    q = Usuarios.objects.all()
+
+    contexto = {'datos': q}
+
+    return render(request, 'run/usuarios/listarUsuarios.html', contexto)
+
+def addUsuarios(request):
+    try:
+        q = Usuarios(
+            id_usuario = request.POST['code'],
+            nombre_usuario = request.POST['usuarios'],
+        )
+        q.save()
+        return redirect('paginaWeb:list_usuarios')
+
+    except Exception as e: 
+        return HttpResponse(e)
+
+def deleteUsuarios(request, id):
+    try:
+        usuario = Usuarios.objects.get(id_correo = id)
+        usuario.delete()
+        messages.success(request, 'usuario eliminada correctamente')
+        return redirect('paginaWeb:list_usuarios')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El usuario esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_usuarios')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un usuario: {e}')
+            return redirect('paginaWeb:list_usuarios')
+
+
+def updateUsuariosForm(request, id):
+
+    q = Usuarios.objects.get(pk = id)
+
+    contexto = {'usuarios': q}
+
+    return render(request, 'run/usuarios/editarusuarios.html', contexto)
+
+def updateUsuarios(request):
+    
+    if request.method == "POST":
+        try:
+            usuarios = Usuarios.objects.get(pk = request.POST['code'])
+            
+            usuarios.nombre_usuario = request.POST['usuarios']
+            usuarios.save()
+            messages.success(request, 'usuario actualizada correctamente')
+            return redirect('paginaWeb:list_usuarios')  
+            
+        except Exception as e:
+            messages.error(request, f'Ha ocurrido un error al intentar editar una usuario: {e}')
+            return redirect('paginaWeb:list_usuarios')  
+    else: 
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:list_usuarios')
