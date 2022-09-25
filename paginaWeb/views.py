@@ -884,3 +884,79 @@ def updateMediosPagos(request):
     else:
         messages.warning(request, "No sabemos por donde se está metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_mediosPagos')
+
+
+#Pagos
+def listPagos(request):
+
+    q = Pagos.objects.all()
+
+    contexto = {'pagos': q}
+
+    return render(request, 'run/pagos/listarPagos.html', contexto)
+
+def formPagos(request):
+
+    q = MediosDePagos.objects.all()
+
+    contexto = {'medPagos': q}
+    return render(request, 'run/pagos/pagosForm.html', contexto)
+
+def addPagos(request):
+    if request.method == 'POST':
+        try:    
+            q = Pagos(
+                id_pago = request.POST['idPago'],
+                medio_pago = MediosDePagos.objects.get(pk = request.POST['medioPago']),
+                fecha_pagos = request.POST['fecha'],
+            )
+            q.save()
+            messages.success(request, "Pago registrado exitosamente")
+            return redirect('paginaWeb:list_pagos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_pagos')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_pagos')
+
+def deletePagos(request, id):
+    try:
+        pagos = Pagos.objects.get(pk= id)
+        pagos.delete()
+        messages.success(request, 'Pago eliminado correctamente')
+        return redirect('paginaWeb:list_pagos')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El pago está vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_pagos')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un pago: {e}')
+            return redirect('paginaWeb:list_pagos')
+
+
+def updatePagosForm(request, id):
+
+    q = Pagos.objects.get(pk = id)
+    a = MediosDePagos.objects.all()
+    contexto = {'pagos': q, 'medPagos': a}
+    return render(request, 'run/pagos/editarPagos.html', contexto)
+
+def updatePagos(request):
+    
+    if request.method == "POST":
+        try: 
+            pagos = Pagos.objects.get(id_pago=request.POST['idPago'])
+
+            pagos.medio_pago = MediosDePagos.objects.get(pk = request.POST['medioPago'])
+            pagos.fecha_pagos = request.POST['fecha']
+            pagos.save()
+
+            messages.success(request, "Actualizado correctamente")
+            return redirect('paginaWeb:list_pagos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
+            return redirect('paginaWeb:list_pagos')
+    else:
+        messages.warning(request, "No sabemos por donde se está metiendo pero no puedes avanzar, puerco")
+        return redirect('paginaWeb:list_pagos')
