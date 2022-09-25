@@ -556,104 +556,104 @@ def updateEmpleados(request):
         return redirect('paginaWeb:list_empleados')
 
 #Ventas
-# def formVentas(request):
-#     return render(request, 'run/ventas/ventasForm.html')
+def formVentas(request):
+    return render(request, 'run/ventas/ventasForm.html')
 
-# def listarVentas(request):
+def listarVentas(request):
 
-#     q = Ventas.objects.all()
+    q = Ventas.objects.all()
 
-#     contexto = {'datos': q}
+    contexto = {'datos': q}
 
-#     return render(request, 'run/ventas/listarVentas.html', contexto)
+    return render(request, 'run/ventas/listarVentas.html', contexto)
 
-# def addVentas(request):
-#     if request.method == 'POST':
-#         try:    
-#             CoExistente = Usuarios.objects.filter(id_correo=request.POST['Correo'])
-#             ventaExistente = Ventas.objects.filter(id_empleado= request.POST['id_empleado'])
-#             if ventaExistente:
-#                 messages.error(request, "Venta ya registrada, ingrese una diferente por favor")
-#                 return render(request, 'run/ventas/ventasForm.html')
-#             else:
-#                 usuarioContrasena = Usuarios(
-#                     id_correo = request.POST['Correo'], 
-#                     contrasena = request.POST['contrasena'], 
-#                     roles = Roles.objects.get(pk=2)
-#                 )
-#                 usuarioContrasena.save()
-#                 q = Empleados(
-#                     id_empleado = request.POST['id_empleado'],
-#                     nombre_empleado = request.POST['nombre_empleado'],
-#                     apellido_empleado = request.POST['apellido_empleado'],
-#                     celular_empleado = request.POST['celular_empleado'],
-#                     fecha_nacimiento = request.POST['fecha_nacimiento'],
-#                     direccion_empleado = request.POST['direccion_empleado'],
-#                     eps = request.POST['eps'],
-#                     correo = Usuarios.objects.get(pk = request.POST['Correo'])) #aqui cambia la cosa)
-#                 q.save()
-#                 messages.success(request, "Empleado registrado exitosamente")
-#                 return redirect('paginaWeb:list_empleados')
-#         except Exception as e:
-#             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-#             return render(request, 'run/empleados/empleadosForm.html')
-#     else:
-#         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
-#         return redirect('paginaWeb:list_empleados')
+def addVentas(request):
+    if request.method == 'POST':
+        try:    
+            CoExistente = Usuarios.objects.filter(id_correo=request.POST['Correo'])
+            ventaExistente = Ventas.objects.filter(id_empleado= request.POST['id_empleado'])
+            if ventaExistente:
+                messages.error(request, "Venta ya registrada, ingrese una diferente por favor")
+                return render(request, 'run/ventas/ventasForm.html')
+            else:
+                usuarioContrasena = Usuarios(
+                    id_correo = request.POST['Correo'], 
+                    contrasena = request.POST['contrasena'], 
+                    roles = Roles.objects.get(pk=2)
+                )
+                usuarioContrasena.save()
+                q = Empleados(
+                    id_empleado = request.POST['id_empleado'],
+                    nombre_empleado = request.POST['nombre_empleado'],
+                    apellido_empleado = request.POST['apellido_empleado'],
+                    celular_empleado = request.POST['celular_empleado'],
+                    fecha_nacimiento = request.POST['fecha_nacimiento'],
+                    direccion_empleado = request.POST['direccion_empleado'],
+                    eps = request.POST['eps'],
+                    correo = Usuarios.objects.get(pk = request.POST['Correo'])) 
+                q.save()
+                messages.success(request, "Empleado registrado exitosamente")
+                return redirect('paginaWeb:list_empleados')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return render(request, 'run/empleados/empleadosForm.html')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_empleados')
 
-# def deleteEmpleados(request, id):
-#     try:
-#         empleado = Empleados.objects.get(id_empleado = id)
-#         usuario = Usuarios.objects.get(id_correo = empleado.correo)
-#         empleado.delete()
-#         usuario.delete()
-#         messages.success(request, 'empleado eliminado correctamente')
-#         return redirect('paginaWeb:list_empleados')
-#     except Exception as e: 
-#         if str(e) == "FOREIGN KEY constraint failed":
-#             messages.error(request, f'El empleado esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
-#             return redirect('paginaWeb:list_empleados')
-#         else:
-#             messages.error(request, f'Hubo un problema al eliminar un empleado: {e}')
-#             return redirect('paginaWeb:list_empleados')
+def deleteVentas(request, id):
+    try:
+        empleado = Empleados.objects.get(id_empleado = id)
+        usuario = Usuarios.objects.get(id_correo = empleado.correo)
+        empleado.delete()
+        usuario.delete()
+        messages.success(request, 'empleado eliminado correctamente')
+        return redirect('paginaWeb:list_empleados')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El empleado esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_empleados')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un empleado: {e}')
+            return redirect('paginaWeb:list_empleados')
 
 
-# def updateEmpleadosForm(request, id):
+def updateVentasForm(request, id):
 
-#     q = Empleados.objects.get(pk = id)
+    q = Ventas.objects.get(pk = id)
 
-#     contexto = {'empleados': q}
+    contexto = {'ventas': q}
 
-#     return render(request, 'run/empleados/editarEmpleados.html', contexto)
+    return render(request, 'run/empleados/editarEmpleados.html', contexto)
 
-# def updateEmpleados(request):
+def updateVentas(request):
     
-#     if request.method == "POST":
-#         try:
-#             empleado = Empleados.objects.get(pk=request.POST['id_empleado'])
-#             #editamos primero la contraseña y su rol
-#             usuarios = Usuarios.objects.get(id_correo=request.POST['correo'])
-#             usuarios.contrasena = request.POST['contrasena']
-#             usuarios.roles = Roles.objects.get(pk=request.POST['rol'])
-#             usuarios.save()
+    if request.method == "POST":
+        try:
+            empleado = Ventas.objects.get(pk=request.POST['id_empleado'])
+            #ditamos primero la contraseña y su rol
+            usuarios = Usuarios.objects.get(id_correo=request.POST['correo'])
+            usuarios.contrasena = request.POST['contrasena']
+            usuarios.roles = Roles.objects.get(pk=request.POST['rol'])
+            usuarios.save()
  
-#             empleado.nombre_empleado = request.POST['nombre_empleado']
-#             empleado.apellido_empleado = request.POST['apellido_empleado']
-#             empleado.celular_empleado = request.POST['celular_empleado']
-#             empleado.direccion_empleado = request.POST['direccion_empleado']
-#             empleado.eps = request.POST['eps']
+            empleado.nombre_empleado = request.POST['nombre_empleado']
+            empleado.apellido_empleado = request.POST['apellido_empleado']
+            empleado.celular_empleado = request.POST['celular_empleado']
+            empleado.direccion_empleado = request.POST['direccion_empleado']
+            empleado.eps = request.POST['eps']
 
             
-#             empleado.save()
-#             messages.success(request, "Actualizado correctamente")
-#             return redirect('paginaWeb:list_empleados')
-#         except Exception as e:
-#             messages.error(request, f"Hubo un error al momento de actualizar: {e}")
-#             return redirect('paginaWeb:list_empleados')
+            empleado.save()
+            messages.success(request, "Actualizado correctamente")
+            return redirect('paginaWeb:list_empleados')
+        except Exception as e:
+            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
+            return redirect('paginaWeb:list_empleados')
 
-#     else:
-#         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
-#         return redirect('paginaWeb:list_empleados')
+    else:
+        messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
+        return redirect('paginaWeb:list_empleados')
 
 #Pedidos
 def formPedidos(request):
@@ -742,6 +742,101 @@ def updatePedidos(request):
         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_pedidos')
 
+#PedidosProductos
+def formPedidosProductos(request):
+    p = Pedidos.objects.all()
+
+    pr = Productos.objects.all()
+
+    contexto = {'pedidos': p, 'productos': pr}
+
+    return render(request, 'run/pedidosProductos/pedidosProductosForm.html', contexto)
+
+def listarPedidosProductos(request):
+
+    q = PedidosProductos.objects.all()
+
+    contexto = {'datos': q}
+
+    return render(request, 'run/pedidosProductos/listarPedidosProductos.html', contexto)
+
+def addPedidosProductos(request):
+    if request.method == 'POST':
+        try:    
+            pedidoProExistente = PedidosProductos.objects.filter(id_pedidos_productos=request.POST['id_pedidos_productos'])
+            pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
+            productoExistente = Productos.objects.filter(id_producto= request.POST['producto'])
+            if pedidoProExistente:
+                messages.error(request, "id de pedidoProducto ya existente, ingrese uno diferente")
+                return redirect('paginaWeb:form_pedidos_productos')
+            elif not pedidoExistente:
+                messages.error(request, "id de pedido inexistente, ingrese un que exista")
+                return redirect('paginaWeb:form_pedidos_productos')
+            elif not productoExistente:
+                messages.error(request, "cedula ya registrada, ingrese una diferente por favor")
+                return redirect('paginaWeb:form_pedidos_productos')
+            else:
+                q = PedidosProductos(
+                    id_pedidos_productos = request.POST['id_pedidos_productos'],
+                    pedido = Pedidos.objects.get(pk=request.POST['pedido']),
+                    producto = Productos.objects.get(pk = request.POST['producto']))
+                q.save()
+                messages.success(request, "Empleado registrado exitosamente")
+                return redirect('paginaWeb:list_pedidos_productos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_pedidos_productos')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_pedidos_productos')
+
+
+def deletePedidosProductos(request, id):
+    try:
+        pedidoProducto = PedidosProductos.objects.get(id_pedidos_productos = id)
+        pedidoProducto.delete()
+        messages.success(request, 'pedidoProducto eliminado correctamente')
+        return redirect('paginaWeb:list_pedidos_productos')
+    except Exception as e: 
+        messages.error(request, f'Hubo un problema al eliminar un pedidoProducto: {e}')
+        return redirect('paginaWeb:list_pedidos_productos')
+
+
+def updatePedidosProductosForm(request, id):
+
+    pp = PedidosProductos.objects.get(pk = id)
+    p = Pedidos.objects.all()
+
+    pr = Productos.objects.all()
+
+    contexto = {'pedidoProducto':pp, 'pedidos': p, 'productos': pr}
+
+    return render(request, 'run/pedidosProductos/editarPedidosProductos.html', contexto)
+
+def updatePedidosProductos(request):
+    
+    if request.method == "POST":
+        try:
+            pedidoProducto = PedidosProductos.objects.get(id_pedidos_productos=request.POST['id_pedidos_productos'])
+            pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
+            productoExistente = Productos.objects.filter(id_producto= request.POST['producto'])
+            if not pedidoExistente:
+                messages.error(request, "id de pedido inexistente, ingrese un que exista")
+                return redirect('paginaWeb:upd_pedidos_productos_form')
+            elif not productoExistente:
+                messages.error(request, "id de producto inexistente, ingrese un que exista")
+                return redirect('paginaWeb:upd_pedidos_productos_form')
+            else:
+                print(pedidoProducto.pedido, pedidoProducto.producto)
+                pedidoProducto.pedido = Pedidos.objects.get(pk=request.POST['pedido'])
+                pedidoProducto.producto = Productos.objects.get(pk = request.POST['producto'])
+                pedidoProducto.save()
+                #print(Productos.objects.get(pk = request.POST['producto']))
+                messages.success(request, "pedidoProducto registrado exitosamente")
+                return redirect('paginaWeb:list_pedidos_productos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:upd_pedidos_productos_form')
 
 #Envios
 def listEnvios(request):

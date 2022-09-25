@@ -36,12 +36,12 @@ urlpatterns = [
     path('updateUsuarios/', views.updateUsuarios, name='upd_usuarios'),
 
     #Ventas -apenas comenzando, prioridad a otras tablas 
-    # path('formuVentas/', views.formVentas, name='form_ventas'),
-    # path('listarVentas/', views.listarVentas, name='list_ventas'),
-    # path('addVentas/', views.addVentas, name='add_ventas'),
-    # path('elimVentas/<id>', views.deleteVentas, name='del_ventas'),
-    # path('updateVentasForm/<id>', views.updateVentasForm, name='upd_ventas_form'),
-    # path('updateVentas/', views.updateVentas, name='upd_ventas'),
+     path('formuVentas/', views.formVentas, name='form_ventas'),
+     path('listarVentas/', views.listarVentas, name='list_ventas'),
+     path('addVentas/', views.addVentas, name='add_ventas'),
+     path('elimVentas/<id>', views.deleteVentas, name='del_ventas'),
+     path('updateVentasForm/<id>', views.updateVentasForm, name='upd_ventas_form'),
+     path('updateVentas/', views.updateVentas, name='upd_ventas'),
 
 
     #Pedidos
@@ -71,6 +71,13 @@ urlpatterns = [
     path('updateInvForm/<int:id>', views.updateInventarioForm, name='upd_inv_form'),
     path('updateInv/', views.updateInventario, name='upd_inv'),
 
+    #PedidosProductos (inventario)
+    path('formuPediProduc/', views.formPedidosProductos, name='form_pedidos_productos'),
+    path('listarPediProduc/', views.listarPedidosProductos, name='list_pedidos_productos'),
+    path('addPediProduc/', views.addPedidosProductos, name='add_pedidos_productos'),
+    path('elimPediProduc/<id>', views.deletePedidosProductos, name='del_pedidos_productos'),
+    path('updatePediProducForm/<id>', views.updatePedidosProductosForm, name='upd_pedidos_productos_form'),
+    path('updatePediProduc/', views.updatePedidosProductos, name='upd_pedidos_productos'),
 
     #Ayuda
     path('ayuda/', views.ayuda, name='ayuda'),
