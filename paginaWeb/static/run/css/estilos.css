@@ -435,3 +435,8 @@ figure:hover > figcaption {
     display:block;
     transition: all .5s;
 }*/
+
+.linkIndex{
+    text-decoration: none;
+    color: #000000;
+}
