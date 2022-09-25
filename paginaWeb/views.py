@@ -23,8 +23,9 @@ def login(request):
             passw = request.POST['passw']
 
             q = Usuarios.objects.get(id_correo = correo, contrasena = passw)
+            #print(q.roles.id_roles)
 
-            request.session['auth'] = [q.id_correo, q.contrasena]
+            request.session['auth'] = [q.id_correo, q.contrasena, q.roles.id_roles]
 
             messages.success(request, 'Bienvenido!!')
             return redirect('paginaWeb:index')

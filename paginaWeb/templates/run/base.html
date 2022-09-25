@@ -45,36 +45,49 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                        Clientes
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'paginaWeb:registro' %}">Registrar Cliente</a>
-                        <a class="dropdown-item" href="{% url 'paginaWeb:list_usu' %}">Listar Clientes</a>
-                        {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                        Usuarios
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'paginaWeb:form_usuarios' %}">Registrar usuario</a>
-                        <a class="dropdown-item" href="{% url 'paginaWeb:list_usuarios' %}">Listar usuarios</a>
-                        {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
-                    </div>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                        Empleados
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'paginaWeb:form_empleados' %}">Registrar empleado</a>
-                        <a class="dropdown-item" href="{% url 'paginaWeb:list_empleados' %}">Listar Empleados</a>
-                        {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
-                    </div>
-                </li>
+                {% if request.session.auth == None %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link" href="{% url 'paginaWeb:index' %}">
+                           Inicio
+                        </a>
+                    </li>
+                {% endif %}
+                {% if request.session.auth.2 == 3 %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Clientes
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:registro' %}">Registrar Cliente</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_usu' %}">Listar Clientes</a>
+                            {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
+                        </div>
+                    </li>
+                {% endif %}
+                {% if request.session.auth.2 == 3 %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Usuarios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_usuarios' %}">Registrar usuario</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_usuarios' %}">Listar usuarios</a>
+                            {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
+                        </div>
+                    </li>
+                {% endif %}
+                {% if request.session.auth.2 == 3 %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Empleados
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_empleados' %}">Registrar empleado</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_empleados' %}">Listar Empleados</a>
+                            {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
+                        </div>
+                    </li>
+                {% endif %}
                 {% block motos %}
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
@@ -86,61 +99,74 @@
                         </div>
                     </li>
                     {% endblock %}
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Marcas
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:marcas' %}">Marcas aliadas</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'paginaWeb:form_marcas' %}">Añadir marcas</a>
-                            <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar marcas</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Compras
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:ver_prod' %}">Ver productos</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Inventario
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:reg_inv' %}">Registrar inventario</a>
-                            <a class="dropdown-item" href="{% url 'paginaWeb:list_inv' %}">Listar inventario</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Ayuda
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}">Formulario de ayuda</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Admin
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'paginaWeb:reg_roles_form' %}">Registrar roles</a>
-                            <a class="dropdown-item" href="{% url 'paginaWeb:list_roles' %}">Listar roles</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                                Marcas
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'paginaWeb:marcas' %}">Marcas aliadas</a>
+                                <div class="dropdown-divider"></div>
+                            {% if request.session.auth.2 == 3 %}
+                                <a class="dropdown-item" href="{% url 'paginaWeb:form_marcas' %}">Añadir marcas</a>
+                                <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar marcas</a>
+                            {% endif %}
+                            </div>
+                        </li>
+                    {% if request.session.auth.2 == 1 or request.session.auth == None %}
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                                Compras
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'paginaWeb:ver_prod' %}">Ver productos</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if request.session.auth.2 == 3 or request.session.auth.2 == 2 %}
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                                Inventario
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'paginaWeb:reg_inv' %}">Registrar inventario</a>
+                                <a class="dropdown-item" href="{% url 'paginaWeb:list_inv' %}">Listar inventario</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if request.session.auth.2 == 1 %}
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                                Ayuda
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}">Formulario de ayuda</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if request.session.auth.2 == 3 %}
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'paginaWeb:reg_roles_form' %}">Registrar roles</a>
+                                <a class="dropdown-item" href="{% url 'paginaWeb:list_roles' %}">Listar roles</a>
+                            </div>
+                        </li>
+                    {% endif %}
             </ul>
-            <ul class="navbar-nav navbar-expand-lg ml-auto">
-                <li class="nav-item">
-                    <div class="dropdown ml-auto">
-                        <form action="{% url 'paginaWeb:registro' %}">
-                            <button class="btn btn-info" type="submit">Registrar</button>
-                        </form>
-                    </div>
-                </li>
-            </ul>
+            {% if request.session.auth %}
+            {% else %}
+                <ul class="navbar-nav navbar-expand-lg ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown ml-auto">
+                            <form action="{% url 'paginaWeb:registro' %}">
+                                <button class="btn btn-info" type="submit">Registrar</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            {% endif %}
             {% if request.session.auth %}
             <ul class="navbar-nav navbar-expand-lg">
                 <li class="nav-item">
