@@ -742,3 +742,73 @@ def updatePedidos(request):
         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_pedidos')
 
+
+#Envios
+def listEnvios(request):
+
+    q = Envios.objects.all()
+
+    contexto = {'envios': q}
+
+    return render(request, 'run/envios/listarEnvios.html', contexto)
+
+def formEnvios(request):
+    return render(request, 'run/envios/enviosForm.html')
+
+def addEnvios(request):
+    if request.method == 'POST':
+        try:    
+            q = Envios(
+                id_envios = request.POST['idEnvio'],
+                fecha_envio = request.POST['fecha'],
+                direccion_envio = request.POST['dir'],
+            )
+            q.save()
+            messages.success(request, "Envio registrado exitosamente")
+            return redirect('paginaWeb:list_envios')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_envios')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_envios')
+
+def deleteEnvios(request, id):
+    try:
+        envio = Envios.objects.get(pk= id)
+        envio.delete()
+        messages.success(request, 'Envio eliminado correctamente')
+        return redirect('paginaWeb:list_envios')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El Envio esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_envios')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un Envio: {e}')
+            return redirect('paginaWeb:list_envios')
+
+
+def updateEnviosForm(request, id):
+
+    q = Envios.objects.get(pk = id)
+    contexto = {'envios': q}
+    return render(request, 'run/envios/editarEnvio.html', contexto)
+
+def updateEnvios(request):
+    
+    if request.method == "POST":
+        try: 
+            envio = Envios.objects.get(id_envios=request.POST['idEnvio'])
+
+            envio.fecha_envio = request.POST['fecha']
+            envio.direccion_envio = request.POST['dir']
+            envio.save()
+
+            messages.success(request, "Actualizado correctamente")
+            return redirect('paginaWeb:list_envios')
+        except Exception as e:
+            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
+            return redirect('paginaWeb:list_envios')
+    else:
+        messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
+        return redirect('paginaWeb:list_envios')

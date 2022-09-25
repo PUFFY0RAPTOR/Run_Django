@@ -90,4 +90,13 @@ urlpatterns = [
     path('updateRolesForm/<int:id>', views.updateRolForm, name='upd_roles_form'),
     path('updateRoles/', views.updateRol, name='upd_roles'),
 
+
+    #Envios
+    path('listarEnvios/', views.listEnvios, name='list_envios'),
+    path('FormEnvios/', views.formEnvios, name='form_envios'),
+    path('addEnvios/', views.addEnvios, name='add_envios'),
+    path('deleteEnvios/<int:id>', views.deleteEnvios, name='del_envios'),
+    path('updateEnviosForm/<int:id>', views.updateEnviosForm, name='upd_envios_form'),
+    path('updateEnvios/', views.updateEnvios, name='upd_envios'),
+    
 ]
