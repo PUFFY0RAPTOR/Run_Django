@@ -1,0 +1,52 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Historial Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Editar Historial con id: {{historial.id_historial}}</h1>
+
+        <form action="{% url 'paginaWeb:upd_historial' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+                
+                <label for="id_historial"> id del historial: </label>
+                <input type="number" name="id_historial" value="{{historial.id_historial}}" readonly /> <br>
+
+                <label for="">id de la venta actual:</label>
+                <select class="form-select" id="" name="">
+                    <option value="">{{historial.venta.id_venta}}</option>
+                </select><br>
+
+                <label for="venta">escoja su nuevo id venta:</label>
+                <select class="form-select" id="venta" name="venta" >
+                    {% for i in ventas %}
+                    <option value="{{i.id_venta}}">{{i.id_venta}}--fecha:{{i.fecha}}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <label for="">Su id de pago actual es:</label>
+                <select class="form-select" id="" name="">
+                    <option value="">{{historial.pago.id_pago}}--fecha:{{historial.pago.fecha_pago}}</option>
+                </select><br>
+                
+                <label for="pago">escoja el nuevo pago</label></br>
+                <select class="form-select" id="pago" name="pago" >
+                    {% for i in pagos %}
+                    <option value="{{i.id_pago}}">{{i.id_pago}}--fecha:{{i.fecha_pagos}}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="text-center">
+                    <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+                </div>
+                
+            
+            </div>
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}
