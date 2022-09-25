@@ -1,0 +1,52 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Pedidos Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Editar pedidoProducto --- {{pedidoProducto.id_pedidos_productos}}</h1>
+
+        <form action="{% url 'paginaWeb:upd_pedidos_productos' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+                
+                <label for="id_pedidos_productos"> id del pedidoProducto: </label>
+                <input type="number" name="id_pedidos_productos" value="{{pedidoProducto.id_pedidos_productos}}" readonly /> <br>
+
+                <label for="">id de pedido actual es:</label>
+                <select class="form-select" id="" name="">
+                    <option value="">{{pedidoProducto.pedido.id_pedido}}</option>
+                </select><br>
+
+                <label for="pedido">escoja su nuevo pedido</label></br>
+                <select class="form-select" id="pedido" name="pedido" >
+                    {% for i in pedidos %}
+                    <option value="{{i.id_pedido}}">{{i.id_pedido}}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <label for="">Su producto actual es:</label>
+                <select class="form-select" id="" name="">
+                    <option value="">{{pedidoProducto.producto}}</option>
+                </select><br>
+                
+                <label for="producto">escoja el nuevo producto</label></br>
+                <select class="form-select" id="producto" name="producto" >
+                    {% for i in productos %}
+                    <option value="{{i.id_producto}}">{{i.nombre_producto}}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="text-center">
+                    <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+                </div>
+                
+            
+            </div>
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

@@ -742,6 +742,101 @@ def updatePedidos(request):
         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_pedidos')
 
+#PedidosProductos
+def formPedidosProductos(request):
+    p = Pedidos.objects.all()
+
+    pr = Productos.objects.all()
+
+    contexto = {'pedidos': p, 'productos': pr}
+
+    return render(request, 'run/pedidosProductos/pedidosProductosForm.html', contexto)
+
+def listarPedidosProductos(request):
+
+    q = PedidosProductos.objects.all()
+
+    contexto = {'datos': q}
+
+    return render(request, 'run/pedidosProductos/listarPedidosProductos.html', contexto)
+
+def addPedidosProductos(request):
+    if request.method == 'POST':
+        try:    
+            pedidoProExistente = PedidosProductos.objects.filter(id_pedidos_productos=request.POST['id_pedidos_productos'])
+            pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
+            productoExistente = Productos.objects.filter(id_producto= request.POST['producto'])
+            if pedidoProExistente:
+                messages.error(request, "id de pedidoProducto ya existente, ingrese uno diferente")
+                return redirect('paginaWeb:form_pedidos_productos')
+            elif not pedidoExistente:
+                messages.error(request, "id de pedido inexistente, ingrese un que exista")
+                return redirect('paginaWeb:form_pedidos_productos')
+            elif not productoExistente:
+                messages.error(request, "cedula ya registrada, ingrese una diferente por favor")
+                return redirect('paginaWeb:form_pedidos_productos')
+            else:
+                q = PedidosProductos(
+                    id_pedidos_productos = request.POST['id_pedidos_productos'],
+                    pedido = Pedidos.objects.get(pk=request.POST['pedido']),
+                    producto = Productos.objects.get(pk = request.POST['producto']))
+                q.save()
+                messages.success(request, "Empleado registrado exitosamente")
+                return redirect('paginaWeb:list_pedidos_productos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_pedidos_productos')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_pedidos_productos')
+
+
+def deletePedidosProductos(request, id):
+    try:
+        pedidoProducto = PedidosProductos.objects.get(id_pedidos_productos = id)
+        pedidoProducto.delete()
+        messages.success(request, 'pedidoProducto eliminado correctamente')
+        return redirect('paginaWeb:list_pedidos_productos')
+    except Exception as e: 
+        messages.error(request, f'Hubo un problema al eliminar un pedidoProducto: {e}')
+        return redirect('paginaWeb:list_pedidos_productos')
+
+
+def updatePedidosProductosForm(request, id):
+
+    pp = PedidosProductos.objects.get(pk = id)
+    p = Pedidos.objects.all()
+
+    pr = Productos.objects.all()
+
+    contexto = {'pedidoProducto':pp, 'pedidos': p, 'productos': pr}
+
+    return render(request, 'run/pedidosProductos/editarPedidosProductos.html', contexto)
+
+def updatePedidosProductos(request):
+    
+    if request.method == "POST":
+        try:
+            pedidoProducto = PedidosProductos.objects.get(id_pedidos_productos=request.POST['id_pedidos_productos'])
+            pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
+            productoExistente = Productos.objects.filter(id_producto= request.POST['producto'])
+            if not pedidoExistente:
+                messages.error(request, "id de pedido inexistente, ingrese un que exista")
+                return redirect('paginaWeb:upd_pedidos_productos_form')
+            elif not productoExistente:
+                messages.error(request, "id de producto inexistente, ingrese un que exista")
+                return redirect('paginaWeb:upd_pedidos_productos_form')
+            else:
+                print(pedidoProducto.pedido, pedidoProducto.producto)
+                pedidoProducto.pedido = Pedidos.objects.get(pk=request.POST['pedido'])
+                pedidoProducto.producto = Productos.objects.get(pk = request.POST['producto'])
+                pedidoProducto.save()
+                #print(Productos.objects.get(pk = request.POST['producto']))
+                messages.success(request, "pedidoProducto registrado exitosamente")
+                return redirect('paginaWeb:list_pedidos_productos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:upd_pedidos_productos_form')
 
 #Envios
 def listEnvios(request):
