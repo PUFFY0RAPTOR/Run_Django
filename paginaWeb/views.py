@@ -812,3 +812,75 @@ def updateEnvios(request):
     else:
         messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_envios')
+
+
+#MediosDePago
+def listMediosPagos(request):
+
+    q = MediosDePagos.objects.all()
+
+    contexto = {'medios': q}
+
+    return render(request, 'run/mediosPagos/listarMediosPagos.html', contexto)
+
+def formMediosPagos(request):
+    return render(request, 'run/mediosPagos/mediosPagosForm.html')
+
+def addMediosPagos(request):
+    if request.method == 'POST':
+        try:    
+            q = MediosDePagos(
+                id_medio_pago = request.POST['idMedio'],
+                nombre_medio_pago = request.POST['nombreMedio'],
+                estado_medio_pago = request.POST['estado'],
+            )
+            q.save()
+            messages.success(request, "Medio de pago registrado exitosamente")
+            return redirect('paginaWeb:list_mediosPagos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_mediosPagos')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_mediosPagos')
+
+def deleteMediosPagos(request, id):
+    try:
+        medioPago = MediosDePagos.objects.get(pk= id)
+        medioPago.delete()
+        messages.success(request, 'Medio de pago eliminado correctamente')
+        return redirect('paginaWeb:list_mediosPagos')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El medio de pago está vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_mediosPagos')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un medio de pago: {e}')
+            return redirect('paginaWeb:list_mediosPagos')
+
+
+def updateMediosPagosForm(request, id):
+
+    q = MediosDePagos.objects.get(pk = id)
+    a = MediosDePagos.objects.all()
+    contexto = {'medios': q, 'medPagos': a}
+    return render(request, 'run/mediosPagos/editarMedioPago.html', contexto)
+
+def updateMediosPagos(request):
+    
+    if request.method == "POST":
+        try: 
+            medioPago = MediosDePagos.objects.get(id_medio_pago=request.POST['idMedio'])
+
+            medioPago.nombre_medio_pago = request.POST['nombreMedio']
+            medioPago.estado_medio_pago = request.POST['estado']
+            medioPago.save()
+
+            messages.success(request, "Actualizado correctamente")
+            return redirect('paginaWeb:list_mediosPagos')
+        except Exception as e:
+            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
+            return redirect('paginaWeb:list_mediosPagos')
+    else:
+        messages.warning(request, "No sabemos por donde se está metiendo pero no puedes avanzar, puerco")
+        return redirect('paginaWeb:list_mediosPagos')
