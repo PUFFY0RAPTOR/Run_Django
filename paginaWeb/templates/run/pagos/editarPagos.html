@@ -1,0 +1,38 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Medios de pago Formulario editar {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Editar medio de pago --- {{pagos.id_pago}}</h1>
+
+        <form action="{% url 'paginaWeb:upd_pagos' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+
+                <label for="idPago">Código: </label>
+                <input type="number" name="idPago" value="{{pagos.id_pago}}" readonly /><br>
+
+                <br><label for="medioPago">Medio de pago: </label>
+                <select name="medioPago" id="medioPago">
+                    {% for i in medPagos %}
+                        <option value="{{i.id_medio_pago}}">{{i.nombre_medio_pago}}</option>
+                    {% endfor %}
+                </select>
+ 
+                <br/><br/><label for="fecha">Fecha del pago: </label><br/>
+                <input type="date" name="fecha" value="{{pagos.fecha_pagos|date:'Y-m-d'}}" /> <br><br>
+
+                <!-- Hay que cambiar esto para que cuando se agreguen roles, se muestren, lo hice muy mecanico-->
+
+            </div>
+            <div class="text-center">
+                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+            </div>
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

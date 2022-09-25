@@ -114,4 +114,13 @@ urlpatterns = [
     path('deleteMedioPago/<int:id>', views.deleteMediosPagos, name='del_mediosPagos'),
     path('updateMedioPagoForm/<int:id>', views.updateMediosPagosForm, name='upd_mediosPagos_form'),
     path('updateMedioPagos/', views.updateMediosPagos, name='upd_mediosPagos'),
+
+
+    #Pagos
+    path('listarPagos/', views.listPagos, name='list_pagos'),
+    path('formPagos/', views.formPagos, name='form_pagos'),
+    path('addPagos/', views.addPagos, name='add_pagos'),
+    path('deletePagos/<int:id>', views.deletePagos, name='del_pagos'),
+    path('updatePagosForm/<int:id>', views.updatePagosForm, name='upd_pagos_form'),
+    path('updatePagos/', views.updatePagos, name='upd_pagos'),
 ]
