@@ -1,0 +1,53 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Historial Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Añadir Historial</h1>
+
+        <form action="{% url 'paginaWeb:add_historial' %}" method="post">
+            {% csrf_token %}
+            {% if ventas and pagos %}
+                <div class="datosRegistro">
+                    <h4>Ingresa los siguientes datos</h4><br>
+        
+                    <label for="id_historial">id del Historial: </label>
+                    <input class="inputregis" type="number" name="id_historial" size="20" placeholder="id del historial" /><br>
+    
+
+                    <label for="venta">Escoja la Venta</label></br>
+                    <select class="form-select" id="venta" name="venta" >
+                        {% for i in ventas %}
+                        <option value="{{i.id_venta}}">{{i.id_venta}}--fecha:{{i.fecha}}</option>
+                        {% endfor %}
+                    </select><br><br>
+                    
+                    <label for="pago">escoja el Pago</label></br>
+                    <select class="form-select" id="pago" name="pago" >
+                        {% for i in pagos %}
+                        <option value="{{i.id_pago}}">{{i.id_pago}}--fecha:{{i.fecha_pagos}}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+        
+                <div class="text-center">
+                    <br> <input class="btn btn-primary" type="submit" value="Crear Historial" /><br>
+                </div><br>
+            {% else %}
+                <h3>No hay pagos o ventas, por favor vaya a registrarlos para poder agregarlos</h3><br>
+                <a class="btn btn-primary" href="{% url 'paginaWeb:form_ventas' %}"role="button">Crear Venta</a>
+                <a class="btn btn-primary" href="{% url 'paginaWeb:form_pagos' %}"role="button">Crear Pago</a>
+            {% endif %}
+        
+    
+        </form><br>
+    
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

@@ -131,7 +131,7 @@ class Pagos(models.Model):
     fecha_pagos = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.fecha_pagos
+        return str(self.fecha_pagos)
 
 class Historial(models.Model):
     id_historial = models.IntegerField(primary_key=True)

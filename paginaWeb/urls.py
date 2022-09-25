@@ -35,13 +35,22 @@ urlpatterns = [
     path('updateUsuariosForm/<id>', views.updateUsuariosForm, name='upd_usuarios_form'),
     path('updateUsuarios/', views.updateUsuarios, name='upd_usuarios'),
 
-    #Ventas -apenas comenzando, prioridad a otras tablas 
+    #Ventas 
      path('formuVentas/', views.formVentas, name='form_ventas'),
      path('listarVentas/', views.listarVentas, name='list_ventas'),
      path('addVentas/', views.addVentas, name='add_ventas'),
      path('elimVentas/<id>', views.deleteVentas, name='del_ventas'),
      path('updateVentasForm/<id>', views.updateVentasForm, name='upd_ventas_form'),
      path('updateVentas/', views.updateVentas, name='upd_ventas'),
+
+
+    #Historial 
+     path('formuHistorial/', views.formHistorial, name='form_historial'),
+     path('listarHistorial/', views.listarHistorial, name='list_historial'),
+     path('addHistorial/', views.addHistorial, name='add_historial'),
+     path('elimHistorial/<id>', views.deleteHistorial, name='del_historial'),
+     path('updateHistorialForm/<id>', views.updateHistorialForm, name='upd_historial_form'),
+     path('updateHistorial/', views.updateHistorial, name='upd_historial'),
 
 
     #Pedidos
