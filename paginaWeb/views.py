@@ -1046,4 +1046,4 @@ def updatePagos(request):
             return redirect('paginaWeb:list_pagos')
     else:
         messages.warning(request, "No sabemos por donde se está metiendo pero no puedes avanzar, puerco")
-        return redirect('paginaWeb:list_pagos')
+        return redirect('paginaWeb:list_pagos') 

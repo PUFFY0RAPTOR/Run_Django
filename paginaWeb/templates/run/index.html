@@ -4,33 +4,115 @@
 
     <!-- {% block motos %}{% endblock%} Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más -->
 
-    <h1> Bienvenido a Run...</h1>
-    {# aqui deberiamos de agregar algo mas para que sea mas agradable #}
+
+    <!-- Carrusel -->
+    <br/><div id="carruselRun" class="carousel slide container" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carruselRun" data-slide-to="0" class="active bg-info"></li>
+          <li data-target="#carruselRun" data-slide-to="1" class="bg-info"></li>
+          <li data-target="#carruselRun" data-slide-to="2" class="bg-info"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'run/img/logo.png' %}" class="d-block w-100" alt="Logo RUN">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: #000000;">RUN o R' Unitall</h5>
+                <p style="color: #000000;">La mejor tienda de repuestos para motos en todo el país.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'run/img/mt10.jpg' %}" class="d-block w-100" alt="Moto MT10">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 style="color: #000000;">Repuestos para las mejores motos</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'run/img/yamaha.png' %}" class="d-block w-100" alt="YAMAHA">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: #000000;">Asociados con las mejores marcas del mundo</h5>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-target="#carruselRun" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-target="#carruselRun" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Siguiente</span>
+        </button>
+    </div>
+
+    <br/><hr class="container">
+    <!-- Tarjetas de productos -->    
+    <br/><div class="container">
+        <br/><h1>Nuestros productos</h1>
+        <br><div class="row row-cols-1 row-cols-md-5">
+                <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
+                <div class="col mb-4">
+                    <div class="card">
+                        <img src="{% static 'run/img/accesorios.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">Accesorios</h5>
+                        </div>
+                    </div>
+                </div>
+                </a>
+                <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="{% static 'run/img/herramientas.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Herramientas</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;" >
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="{% static 'run/img/luces.jpeg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Iluminación</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="{% static 'run/img/muchosAceites.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Lubricantes</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="{% static 'run/img/descuentos.webp' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Descuentos</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div><br/><br/>
+
+    {% comment %} {# aqui deberiamos de agregar algo mas para que sea mas agradable #}
     <h1>Hay que agregar algo mas...</h1>
 
     <!--Voy a hacer el resto de los cruds en el index ya que en la barra de navegacion no tengo espacio y no se como hacer para que sigan mostrandose abajo y no seguidamente-->
-    <h1>Otras Listas</h1>
+    <h1>Otras Listas</h1> {% endcomment %}
 
 
-    <h4>pedidos</h4>
+    {% comment %} <h4>pedidos</h4>
     <a class="btn btn-primary" href="{% url 'paginaWeb:list_pedidos' %}" role="button">Listar Pedidos</a>
     <a class="btn btn-primary" href="{% url 'paginaWeb:form_pedidos' %}"role="button">Crear Pedido</a>
-    <!-- <a class="btn btn-primary" href="#" role="button">Editar Pedido</a><br><br> -->
-
-    <h4>Ventas</h4>
-    <a class="btn btn-primary" href="#" role="button">Listar Ventas</a>
-    <a class="btn btn-primary" href="#" role="button">Crear Venta</a>
-    <a class="btn btn-primary" href="#" role="button">Editar Venta</a><br><br>
-
-
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a>
-    <a class="btn btn-primary" href="#" role="button">Pedidos</a><br><br>
+    <!-- <a class="btn btn-primary" href="#" role="button">Editar Pedido</a><br><br> --> {% endcomment %}
 
     {% if request.session.auth %} <!--Cambiar nombre de la variable-->
         Bienvenido usuario <strong>{{request.session.auth.0}}</strong>
