@@ -7,13 +7,30 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 
 
+#---------------------------------------------------------------- Decoradores ----------------------------------------------------------------
+
+#Decorador para controlar la entrada desde las rutas
+def decorador(funcionPrincipal):
+    def autenticar(request, *args, **kwargs):
+        auth = request.session.get('auth', False)
+        if auth and (auth[2] == 3 or auth[2] == 2):
+            return funcionPrincipal(request, *args, **kwargs)
+        else:
+            messages.warning(request, 'Usted no ha iniciado sesión...')
+            return redirect('paginaWeb:login_form')
+    return autenticar 
+
+#---------------------------------------------------------------- Decoradores ----------------------------------------------------------------
+ 
+
+
 # Create your views here.
 def index(request):
     return render(request, 'run/index.html')
 
-
 #Login
 def loginForm(request):
+    
     return render(request, 'run/login/login.html')
 
 def login(request):
@@ -28,13 +45,12 @@ def login(request):
             request.session['auth'] = [q.id_correo, q.contrasena, q.roles.id_roles]
 
             messages.success(request, 'Bienvenido!!')
-            return redirect('paginaWeb:index')
         except Exception as e:
             messages.error(request, f'Un error ha ocurrido durante el logueo... {e}')
-            return redirect('paginaWeb:index')
     else:
         messages.warning(request, '¿Qué estás haciendo?')
-        return redirect('paginaWeb:index')
+    
+    return redirect('paginaWeb:index')
 
 
 def logout(request):
@@ -46,6 +62,8 @@ def logout(request):
         messages.error(request, f"Ocurrió un error, intente de nuevo...")
     
     return redirect('paginaWeb:index')
+
+
 
 
 #Registros clientes
@@ -130,6 +148,7 @@ def updateCliente(request):
         return redirect('paginaWeb:list_usu')
 
 #hubo problemas con el nombre, luego se cambian
+@decorador
 def listarClientes(request):
 
     q = Clientes.objects.all()
