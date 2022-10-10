@@ -1047,3 +1047,93 @@ def updatePagos(request):
     else:
         messages.warning(request, "No sabemos por donde se está metiendo pero no puedes avanzar, puerco")
         return redirect('paginaWeb:list_pagos') 
+
+#Historial
+def formHistorial(request):
+
+    v = Ventas.objects.all()
+    p = Pagos.objects.all()
+
+    contexto = {'ventas': v, 'pagos': p}
+
+
+    return render(request, 'run/historial/historialForm.html', contexto)
+
+def listarHistorial(request):
+
+    q = Historial.objects.all()
+
+    contexto = {'datos': q}
+
+    return render(request, 'run/historial/listarHistorial.html', contexto)
+
+def addHistorial(request):
+    if request.method == 'POST':
+        try:    
+            historialExistente = Historial.objects.filter(id_historial=request.POST['id_historial'])
+            if historialExistente:
+                messages.error(request, "id de Historial ya registrada, ingrese una diferente por favor")
+                return redirect('paginaWeb:form_historial')
+            else:
+                q = Historial(
+                    id_historial = request.POST['id_historial'],
+                    venta = Ventas.objects.get(pk=request.POST['venta']),
+                    pago = Pagos.objects.get(pk=request.POST['pago']))
+                q.save()
+                messages.success(request, "Registro de historial registrado exitosamente")
+                return redirect('paginaWeb:list_historial')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:form_historial')
+    else:
+        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        return redirect('paginaWeb:list_historial')
+
+def deleteHistorial(request, id):
+    try:
+        historial = Historial.objects.get(pk = id)
+        historial.delete()
+        messages.success(request, 'Registro de historial eliminado correctamente')
+        return redirect('paginaWeb:list_historial')
+    except Exception as e: 
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'El historial esta vinculadao a otros registros, eliminelos y luego vuelva a intentarlo')
+            return redirect('paginaWeb:list_historial')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar un historial: {e}')
+            return redirect('paginaWeb:list_historial')
+
+
+def updateHistorialForm(request, id):
+
+    h = Historial.objects.get(pk = id)
+    v = Ventas.objects.all()
+    p = Pagos.objects.all()
+
+    contexto = {'historial': h, 'ventas': v, 'pagos': p}
+
+    return render(request, 'run/historial/editarHistorial.html', contexto)
+
+def updateHistorial(request):
+    
+    if request.method == "POST":
+        try:
+            historial = Historial.objects.get(id_historial=request.POST['id_historial'])
+            ventaExistente = Ventas.objects.filter(id_venta=request.POST['venta'])
+            pagoExistente = Pagos.objects.filter(id_pago= request.POST['pago'])
+            if not ventaExistente:
+                messages.error(request, "id de pedido inexistente, ingrese uno que exista")
+                return redirect('paginaWeb:upd_historial_form')
+            elif not pagoExistente:
+                messages.error(request, "id de producto inexistente, ingrese un que exista")
+                return redirect('paginaWeb:upd_historial_form')
+            else:
+                historial.Venta = Ventas.objects.get(pk=request.POST['venta'])
+                historial.pago = Pagos.objects.get(pk = request.POST['pago'])
+                historial.save()
+                #print(Productos.objects.get(pk = request.POST['producto']))
+                messages.success(request, "Historial actualizado exitosamente")
+                return redirect('paginaWeb:list_historial')
+        except Exception as e:
+            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
+            return redirect('paginaWeb:upd_historial_form')
