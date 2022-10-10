@@ -49,5 +49,17 @@ function confirmarEliminar(url){
 //     window.open('../index.html', "_self");
     
 
+<<<<<<< HEAD
 //     //uno mas
 // }
+=======
+    //hola hola
+    //Soy Sebas probando Django
+    //Soy Sebas
+    //soy mateo
+    //Probando cambios
+
+
+    //mateo mateo
+}
+>>>>>>> 38c79d967bcffd74ef178e2c0ce73247864aa0c5
