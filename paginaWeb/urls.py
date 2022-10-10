@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import decorador
 
 app_name="paginaWeb"
 urlpatterns = [
@@ -16,7 +17,7 @@ urlpatterns = [
     path('eliminarCliente/<int:id>', views.eliminarCliente, name='delCliente'),
     path('clienteEditar/<int:id>', views.buscarClienteEditar, name="upd_clientes_form"),
     path('updateCliente/', views.updateCliente, name='updCliente'),
-    path('listarClientes/', views.listarClientes, name='list_usu'),
+    path('listarClientes/', decorador(views.listarClientes), name='list_usu'),
 
 
     #Empleados

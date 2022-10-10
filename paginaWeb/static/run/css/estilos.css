@@ -440,3 +440,21 @@ figure:hover > figcaption {
     text-decoration: none;
     color: #000000;
 }
+
+#newFooter{
+    background-color: #4DA8E9;
+    width: 100%;
+    height: 10em;
+}
+
+
+/*Media query para phone*/
+@media only screen and (max-width: 600px){
+    #newFooter{
+        background-color: #0568af;
+    }
+
+    #bannerRUN{
+        /*Aquí poner el banner más pequeño --- 537px X 100px*/
+    }
+}

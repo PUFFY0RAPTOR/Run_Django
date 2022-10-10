@@ -6,6 +6,21 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 
+#---------------------------------------------------------------- Decoradores ----------------------------------------------------------------
+
+#Decorador para controlar la entrada desde las rutas
+def decorador(funcionPrincipal):
+    def autenticar(request, *args, **kwargs):
+        auth = request.session.get('auth', False)
+        if auth and (auth[2] == 3 or auth[2] == 2):
+            return funcionPrincipal(request, *args, **kwargs)
+        else:
+            messages.warning(request, 'No está autorizado para entrar a esta sección...')
+            return redirect('paginaWeb:index')
+    return autenticar 
+
+#---------------------------------------------------------------- Decoradores ----------------------------------------------------------------
+
 
 # Create your views here.
 def index(request):
@@ -130,8 +145,8 @@ def updateCliente(request):
         return redirect('paginaWeb:list_usu')
 
 #hubo problemas con el nombre, luego se cambian
+@decorador
 def listarClientes(request):
-
     q = Clientes.objects.all()
 
     contexto = {'datos': q}

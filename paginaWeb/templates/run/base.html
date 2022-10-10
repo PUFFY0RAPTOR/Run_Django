@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block tituloPage %} Titulo de la página {% endblock %}</title>
 
+    <link rel="stylesheet" href="{% static 'run/css/estilos.css' %}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -16,9 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'run/css/estilos.css' %}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="{% static 'run/js/Scripts.js' %}"></script>
+
 
 </head>
 
@@ -26,7 +28,7 @@
 <body onload="interface()">
 
     {% block header %}
-    <div>
+    <div id="bannerRUN">
         <a href="{% url 'paginaWeb:index' %}">
             <img src="{% static 'run/img/bannerRUN.png' %}" alt="banner">
         </a>
@@ -88,102 +90,102 @@
                     </li>
                 {% endif %}
                 {% block motos %}
+                {% comment %} <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                        Motos
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href={% url 'paginaWeb:list_usu' %}>Registrar Moto</a>
+                        <a class="dropdown-item" href={% url 'paginaWeb:list_usu' %}>Listar Motos</a>
+                    </div>
+                </li> {% endcomment %}
+                {% endblock %}
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                            Motos
+                            Marcas
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href={% url 'paginaWeb:list_usu' %}>Registrar Moto</a>
-                            <a class="dropdown-item" href={% url 'paginaWeb:list_usu' %}>Listar Motos</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:marcas' %}">Marcas aliadas</a>
+                            <div class="dropdown-divider"></div>
+                        {% if request.session.auth.2 == 3 %}
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_marcas' %}">Añadir marcas</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar marcas</a>
+                        {% endif %}
                         </div>
                     </li>
-                    {% endblock %}
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                                Marcas
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'paginaWeb:marcas' %}">Marcas aliadas</a>
-                                <div class="dropdown-divider"></div>
-                            {% if request.session.auth.2 == 3 %}
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_marcas' %}">Añadir marcas</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_marcas' %}">Listar marcas</a>
-                            {% endif %}
-                            </div>
-                        </li>
-                    {% if request.session.auth.2 == 1 or request.session.auth == None %}
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                                Compras
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'paginaWeb:ver_prod' %}">Ver productos</a>
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if request.session.auth.2 == 3 or request.session.auth.2 == 2 %}
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                                Inventario
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'paginaWeb:reg_inv' %}">Registrar inventario</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_inv' %}">Listar inventario</a>
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if request.session.auth.2 == 1 %}
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                                Ayuda
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}">Formulario de ayuda</a>
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if request.session.auth.2 == 3 %}
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'paginaWeb:reg_roles_form' %}">Registrar roles</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_roles' %}">Listar roles</a>
-                                <div class="dropdown-divider"></div>
+                {% if request.session.auth.2 == 1 or request.session.auth == None %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Compras
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:ver_prod' %}">Ver productos</a>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if request.session.auth.2 == 3 or request.session.auth.2 == 2 %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Inventario
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:reg_inv' %}">Registrar inventario</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_inv' %}">Listar inventario</a>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if request.session.auth.2 == 1 %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Ayuda
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}">Formulario de ayuda</a>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if request.session.auth.2 == 3 %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'paginaWeb:reg_roles_form' %}">Registrar roles</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_roles' %}">Listar roles</a>
+                            <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_envios' %}">Registrar envio</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_envios' %}">Listar envios</a>
-                                <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_envios' %}">Registrar envio</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_envios' %}">Listar envios</a>
+                            <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_mediosPagos' %}">Registrar medios de pago</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_mediosPagos' %}">Listar medios de pago</a>
-                                <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_mediosPagos' %}">Registrar medios de pago</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_mediosPagos' %}">Listar medios de pago</a>
+                            <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_pedidos' %}">Registrar pedidos</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_pedidos' %}">Listar pedidos</a>
-                                <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_pedidos' %}">Registrar pedidos</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_pedidos' %}">Listar pedidos</a>
+                            <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_pedidos_productos' %}">Registrar pedidosProductos</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_pedidos_productos' %}">Listar pedidosProductos</a>
-                                <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_pedidos_productos' %}">Registrar pedidosProductos</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_pedidos_productos' %}">Listar pedidosProductos</a>
+                            <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_ventas' %}">Registrar Ventas</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_ventas' %}">Listar Ventas</a>
-                                <div class="dropdown-divider"></div>
-                                
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_pagos' %}">Registrar pagos</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_pagos' %}">Listar pagos</a>
-                                <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_ventas' %}">Registrar Ventas</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_ventas' %}">Listar Ventas</a>
+                            <div class="dropdown-divider"></div>
+                            
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_pagos' %}">Registrar pagos</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_pagos' %}">Listar pagos</a>
+                            <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{% url 'paginaWeb:form_historial' %}">Registrar historial</a>
-                                <a class="dropdown-item" href="{% url 'paginaWeb:list_historial' %}">Listar historial</a>
-                                <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:form_historial' %}">Registrar historial</a>
+                            <a class="dropdown-item" href="{% url 'paginaWeb:list_historial' %}">Listar historial</a>
+                            <div class="dropdown-divider"></div>
 
 
-                            </div>
-                        </li>
-                    {% endif %}
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
             {% if request.session.auth %}
             {% else %}
@@ -374,7 +376,7 @@
 
     {% block footer %}
     <!--footer-->
-    <div id="footer2" class="">
+    <!-- <div id="footer2" class="">
         <div id="columna1">
             <h5>¿Quienes somos?</h5>
             <p> Somos la mejor página de venta y distribución de repuestos para motos en Colombia, contamos con buenos
@@ -445,10 +447,14 @@
                     </svg> Twitter</button></a>
         </div>
 
-    </div>
+    </div> 
 
     <div id="footer">
         <p> © 2022 by students of ADSI Copyright: SENA </p>
+    </div>-->
+
+    <div id="newFooter" class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+        Footer
     </div>
     
     {% endblock %}
