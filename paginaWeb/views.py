@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 
+#almacenamiento de archivos o fotos
+from django.core.files.storage import FileSystemStorage
 #---------------------------------------------------------------- Decoradores ----------------------------------------------------------------
 
 #Decorador para controlar la entrada desde las rutas
@@ -229,7 +231,10 @@ def updateMarcas(request):
 
 #Compras
 def verProductos(request):
-    return render(request, 'run/compras/compras.html')
+    q = Productos.objects.all()
+    contexto = {'productos': q}
+
+    return render(request, 'run/compras/compras.html', contexto)
 
 
 #Inventario
@@ -252,6 +257,16 @@ def listarInventario(request):
 
 def crearInventario(request): 
     try:
+        if request.FILES:
+            #crear instancia de File System Storage
+            fss = FileSystemStorage()
+            #capturar la foto del formulario
+            f = request.FILES["imagen"]
+            #cargar archivos al servidor
+            file = fss.save("RUN/imagProductos/"+f.name, f)
+        else:
+            file = "RUN/imagProductos/default.png"
+        
         q = Productos(
             id_producto = request.POST['codigo'],
             nombre_producto = request.POST['nombreRes'],
@@ -259,16 +274,42 @@ def crearInventario(request):
             precio = request.POST['precio'],
             marca = Marcas.objects.get(pk = request.POST['marca']),
             descripcion = request.POST['descripcion'],
+            imagen = file
         ) 
         q.save()
         return redirect('paginaWeb:list_inv')
         
     except Exception as e:
-        return HttpResponse("Error: "+ e)
+        messages.error(request, f'Hubo un problema al intentar agregar : {e}')
+        return redirect('paginaWeb:list_inv')
 
 def deleteInventario(request, id):
     try:
         producto = Productos.objects.get(pk=id)
+        from pathlib import Path
+        from os import remove, path 
+        # Build paths inside the project like this: BASE_DIR / 'subdir'.
+        BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+        ruta_imagen =  str(BASE_DIR)+str(producto.imagen.url)
+
+        #buscamos si existe la ruta
+        if path.exists(ruta_imagen):
+            #si es diferente a la default la borramos, ya que no podemos borrar la imagen por predeterminado
+            
+            print("Este es el nuevo url")
+            
+            print(producto.imagen.url)
+            if producto.imagen.url != "/uploads/RUN/imagProductos/default.png":
+                remove(ruta_imagen)
+                messages.success(request,"Foto borrada correctamente.")
+            else:
+                messages.warning(request,"No se puede borrar la foto debido a que es la que tiene por pre--determinado.")
+
+
+
+
         producto.delete()
         messages.success(request, 'Producto eliminado correctamente')
         return redirect('paginaWeb:list_inv')

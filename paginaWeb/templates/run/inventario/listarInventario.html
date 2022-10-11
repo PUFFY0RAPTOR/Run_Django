@@ -17,6 +17,7 @@
                     <th>Precio</th>
                     <th>Marca</th>
                     <th>Descripción</th>
+                    <th>Imagen</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -29,6 +30,7 @@
                     <td>{{i.precio}}</td>
                     <td>{{i.marca}}</td>
                     <td>{{i.descripcion}}</td>
+                    <td><img src="{{i.imagen.url}}" width="70%" height="70%"></td>
                     <td>
                         <a class="btn btn-warning" href="{% url 'paginaWeb:upd_inv_form' i.id_producto %}" ><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

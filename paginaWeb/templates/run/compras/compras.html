@@ -74,11 +74,28 @@
                 <input type="range" class="custom-range" min="0" max="1000000" id="customRange1">
             </ul>
         </div>
+        <!-- Traer productos de la base de datos -->
 
         <div id="productos">
             <div>
                 <div id="galeriaProductos">
-                    <div id="producto1">
+                    {% if productos %}
+                    {% for i in productos %}
+                    <div class="productosBaseDatos">
+                        <img src="{{i.imagen.url}}" alt="Scooter aceite" width="75%" height="220px">
+                        <div id="espaciosIzq">
+                            <h4>{{i.precio}}</h4>
+                            {{i.nombre_producto}}<br></a>
+                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
+                                  </svg> Añadir al carrito
+                            </button></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <!-- <div id="producto1">
                         <a href="" data-toggle="modal" data-target="#producto1Modal"><img src="{% static 'run/img/aceiteScooter.jpg' %}" alt="Scooter aceite" width="75%" height="220px">
                         <div id="espaciosIzq">
                             <h4>$ 25.999</h4>
@@ -113,9 +130,9 @@
                                   </svg> Añadir al carrito
                             </button></a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div id="galeriaProductos">
+                <!-- <div id="galeriaProductos">
                     <div id="producto4">
                         <a href="" data-toggle="modal" data-target="#producto4Modal"><img src="{% static 'run/img/carburador.jpg' %}" alt="Carburador" width="75%" height="220px">
                         <div id="espaciosIzq">
@@ -152,7 +169,7 @@
                             </button></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
