@@ -452,6 +452,8 @@ figure:hover > figcaption {
 @media only screen and (max-width: 600px){
     #newFooter{
         background-color: #0568af;
+        width: 100%;
+        height: 15em;
     }
 
     #bannerRUN{
