@@ -459,4 +459,8 @@ figure:hover > figcaption {
     #bannerRUN{
         /*Aquí poner el banner más pequeño --- 537px X 100px*/
     }
+
+    .ml-5{
+        background-color: #000000;
+    }
 }
