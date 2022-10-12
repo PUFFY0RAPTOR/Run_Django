@@ -88,6 +88,7 @@ class Productos(models.Model):
     precio = models.DecimalField(max_digits=8, decimal_places=2)
     marca = models.ForeignKey(Marcas, on_delete = models.DO_NOTHING)
     descripcion = models.TextField(default="")
+    imagen = models.ImageField(upload_to = 'RUN/imagProductos', default='RUN/imagProductos/default.png')
 
     def __str__(self):
         return self.nombre_producto

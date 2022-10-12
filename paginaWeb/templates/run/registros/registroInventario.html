@@ -8,7 +8,7 @@
         <br>
         <h1 id="tituloFormularios"> Inventario </h1>
 
-        <form action="{% url 'paginaWeb:crear_inv' %}" method="post">
+        <form action="{% url 'paginaWeb:crear_inv' %}" method="post" enctype="multipart/form-data" >
             {% csrf_token %}
             <div class="datosDiv">
 
@@ -50,6 +50,10 @@
 
                 <label for="desc">Descripción: </label>
                 <textarea name="descripcion" id="desc" cols="30" rows="5" placeholder="Descripción del producto..."></textarea>
+
+                <label for="desc">Imagen: </label>
+                <input type="file" name="imagen">
+                
 
             </div>
             <div class="text-center">
