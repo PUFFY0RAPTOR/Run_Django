@@ -109,13 +109,12 @@ def login(request):
             request.session['auth'] = [q.id_correo, q.contrasena, q.roles.id_roles]
 
             messages.success(request, 'Bienvenido!!')
-            return redirect('paginaWeb:index')
         except Exception as e:
             messages.error(request, f'Un error ha ocurrido durante el logueo... {e}')
-            return redirect('paginaWeb:index')
     else:
         messages.warning(request, '¿Qué estás haciendo?')
-        return redirect('paginaWeb:index')
+    
+    return redirect('paginaWeb:index')
 
 @decoradorPermitirAEC
 def logout(request):
@@ -415,14 +414,13 @@ def updateInventario(request):
             productos.descripcion = request.POST['descripcion']
             productos.save()
             messages.success(request, 'Producto correctamente editado')
-            return redirect('paginaWeb:list_inv')
 
         except Exception as e:
             messages.error(request, f'Ha ocurrido un error al intenar editar: {e}')
-            return redirect('paginaWeb:list_inv')
     else:
         messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
-        return redirect('paginaWeb:list_inv')
+    
+    return redirect('paginaWeb:list_inv')
 
 #Ayuda
 def ayuda(request):

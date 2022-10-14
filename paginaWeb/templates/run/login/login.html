@@ -3,32 +3,67 @@
 {% block body %}
 
     {# Hola quitar los bloques de header y motos arregla el error de la barra de navegacion en el login, aqui hay que restringir la barra de navegacion #}
-    {# {% block header %}{% endblock  %} #}
+    {% block header %}{% endblock  %}
 
     {# {% block motos %}{% endblock%} #}<!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
-
-    <br/><div class="card container" style="padding: 10px;">
-        <form action="{% url 'paginaWeb:login' %}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="Email1">Correo eléctronico: </label>
-                <input type="email" name="email" class="form-control" id="Email1" aria-describedby="emailHelp">
+    
+        <section class="h-100 gradient-form" style="background-color: #eee;">
+            <div class="container py-5 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-10">
+                  <div class="card rounded-3 text-black mb-5">
+                    <div class="row g-0">
+                      <div class="col-lg-6">
+                        <div class="card-body p-md-5 mx-md-4">
+          
+                          <div class="text-center">
+                            <img src="{% static 'run/img/logo.png' %}"
+                              style="width: 300px;" alt="logo">
+                          </div>
+          
+                          <form action="{% url 'paginaWeb:login' %}" method="post">
+                            {% csrf_token %}
+                            <p>Coloca los datos de tú cuenta</p>
+          
+                            <div class="form-outline mb-4">
+                              <input type="email" id="cor" name="email" class="form-control"
+                                placeholder="Correo electrónico" />
+                              <label class="form-label" for="cor">Correo</label>
+                            </div>
+          
+                            <div class="form-outline mb-4">
+                              <input type="password" id="passw" name="passw" class="form-control" />
+                              <label class="form-label" for="passw">Contraseña</label>
+                            </div>
+          
+                            <div class="text-center pt-1 mb-5 pb-1">
+                              <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Entrar</button>
+                              <a class="text-muted" href="#">¿Olvidaste la contraseña?</a>
+                            </div>
+          
+                            <div class="d-flex align-items-center justify-content-center pb-4">
+                              <p class="mb-0 me-2">¿No tienes cuenta?</p>
+                              <a type="button" href="{% url 'paginaWeb:registro' %}" class="btn btn-outline-primary">Crear cuenta</a>
+                            </div>
+          
+                          </form>
+          
+                        </div>
+                      </div>
+                      <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                        <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                          <h4 class="mb-4">La mejor tienda de repuestos para moto en el país</h4>
+                          <p class="small mb-0">Motos de alto, medio y bajo cilindraje. Encontrarás lo que necesites 
+                            para tú moto en R' Unitall. Con nuestros bajos precios ganarás más de lo que gastas.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="form-group">
-                <label for="Password1">Contraseña: </label>
-                <input type="password" name="passw" class="form-control" id="Password1">
-            </div>
-            
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Recordarme: </label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Enviar</button>
-
-        </form>
-    </div>
+        </section>
     
     {%block ayuda%}{% endblock %}
 
