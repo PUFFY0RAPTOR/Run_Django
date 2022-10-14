@@ -114,7 +114,10 @@ urlpatterns = [
     path('marcas/', views.marcas, name='marcas'),
 
     #Carrito
-    path('carritoCompras/', decoradorPermitirAEC(views.carritoCompras), name='carrito'),
+    path('carritoCompras/', decoradorPermitirC(views.mostrarCarrito), name='carrito'),
+    path('addCarrito/<int:id>', decoradorPermitirC(views.addCarrito), name='add_carrito'),
+    path('vaciarCarrito/', decoradorPermitirC(views.vaciarCarrito), name='vaciar_carrito'),
+    path('borrarElementoCarrito/<int:id>', decoradorPermitirC(views.borrarElementoCarrito), name='borrar_elemento_carrito'),
 
 
     #Admin - Roles

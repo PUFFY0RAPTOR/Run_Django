@@ -435,7 +435,7 @@ def marcas(request):
 
 
 #Carrito
-@decoradorPermitirAEC
+@decoradorPermitirC
 def carritoCompras(request):
 
     q = Productos.objects.all()
@@ -443,6 +443,75 @@ def carritoCompras(request):
     contexto = {'datos': q}
 
     return render(request, 'run/carritoCompras.html', contexto)
+
+@decoradorPermitirC
+def addCarrito(request, id):
+    try:    
+        q = Productos.objects.get(pk=id)
+        listaCarrito = request.session.get('carrito', False)
+
+        if listaCarrito: 
+            
+            listaCarrito.append(id)
+            request.session['carrito'] = listaCarrito
+        else:
+            request.session['carrito'] = [id]
+
+
+        messages.success(request, 'Producto agregado correctamente al carrito')
+        return redirect('paginaWeb:ver_prod')
+    except Exception as e:
+        messages.error(request, f'Ha ocurrido un error al agregara el producto al carrito, vuelvalo a intentar mas tarde {e}')
+        return redirect('paginaWeb:ver_prod')
+
+@decoradorPermitirC
+def mostrarCarrito(request):
+    try:    
+        
+        carrito = request.session.get('carrito', False)
+        listaCarrito = []
+
+        if carrito:
+            print(carrito)
+            for i in carrito:
+                q =Productos.objects.get(pk=i)
+                listaCarrito.append(q)
+
+        contexto = {'productos': listaCarrito}   
+
+        return render(request, 'run/carritoCompras.html', contexto)
+    except Exception as e:
+        messages.error(request, f'Ha ocurrido un error al traer los productos del carrito, vuelvalo a intentar mas tarde {e}')
+        return redirect('paginaWeb:ver_prod')
+
+@decoradorPermitirC
+def vaciarCarrito(request):
+    try:
+        if request.session.get('carrito', False):
+            del request.session['carrito']
+
+        messages.success(request, 'Borrado Existosamente')
+
+        return redirect('paginaWeb:ver_prod')
+    except Exception as e:
+        messages.error(request, f'Ha ocurrido al borrar el carrito: {e}')
+        return redirect('paginaWeb:ver_prod')
+
+@decoradorPermitirC
+def borrarElementoCarrito(request, id):
+    try:
+        if request.session.get('carrito', False):
+            carrito = request.session.get('carrito', False)
+            carrito.remove(id)
+            request.session['carrito'] = carrito
+
+
+        messages.success(request, 'Borrado Existosamente')
+
+        return redirect('paginaWeb:carrito')
+    except Exception as e:
+        messages.error(request, f'Ha ocurrido al borrar el carrito: {e}')
+        return redirect('paginaWeb:ver_prod')
 
 
 #Admin - Roles
