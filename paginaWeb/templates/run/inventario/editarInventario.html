@@ -50,9 +50,11 @@
                 <label for="desc">Descripción: </label>
                 <textarea name="descripcion" id="desc" cols="30" rows="5">{{productos.descripcion}}</textarea>
 
-                <label for="desc">Imagen: </label>
-                <input type="file" name="imagen" value="{{productos.imagen}}">
+                <label for="desc">Imagen Actual: </label>
+                <a href="{{productos.imagen.url}}" target="_blank" ><img src="{{productos.imagen.url}}"  width="20%" /></a>
 
+                <label for="imagen">Imagen: </label>
+                <input type="file" name="imagen">
 
             </div>
             <div class="text-center">

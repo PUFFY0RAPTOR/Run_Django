@@ -406,6 +406,27 @@ def updateInventario(request):
     if request.method == "POST":
         try:
             productos = Productos.objects.get(pk = request.POST['codigo'])
+            if request.FILES and request.FILES["imagen"]:
+                
+                #crear instancia de File System Storage
+                fss = FileSystemStorage()
+                #capturar la foto del formulario
+                f = request.FILES["imagen"]
+                #cargar archivos al servidor
+                file = fss.save("RUN/imagProductos/"+f.name, f)
+            
+                #Mi manera de borrar
+                import os 
+                from django.conf import settings
+                #Borrar imagen anterior
+                if productos.imagen.url != "territorio/fotos/default.png":
+                    fotoVieja = str(settings.BASE_DIR)+productos.imagen.url
+                    os.remove(fotoVieja)
+                    #messages.success(request,"Foto borrada correctamente.")
+
+                #asignamos la foto
+                productos.imagen = file
+
 
             productos.nombre_producto = request.POST['nombreRes']
             productos.stock = request.POST['stock']
