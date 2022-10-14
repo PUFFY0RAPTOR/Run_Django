@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de pagos</h2>
-        <table class="table" id="pagos">
+        <table class="table table-responsive" id="pagos">
             <thead class="thead-dark">
                 <tr>
                     <th>Código</th>
@@ -20,10 +20,10 @@
             <tbody>
                 {% for i in pagos%}
                 <tr>
-                    <td>{{i.id_pago}}</td>
-                    <td>{{i.medio_pago}}</td>
-                    <td>{{i.fecha_pagos}}</td>
-                    <td>
+                    <td class="col-5 col-lg-5">{{i.id_pago}}</td>
+                    <td class="col-5 col-lg-5">{{i.medio_pago}}</td>
+                    <td class="col-5 col-lg-5">{{i.fecha_pagos}}</td>
+                    <td class="col-5 col-lg-5">
                         <a href="{% url 'paginaWeb:upd_pagos_form' i.id_pago %}" class="btn btn-warning"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">

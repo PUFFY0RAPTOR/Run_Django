@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de marcas</h2>
-        <table class="table" id="marcasTable">
+        <table class="table table-responsive" id="marcasTable">
             <thead class="thead-dark">
                 <tr>
                     <th>Código</th>
@@ -19,8 +19,8 @@
             <tbody>
                 {% for i in datos%}
                 <tr>
-                    <td>{{i.id_marca}}</td>
-                    <td>{{i.nombre_marca}}</td>
+                    <td class="col-6 col-lg-6 col-xl-8 ">{{i.id_marca}}</td>
+                    <td class="col-6 col-lg-6 col-xl-8 ">{{i.nombre_marca}}</td>
                     <td>
                         <a href="{% url 'paginaWeb:upd_marcas_form' i.id_marca %}" class="btn btn-warning"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

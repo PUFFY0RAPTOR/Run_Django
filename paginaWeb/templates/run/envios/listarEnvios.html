@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de Envios</h2>
-        <table class="table" id="envios">
+        <table class="table table-responsive" id="envios">
             <thead class="thead-dark">
                 <tr>
                     <th>Código</th>
@@ -20,10 +20,10 @@
             <tbody>
                 {% for i in envios%}
                 <tr>
-                    <td>{{i.id_envios}}</td>
-                    <td>{{i.fecha_envio}}</td>
-                    <td>{{i.direccion_envio}}</td>
-                    <td>
+                    <td class="col-2 col-lg-2">{{i.id_envios}}</td>
+                    <td class="col-2 col-lg-2">{{i.fecha_envio}}</td>
+                    <td class="col-2 col-lg-2">{{i.direccion_envio}}</td>
+                    <td class="col-2 col-lg-2">
                         <a href="{% url 'paginaWeb:upd_envios_form' i.id_envios %}" class="btn btn-warning"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">

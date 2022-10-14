@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de ventas</h2>
-        <table class="table" id="ventasTable">
+        <table class="table table-responsive" id="ventasTable">
             <thead class="thead-dark">
                 <tr>
                     <th>id de Venta</th>
@@ -27,7 +27,7 @@
                     <td>{{i.id_venta}}</td>
                     <td>{{i.pedido}}</td>
                     <td>{{i.pedido.cliente}}</td> <!--cliente ya me da el nombre por el str por lo que no le tengo que poner cliente.nombre_cliente-->
-                    <td>{{i.envio}}</td>
+                    <td class="col-lg-3">{{i.envio}}</td>
                     <td>{{i.envio.fecha_envio}}</td>
                     <td>{{i.fecha}}</td>
                     <td>

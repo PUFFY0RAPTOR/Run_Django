@@ -101,6 +101,7 @@ h1, .alinear, #crearBoton, .datos1{
 }
 
 .datosDiv{
+    background-color: #ffffff;
     margin: auto;
     width: 33%;
     border: solid black 1px;
@@ -112,6 +113,7 @@ h1, .alinear, #crearBoton, .datos1{
 }
 
 .datosRegistro{
+    background-color: #ffffff;
     margin: 0 auto; /*Centrarlo*/
     width: 33%;
     border: solid black 1px;
@@ -447,6 +449,25 @@ figure:hover > figcaption {
     height: 10em;
 }
 
+body{
+    /* Ubicación de la imagen */
+    /*background-image: url('../img/FondoRepuestos.png');*/
+
+    /* Para dejar la imagen de fondo centrada, vertical y horizontalmente */
+    background-position: center center;
+
+    /* Para que la imagen de fondo no se repita */
+    background-repeat: no-repeat;
+
+    /* La imagen se fija en la ventana de visualización para que la altura de la imagen no supere a la del contenido */
+    background-attachment: fixed;
+    
+    /* La imagen de fondo se reescala automáticamente con el cambio del ancho de ventana del navegador */
+    background-size: cover;
+
+    /* Se muestra un color de fondo mientras se está cargando la imagen de fondo o si hay problemas para cargarla */
+    background-color: rgb(211, 211, 211);
+}
 
 /*Media query para phone*/
 @media only screen and (max-width: 600px){
@@ -456,11 +477,9 @@ figure:hover > figcaption {
         height: 15em;
     }
 
-    #bannerRUN{
-        /*Aquí poner el banner más pequeño --- 537px X 100px*/
-    }
-
-    .ml-5{
-        background-color: #000000;
+    #banner{
+        background-image: url('../img/bannerFinal.png'),
+                          url('../img/bannerCel.png');
+                          z-index: 2;
     }
 }

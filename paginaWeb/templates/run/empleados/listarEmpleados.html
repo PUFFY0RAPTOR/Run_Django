@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de empleados</h2>
-        <table class="table" id="empleadosTable">
+        <table class="table table-responsive" id="empleadosTable">
             <thead class="thead-dark">
                 <tr>
                     <th>id</th>
@@ -19,20 +19,19 @@
                     <th>Eps</th>
                     <th>Correo</th>
                     <th>Acciones</th>
-                    <!-- ('id_empleado', 'nombre_empleado', 'apellido_empleado', 'celular_empleado', 'fecha_nacimiento', 'eps', 'correo', ) -->
                 </tr>
             </thead>
             <tbody>
                 {% for i in datos%}
                 <tr>
-                    <td>{{i.id_empleado}}</td>
-                    <td>{{i.nombre_empleado}}</td>
-                    <td>{{i.apellido_empleado}}</td>
-                    <td>{{i.celular_empleado}}</td>
-                    <td>{{i.fecha_nacimiento}}</td>
-                    <td>{{i.eps}}</td>
-                    <td>{{i.correo}}</td>
-                    <td>
+                    <td class="col-1">{{i.id_empleado}}</td>
+                    <td class="col-1">{{i.nombre_empleado}}</td>
+                    <td class="col-1">{{i.apellido_empleado}}</td>
+                    <td class="col-1">{{i.celular_empleado}}</td>
+                    <td class="col-1">{{i.fecha_nacimiento}}</td>
+                    <td class="col-1">{{i.eps}}</td>
+                    <td class="col-1">{{i.correo}}</td>
+                    <td class="col-1">
                         <a href="{% url 'paginaWeb:upd_empleados_form' i.id_empleado %}" class="btn btn-warning"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">

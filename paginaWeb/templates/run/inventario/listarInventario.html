@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Inventario</h2>
-        <table class="table" id="listarRepuestosTable">
+        <table class="table table-responsive" id="listarRepuestosTable">
             <thead class="thead-dark">
                 <tr>
                     <th>Código</th>
@@ -25,12 +25,12 @@
                 {% for i in productos%}
                 <tr>
                     <td>{{i.id_producto}}</td>
-                    <td>{{i.nombre_producto}}</td>
+                    <td class="col-2 col-lg-3">{{i.nombre_producto}}</td>
                     <td>{{i.stock}}</td>
                     <td>{{i.precio}}</td>
                     <td>{{i.marca}}</td>
                     <td>{{i.descripcion}}</td>
-                    <td><img src="{{i.imagen.url}}" width="70%" height="70%"></td>
+                    <td><img src="{{i.imagen.url}}" width="75%" height="150px"></td>
                     <td>
                         <a class="btn btn-warning" href="{% url 'paginaWeb:upd_inv_form' i.id_producto %}" ><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

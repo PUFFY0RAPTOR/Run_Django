@@ -10,7 +10,7 @@
     <br />
     <h2 id="tituloTables">Clientes Registrados</h2>
     <div id="espacioTables">
-        <table id="listarClientesTable" class="table">
+        <table id="listarClientesTable" class="table table-responsive">
             <thead class="thead-dark">
                 <tr>
                     <th>Código/cedula</th>
@@ -32,7 +32,7 @@
                     <td>{{i.apellido_cliente}}</td>
                     <td>{{i.celular_cliente}}</td>
                     <td>{{i.fecha_nacimiento}}</td>
-                    <td>{{i.direccion}}</td>
+                    <td class="col-2 col-lg-3">{{i.direccion}}</td>
                     <td>{{i.correo}}</td>
                     <td>{{ i.correo.roles.nombre_rol }}</td>
                     <td><a href="{% url 'paginaWeb:upd_clientes_form' i.id_cliente %}" class="btn btn-warning"><svg

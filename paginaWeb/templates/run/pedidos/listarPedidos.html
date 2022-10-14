@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de pedidos</h2>
-        <table class="table" id="pedidosTable">
+        <table class="table table-responsive" id="pedidosTable">
             <thead class="thead-dark">
                 <tr>
                     <th>id Pedido</th>
@@ -20,9 +20,9 @@
                 {% if datos %}
                     {% for i in datos%}
                     <tr>
-                        <td>{{i.id_pedido}}</td>
-                        <td>{{i.cliente}}</td>
-                        <td>
+                        <td class="col-lg-6">{{i.id_pedido}}</td>
+                        <td class="col-lg-6">{{i.cliente}}</td>
+                        <td class="col-lg-6">
                             <a href="{% url 'paginaWeb:upd_pedidos_form' i.id_pedido %}" class="btn btn-warning"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -42,7 +42,7 @@
 
                 {% else %}
                     <tr>
-                        <td>No hay pedidos que mostrar</td>
+                        <td>No hay pedidos que mostrar</td><br>
                     </tr>
                 {% endif %}
             </tbody>

@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de Historial</h2>
-        <table class="table" id="historialTable">
+        <table class="table table-responsive" id="historialTable">
             <thead class="thead-dark">
                 <tr>
                     <th>id de Historial</th>
@@ -26,9 +26,9 @@
                     <tr>
                         <td>{{i.id_historial}}</td>
                         <td>{{i.venta.id_venta}}</td>
-                        <td>{{i.venta.fecha}}</td> <!--cliente ya me da el nombre por el str por lo que no le tengo que poner cliente.nombre_cliente-->
+                        <td class="col-lg-3">{{i.venta.fecha}}</td> <!--cliente ya me da el nombre por el str por lo que no le tengo que poner cliente.nombre_cliente-->
                         <td>{{i.pago.id_pago}}</td>
-                        <td>{{i.pago.fecha_pagos}}</td>
+                        <td class="col-lg-3">{{i.pago.fecha_pagos}}</td>
                         <td>{{i.pago.medio_pago}}</td>
                         <td>
                             <a href="{% url 'paginaWeb:upd_historial_form' i.id_historial %}" class="btn btn-warning"><svg

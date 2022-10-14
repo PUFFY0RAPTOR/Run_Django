@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de medios de pagos</h2>
-        <table class="table" id="mediosPagos">
+        <table class="table table-responsive" id="mediosPagos">
             <thead class="thead-dark">
                 <tr>
                     <th>Código</th>
@@ -20,10 +20,10 @@
             <tbody>
                 {% for i in medios%}
                 <tr>
-                    <td>{{i.id_medio_pago}}</td>
-                    <td>{{i.nombre_medio_pago}}</td>
-                    <td>{{i.estado_medio_pago}}</td>
-                    <td>
+                    <td class="col-lg-4">{{i.id_medio_pago}}</td>
+                    <td class="col-lg-4">{{i.nombre_medio_pago}}</td>
+                    <td class="col-lg-4">{{i.estado_medio_pago}}</td>
+                    <td class="col-2 col-lg-4">
                         <a href="{% url 'paginaWeb:upd_mediosPagos_form' i.id_medio_pago %}" class="btn btn-warning"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">

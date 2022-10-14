@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de pedidos y Productos</h2>
-        <table class="table" id="pedidosProductosTable">
+        <table class="table table-responsive" id="pedidosProductosTable">
             <thead class="thead-dark">
                 <tr>
                     <th>id PedidoProducto</th>
@@ -22,7 +22,7 @@
                 {% if datos %}
                     {% for i in datos%}
                     <tr>
-                        <td>{{i.id_pedidos_productos}}</td>
+                        <td class="col-lg-6">{{i.id_pedidos_productos}}</td>
                         <td>{{i.pedido.id_pedido}}</td>
                         <td>{{i.pedido.cliente}}</td>
                         <td>{{i.producto}}</td>
