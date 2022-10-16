@@ -468,7 +468,7 @@ figure:hover > figcaption {
 
 body {
     /* Ubicación de la imagen */
-    background-image: url('../img/FondoRepuestos.png'); 
+    background-image: url('../img/fondoMoto2.webp');
 
     /* Para dejar la imagen de fondo centrada, vertical y horizontalmente */
     background-position: center center;
