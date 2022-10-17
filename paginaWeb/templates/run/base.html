@@ -238,15 +238,6 @@
 
 
     {% endblock %}
-    
-    
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{% if message.tags != 'error' %}{{ message.tags }}{% elif message.tags == 'error' %}danger{% endif %}"
-            role="alert">
-            {{ message }}</div>
-    {% endfor %}
-{% endif %}
 
 
     {% block body %}
@@ -353,7 +344,23 @@
         </div>
     </div> -->
 
-    {% comment %} <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> {% endcomment %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    {% if messages %}
+        {% for message in messages %}
+            <!-- <div class="alert alert-{% if message.tags != 'error' %}{{ message.tags }}{% elif message.tags == 'error' %}danger{% endif %}"
+                role="alert">
+                {{ message }}</div> -->
+            <script>
+                Swal.fire({
+                    "title": "{{message}}", 
+                    "icon":"success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
 
 </body>
 
