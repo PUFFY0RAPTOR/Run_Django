@@ -48,13 +48,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
-                {% if request.session.auth == None %}
                     <li class="nav-item dropdown active">
                         <a class="nav-link" href="{% url 'paginaWeb:index' %}">
                            Inicio
                         </a>
                     </li>
-                {% endif %}
                 {% if request.session.auth.2 == 3 %}
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
@@ -202,7 +200,7 @@
                 </ul>
             {% endif %}
             {% if request.session.auth %}
-            <ul class="navbar-nav navbar-expand-lg">
+            <!-- <ul class="navbar-nav navbar-expand-lg">
                 <li class="nav-item">
                     <div class="dropdown ml-auto">
                         <form action="{% url 'paginaWeb:logout' %}">
@@ -210,79 +208,30 @@
                         </form>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
+<!-----------------------Esto aun no esta implementado al 100 ya que no he podido traer el objeto completo del usuario ya que esta es la base, no un archivo al que le pueda enviar un contexto-------------------------->
             <!--Icono del perfil-->
-            <ul class="navbar-nav navbar-expand-lg">
-                <li class="nav-item">
-                    <div class="dropdown ml-auto">
-                        
-                        <button class="btn" type="button" data-toggle="modal" data-target="#user">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                            </svg>
-                        </button>
-                        
-                    </div>
-                </li>
-            </ul>
-            <div class="modal fade" id="user" role="dialog">
-                    <!-- The Modal  -->
-                <div class="modal-dialog">
-                    <div class="modal-content">
-            
-                            <!-- Modal Header  -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Información del usuario</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-            
-                            <!-- Modal body  -->
-                        <div class="modal-body">
-                            <form action="{% url 'paginaWeb:index' %}" method="post">
-                                {% csrf_token %}
-            
-                                <div class="datos">
-                                    <label for="cedula"> Cédula: </label>
-                                    <input type="number" name="cedula" size="10" value="{{i.id_cliente}}" readonly />
-            
-                                    <br><label for="nombre"> Nombre: </label>
-                                    <input type="text" name="nombre" size="10" value="{{i.nombre_cliente}}"  />
-            
-                                    <br><label for="apellidos"> Apellidos: </label>
-                                    <input type="text" name="apellidos" size="10" value="{{i.apellido_cliente}}" /><br>
-            
-                                    <label for="correo"> Correo: </label>
-                                    <input type="email" name="correo" value="{{i.correo}}" readonly /> <br>
-            
-                                    <div class="separador"></div>
-                                    <label for="telefono"> Teléfono: </label>
-                                    <input type="tel" name="telefono" value="{{i.celular_cliente}}" /> <br>
-            
-                                    <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
-                                    <input type="text" name="fechaNacim" value="{{i.fecha_nacimiento}}" readonly /><br>
-                                    
-                                    <label for="direccion"> Dirección: </label>
-                                    <input type="text" name="direccion" value="{{i.direccion}}" /> <br>
-            
-                                    <label for="rol"> rol: </label>
-                                    <input type="text" name="rol" value="{{ i.correo.roles.nombre_rol }}" readonly/> <br>
-                                        
-                                </div>
-
-                                <div class="modal-footer">
-                                    <input class="btn btn-primary" type="submit" value="submit" /><br>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
-                                </div>
-                            </form>
-                        </div>
-            
-                            Modal footer 
-                        
-            
-                    </div>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}"> Modificar informacion</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'paginaWeb:logout' %}">Cerrar Sesion                
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}"> Modificar informacion</a>
                 </div>
-            </div> 
+            </li>
+           
             
             {% else %}
             <ul class="navbar-nav">

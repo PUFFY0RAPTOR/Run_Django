@@ -1,4 +1,5 @@
 from email import message
+from statistics import correlation
 from urllib import request
 from django.urls import reverse
 from django.contrib import messages
@@ -104,7 +105,9 @@ def login(request):
             passw = request.POST['passw']
 
             q = Usuarios.objects.get(id_correo = correo, contrasena = passw)
-            #print(q.roles.id_roles)
+            print(correo)
+            c = Empleados.objects.all().values()
+            print(c)
 
             request.session['auth'] = [q.id_correo, q.contrasena, q.roles.id_roles]
 
@@ -121,7 +124,6 @@ def logout(request):
     try:
         del request.session['auth']
         messages.success(request, 'Sesión cerrada correctamente')
-
     except Exception as e:
         messages.error(request, f"Ocurrió un error, intente de nuevo...")
     

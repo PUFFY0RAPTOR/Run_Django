@@ -1,0 +1,70 @@
+{% extends 'run/base.html' %} {% load static  %}
+{% block tituloPage %}Perfil{% endblock tituloPage %}
+
+{% block body %}
+<form action="{% url 'paginaWeb:index' %}" method="post">
+    {% csrf_token %}
+    
+    <div class="datos">
+        {% if request.session.auth.2 == 1 %}
+            <label for="cedula"> Cédula: </label>
+            <input type="number" name="cedula" size="10" value="{{i.id_cliente}}" readonly />
+
+            <br><label for="nombre"> Nombre: </label>
+            <input type="text" name="nombre" size="10" value="{{i.nombre_cliente}}"  />
+
+            <br><label for="apellidos"> Apellidos: </label>
+            <input type="text" name="apellidos" size="10" value="{{i.apellido_cliente}}" /><br>
+
+            <label for="correo"> Correo: </label>
+            <input type="email" name="correo" value="{{i.correo}}" readonly /> <br>
+
+            <div class="separador"></div>
+            <label for="telefono"> Teléfono: </label>
+            <input type="tel" name="telefono" value="{{i.celular_cliente}}" /> <br>
+
+            <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
+            <input type="text" name="fechaNacim" value="{{i.fecha_nacimiento}}" readonly /><br>
+            
+            <label for="direccion"> Dirección: </label>
+            <input type="text" name="direccion" value="{{i.direccion}}" /> <br>
+
+            <label for="rol"> rol: </label>
+            <input type="text" name="rol" value="{{ i.correo.roles.nombre_rol }}" readonly/> <br>
+        {% elif request.session.auth.2 == 2 or request.session.auth.2 == 3 %}
+            <label for="cedula"> Cédula: </label>
+                <input type="number" name="cedula" size="10" value="{{i.id_empleado}}" readonly />
+
+                <br><label for="nombre"> Nombre: </label>
+                <input type="text" name="nombre" size="10" value="{{i.nombre_empleado}}"  />
+
+                <br><label for="apellidos"> Apellidos: </label>
+                <input type="text" name="apellidos" size="10" value="{{i.apellido_empleado}}" /><br>
+
+                <label for="correo"> Correo: </label>
+                <input type="email" name="correo" value="{{i.correo}}" readonly /> <br>
+
+                <div class="separador"></div>
+                <label for="telefono"> Teléfono: </label>
+                <input type="tel" name="telefono" value="{{i.celular_empleado}}" /> <br>
+
+                <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
+                <input type="text" name="fechaNacim" value="{{i.fecha_nacimiento}}" readonly /><br>
+                
+                <label for="direccion"> Dirección: </label>
+                <input type="text" name="direccion" value="{{i.direccion_empleado}}" /> <br>
+
+                <label for="eps"> Eps: </label>
+                <input type="text" name="eps" value="{{i.eps}}" /> <br>
+
+                <label for="rol"> rol: </label>
+                <input type="text" name="rol" value="{{ i.correo.roles.nombre_rol }}" readonly/> <br>
+        {% endif %}
+    </div>
+
+    <div class="modal-footer">
+        <input class="btn btn-primary" type="submit" value="submit" /><br>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"> Cerrar </button>
+    </div>
+</form>
+{% endblock body %}
