@@ -1,0 +1,102 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Registrarse {% endblock %}
+
+{% block body %}
+
+    <br>
+    <h1 id="tituloFormularios">REGISTRARSE</h1>
+    <p class="alinear"> ¿No tienes cuenta? no te preocupes, aqui nos registraremos</p>
+    
+
+    <form action="{% url 'paginaWeb:guardarCliente' %}" method="post" onsubmit="fechacorrect()">
+
+        {% csrf_token %}
+
+        <div class="datosRegistro">
+            <h4>Ingresa los siguientes datos</h4><br>
+
+            <label class="Cedula" for="id">Cédula: </label>
+            <input class="inputregis" type="text" name="Id" size="20" placeholder="Cédula" />
+
+            <label for="nombre">Nombre: </label>
+            <input class="inputregis" type="text" name="Nombre" size="20" placeholder="Nombre" />
+
+            <label for="Apellidos">Apellidos: </label>
+            <input class="inputregis" type="text" name="Apellidos" ssize="20" placeholder="Apellidos" />
+
+            <label for="celular"> Celular: </label>
+            <input type="number" name="Celular" placeholder="celular" />
+
+            <label for="fechaNacim"> Fecha de <br> nacimiento: </label>
+            <input type="date" name="FechaNacim" placeholder="Fecha de nacimiento" min="1950-04-01" max="2022-05-04"
+                id="f1" />
+
+            <label for="direccion"> Dirección: </label>
+            <input type="text" name="Direccion" placeholder="Direccion" />
+
+            <label for="Correo"> Correo electronico: </label>
+            <input type="email" name="Correo" placeholder="Correo" />
+
+            <label for="contrasena"> Contraseña: </label>
+            <input type="password" name="contrasena" placeholder="Contraseña" />
+
+            <label for="contrasenaconfirm"> Confirmar contraseña: </label>
+            <input type="password" name="contrasenaconfirm" placeholder="Digite contraseña nuevamente" /><br>
+
+            ¿Cuál es su género?
+            <input type="radio" name="sexo" value=""> Hombre
+            <input type="radio" name="sexo" value=""> Mujer
+            <input type="radio" name="sexo" value=""> Otro
+        </div>
+
+        <div class="text-center">
+            <br> <input class="btn btn-primary" type="submit" value="Crear Cuenta" /><br>
+        </div><br>
+
+
+    </form><br>
+
+    <div class="modal fade" id="iniciarSesion">
+        <!--Inicio de sesión-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Inicio de sesión</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="inicioSesion">
+                        <div id="intoInicio">
+                            <form class="form-group" action="" method="post">
+                                <input type="email" name="correo" size="auto"
+                                    placeholder="Correo electrónico o número" />
+                                <br>
+
+                                <br> <input type="password" name="contrasena" placeholder="Contraseña" /> <br>
+
+                                <br><button type="submit" onclick="cookieSesion()" class="btn btn-outline-primary">
+                                    Iniciar sesión </button><br>
+
+                                <br> <a href="olvcontra.html"> ¿Olvidaste tu contraseña? </a> <br>
+
+                                <br> <a href="registro.html"> Registrarse </a>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock  %}
