@@ -34,6 +34,7 @@ class RolesPermisos(models.Model):
     def __str__(self):
         return self.nombre_rol """
 
+
 class Usuarios(models.Model):
     id_correo = models.CharField(max_length=150, primary_key=True)
     contrasena = models.CharField(max_length=14)
@@ -41,6 +42,7 @@ class Usuarios(models.Model):
 
     def __str__(self):
         return self.id_correo
+
 
 class Empleados(models.Model):
     id_empleado = models.IntegerField(primary_key=True)
