@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
+#from .cryp import claveEncriptada
 
 #almacenamiento de archivos o fotos
 from django.core.files.storage import FileSystemStorage
@@ -110,11 +111,7 @@ def login(request):
             q = Personas.objects.get(correo = correo, contrasena = passw)
             print(correo)
 
-            request.session['auth'] = [
-                q.correo, 
-                q.contrasena, 
-                q.roles.id_roles
-            ]
+            request.session['auth'] = [q.correo,q.contrasena,q.roles.id_roles]
 
             messages.success(request, f'Bienvenid@ {q.correo}')
         except Exception as e:
@@ -127,6 +124,8 @@ def login(request):
 
 @decoradorPermitirAEC
 def logout(request):
+    """Cerrar session actual, elimina cookie de sesion para ello 
+    """
     try:
         del request.session['auth']
         messages.success(request, 'Sesión cerrada correctamente')
@@ -136,17 +135,32 @@ def logout(request):
     return redirect('paginaWeb:index')
 
 
-#Registros clientes
+#Personas 
+def perfil(request):
+    """retorna acceso al perfil del usuario
+    """
+    auth = request.session.get('auth', False)
+    q = Personas.objects.get(correo = auth[0])
+
+    contexto = {'usuario': q}
+
+    return render(request, 'run/perfil/perfil.html', contexto)
+
 @decoradorDenegarAEC
 def registro(request):
+    """Autenticación y control de acceso 
+    de los usuarios del sistema 
+    """
     return render(request, 'run/registros/registro.html')
 
 @decoradorDenegarAEC
-def guardarCliente(request):
+def guardarPersona(request):
+    """Autentica y guarda nuevo registro de usuario(Persona) en el sistema 
+    """
     if request.method == 'POST':
         try:    
-            CoExistente = Usuarios.objects.filter(id_correo=request.POST['Correo'])
-            ceduExistente = Clientes.objects.filter(id_cliente= request.POST['Id'])
+            CoExistente = Personas.objects.filter(correo=request.POST['Correo'])
+            ceduExistente = Personas.objects.filter(cedula= request.POST['Id'])
             if CoExistente:
                 messages.error(request, "Correo ya registrado, ingrese uno diferente por favor")
                 return render(request, 'run/registros/registro.html')
@@ -154,21 +168,30 @@ def guardarCliente(request):
                 messages.error(request, "cedula ya registrada, ingrese una diferente por favor")
                 return render(request, 'run/registros/registro.html')
             else:
-                usuarioContrasena = Usuarios(
-                    id_correo = request.POST['Correo'], 
+                if request.FILES:
+                    #crear instancia de File System Storage
+                    fss = FileSystemStorage()
+                    #capturar la foto del formulario
+                    f = request.FILES["imagen"]
+                    #cargar archivos al servidor
+                    file = fss.save("RUN/fotoUsuario/"+f.name, f)
+                else:
+                    file = "RUN/fotoUsuario/default.png"
+
+                usuarioNew = Personas(
+                    cedula = request.POST['Id'],
+                    foto = file,
+                    nombre = request.POST['Nombre'],
+                    apellido = request.POST['Apellidos'],
+                    celular = request.POST['Celular'],
+                    fecha_nacimiento = request.POST['FechaNacim'],
+                    direccion = request.POST['Direccion'],
+                    tipo = "No lo sé", #No sé qué se coloca aqui
+                    correo = request.POST['Correo'],
                     contrasena = request.POST['contrasena'], 
                     roles = Roles.objects.get(pk=1)
                 )
-                usuarioContrasena.save()
-                q = Clientes(
-                    id_cliente = request.POST['Id'],
-                    nombre_cliente = request.POST['Nombre'],
-                    apellido_cliente = request.POST['Apellidos'],
-                    celular_cliente = request.POST['Celular'],
-                    fecha_nacimiento = request.POST['FechaNacim'],
-                    direccion = request.POST['Direccion'],
-                    correo = Usuarios.objects.get(pk = request.POST['Correo'])) #aqui cambia la cosa)
-                q.save()
+                usuarioNew.save()
                 #return render(request, 'run/login/login.html')
                 messages.success(request, "Usuario registrado exitosamente")
                 return redirect('paginaWeb:list_usu')
@@ -179,25 +202,35 @@ def guardarCliente(request):
         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
         return render(request, 'run/index.html')
 
+#Registros clientes
 
-def registrarPersonasForm(request):
-    return render(request, 'run/registros/registro.html')
-
-def registrarPersonas(request):    
-    """
-    Método de registro de personas
-    """
-    
-    
 
 
 @decoradorPermitirAC
-def eliminarCliente(request, id):
+def eliminarPersona(request, id):
+    """Elimina un usuario(Persona)
+    """
     try:
-        usuario = Clientes.objects.get(pk=id)
-        usuarioCorreo = Usuarios.objects.get(pk=usuario.correo)
+        usuario = Personas.objects.get(cedula=id)
+        from pathlib import Path
+        from os import remove, path 
+        # Build paths inside the project like this: BASE_DIR / 'subdir'.
+        BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+        ruta_imagen =  str(BASE_DIR)+str(usuario.foto.url)
+
+        #buscamos si existe la ruta
+        if path.exists(ruta_imagen):
+            #si es diferente a la default la borramos, ya que no podemos borrar la imagen por predeterminado
+            print(usuario.foto.url)
+            if usuario.foto.url != "/uploads/RUN/fotoUsuario/default.png":
+                remove(ruta_imagen)
+                messages.success(request,"Foto borrada correctamente.")
+            else:
+                print("La foto del usuario es predeterminada")
+            #     messages.warning(request,"No se puede borrar la foto debido a que es la que tiene por pre--determinado.")
         usuario.delete()
-        usuarioCorreo.delete()
         messages.success(request, "Eliminado correctamente")
         return redirect ('paginaWeb:list_usu')
     except Exception as e:
@@ -205,23 +238,44 @@ def eliminarCliente(request, id):
         return redirect ('paginaWeb:list_usu')
     
 @decoradorPermitirC
-def updateCliente(request):
+def updatePersona(request):
+    """Actualiza la información de un usuario(Persona)
+    """
     if request.method == "POST":
         try:
-            cliente = Clientes.objects.get(pk=request.POST['cedula'])
-            #editamos primero la contraseña y su rol
-            usuarios = Usuarios.objects.get(id_correo=request.POST['correo'])
-            usuarios.contrasena = request.POST['contrasena']
-            usuarios.roles = Roles.objects.get(pk=request.POST['rol'])
-            usuarios.save()
+            persona = Personas.objects.get(pk=request.POST['cedula'])
 
+            if request.POST['password'] != "":
+                persona.contrasena = (request.POST['password'])#claveEncriptada
 
-            cliente.nombre_cliente = request.POST['nombre']
-            cliente.apellido_cliente = request.POST['apellidos']
-            cliente.celular_cliente = request.POST['telefono']
-            cliente.direccion = request.POST['direccion']
-            
-            cliente.save()
+            if request.FILES:
+                #crear instancia de File System Storage
+                fss = FileSystemStorage()
+                #capturar la foto del formulario
+                f = request.FILES["foto"]
+                #cargar archivos al servidor
+                file = fss.save("RUN/fotoUsuario/"+f.name, f)
+
+                #Mi manera de borrar
+                import os 
+                from django.conf import settings
+                #base = str()
+                #Borrar imagen anterior
+                if persona.foto.url != "RUN/fotoUsuario/default.png":
+                    fotoVieja = str(settings.BASE_DIR)+persona.foto.url
+                    os.remove(fotoVieja)
+                    messages.success(request,"Foto borrada correctamente.")
+                
+                #print(f"{settings.BASE_DIR}/{a.foto.url[1:]}")
+                #asignamos la foto
+                persona.foto = file
+
+            persona.nombre = request.POST['nombre']
+            persona.apellido = request.POST['apellidos']
+            persona.celular = request.POST['telefono']
+            persona.direccion = request.POST['direccion']
+            #persona.roles = Roles.objects.get(pk=request.POST['rol'])
+            persona.save()
             messages.success(request, "Actualizado correctamente")
             return redirect('paginaWeb:list_usu')
         except Exception as e:
@@ -234,21 +288,24 @@ def updateCliente(request):
 
 #hubo problemas con el nombre, luego se cambian
 @decoradorPermitirAE
-def listarClientes(request):
-    q = Clientes.objects.all()
+def listarPersonas(request):
+    """Trae todos los usuarios activos en el momento para mostrarlos en un html
+    """
+    q = Personas.objects.all()
 
     contexto = {'datos': q}
 
-    return render(request, 'run/clientes/listarUsuarios.html', contexto)
+    return render(request, 'run/personas/listarPersonas.html', contexto)
 
 @decoradorPermitirAEC
-def buscarClienteEditar(request, id):
+def buscarPersonaEditar(request, id):
+    """No lo sé
+    """
+    q = Personas.objects.get(pk = id)
 
-    q = Clientes.objects.get(pk = id)
+    contexto = {'personas': q}
 
-    contexto = {'clientes': q}
-
-    return render(request, 'run/clientes/editarClientes.html', contexto)
+    return render(request, 'run/personas/editarPersonas.html', contexto)
 
 
 #Marcas
@@ -991,7 +1048,7 @@ def listarPedidos(request):
 def addPedidos(request):
     if request.method == 'POST':
         try:    
-            CoExistente = Clientes.objects.filter(id_cliente=request.POST['cliente'])
+            CoExistente = Clientes.objects.filter(id=request.POST['cliente'])
             pediExistente = Pedidos.objects.filter(id_pedido= request.POST['id_pedido'])
             if not CoExistente:
                 messages.error(request, "usuario no encontrado, ingrese uno diferente por favor")

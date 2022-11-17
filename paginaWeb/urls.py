@@ -12,20 +12,21 @@ urlpatterns = [
     path('logout/', decoradorPermitirAEC(views.logout), name='logout'),
 
     #Nuevo código
-    path('personasForm/', views.registrarPersonasForm, name='personas_form'),
-    path('registrarPersonas/', views.registrarPersonas, name='reg_personas'),
+    # path('personasForm/', views.registrarPersonasForm, name='personas_form'),
+    # path('registrarPersonas/', views.registrarPersonas, name='reg_personas'),
     
+    #perfil
+    path('perfil/', views.perfil, name='perfil'),
 
-
-    #clientes
-    path('registroClientes/', decoradorDenegarAEC(views.registro), name='registro'),
-    path('guardarClientes/', decoradorDenegarAEC(views.guardarCliente), name='guardarCliente'),
-    path('eliminarCliente/<int:id>', decoradorPermitirAC(views.eliminarCliente), name='delCliente'),
-    path('eliminarCliente/', views.sinId, name='del_cliente_sin_id'),
-    path('clienteEditar/<int:id>', decoradorPermitirAEC(views.buscarClienteEditar), name="upd_clientes_form"),
-    path('clienteEditar/', views.sinId, name='upd_cliente_sin_id'),
-    path('updateCliente/', decoradorPermitirC(views.updateCliente), name='updCliente'),
-    path('listarClientes/', decoradorPermitirAE(views.listarClientes), name='list_usu'),
+    
+    path('registroPersona/', decoradorDenegarAEC(views.registro), name='registro'),
+    path('guardarPersona/', decoradorDenegarAEC(views.guardarPersona), name='guardarPersona'),
+    path('eliminarPersona/<int:id>', decoradorPermitirAC(views.eliminarPersona), name='delPersona'),
+    path('eliminarPersona/', views.sinId, name='del_persona_sin_id'),
+    path('personaEditar/<int:id>', decoradorPermitirAEC(views.buscarPersonaEditar), name="upd_personas_form"),
+    path('personaEditar/', views.sinId, name='upd_persona_sin_id'),
+    path('updatePersona/', decoradorPermitirC(views.updatePersona), name='updPersona'),
+    path('listarPersonas/', decoradorPermitirAE(views.listarPersonas), name='list_usu'),
 
 
     #Empleados
