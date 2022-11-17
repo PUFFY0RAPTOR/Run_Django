@@ -11,6 +11,12 @@ urlpatterns = [
     path('login/', decoradorDenegarAEC(views.login), name='login'),
     path('logout/', decoradorPermitirAEC(views.logout), name='logout'),
 
+    #Nuevo código
+    path('personasForm/', views.registrarPersonasForm, name='personas_form'),
+    path('registrarPersonas/', views.registrarPersonas, name='reg_personas'),
+    
+
+
     #clientes
     path('registroClientes/', decoradorDenegarAEC(views.registro), name='registro'),
     path('guardarClientes/', decoradorDenegarAEC(views.guardarCliente), name='guardarCliente'),
@@ -83,6 +89,12 @@ urlpatterns = [
     path('updateMarcasForm/<int:id>', decoradorPermitirAE(views.updateMarcasForm), name='upd_marcas_form'),
     path('updateMarcasForm/', views.sinId, name='upd_marcas_form_sin_id'),
     path('updateMarcas/', decoradorPermitirAE(views.updateMarcas), name='upd_marcas'),
+
+    #Imagenes
+    path('regImagenesForm/', views.regImagenesForm, name='reg_imagenes_form'),
+    path('regImagenes/', views.regImagenes, name='reg_imagenes'),
+    path('listImagenes/', views.listImagenes, name='list_imagenes'),
+
 
     #Compras
     path('verProductos/', views.verProductos, name='ver_prod'),

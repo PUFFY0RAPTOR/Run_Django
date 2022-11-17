@@ -94,10 +94,14 @@ def index(request):
 #Login
 @decoradorDenegarAEC
 def loginForm(request):
+    """Método para acceder al formulario de logueo"""
     return render(request, 'run/login/login.html')
 
 @decoradorDenegarAEC
 def login(request):
+    """Autenticación y control de acceso 
+    de los usuarios del sistema 
+    """
     if request.method == 'POST':
         try:
             correo = request.POST['email']
@@ -106,11 +110,16 @@ def login(request):
             q = Personas.objects.get(correo = correo, contrasena = passw)
             print(correo)
 
-            request.session['auth'] = [q.correo, q.contrasena, q.roles.id_roles]
+            request.session['auth'] = [
+                q.correo, 
+                q.contrasena, 
+                q.roles.id_roles
+            ]
 
-            messages.success(request, 'Bienvenido!!')
+            messages.success(request, f'Bienvenid@ {q.correo}')
         except Exception as e:
-            messages.error(request, f'Hubo un error con los datos... {e}')
+            messages.error(request, f'Correo o contraseña incorrectos...')
+            return redirect('paginaWeb:login_form')
     else:
         messages.warning(request, '¿Qué estás haciendo?')
     
@@ -169,6 +178,18 @@ def guardarCliente(request):
     else:
         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
         return render(request, 'run/index.html')
+
+
+def registrarPersonasForm(request):
+    return render(request, 'run/registros/registro.html')
+
+def registrarPersonas(request):    
+    """
+    Método de registro de personas
+    """
+    
+    
+
 
 @decoradorPermitirAC
 def eliminarCliente(request, id):
@@ -301,13 +322,69 @@ def updateMarcas(request):
         messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
         return redirect('paginaWeb:list_marcas')
 
+
 #Compras
 def verProductos(request):
+    """Método para visualizar los productos ofrecidos en la tienda"""
+
     q = Productos.objects.all()
-    contexto = {'productos': q}
+
+    producto = q
+    s = Imagenes.objects.filter(productos = producto)
+    i = Imagenes.objects.all()
+
+    contexto = {'productos': q, 'imagenes':i}
 
     return render(request, 'run/compras/compras.html', contexto)
 
+
+#Imagenes
+def regImagenesForm(request):
+    """Formulario para acceder al registro
+    de imagenes nuevas para los productos
+    """
+    p = Productos.objects.all()
+    contexto = {'productos':p}
+    return render(request, 'run/imagenes/registrar_imagenes.html', contexto)
+
+
+def regImagenes(request):
+    """Método para guardar las imagenes 
+    con su respectivo producto
+    """
+    if request.method == "POST":
+        try:
+            if request.FILES:
+                #crear instancia de File System Storage
+                fss = FileSystemStorage()
+                #capturar la foto del formulario
+                f = request.FILES["imagen"]
+                #cargar archivos al servidor
+                file = fss.save("RUN/imagProductos/"+f.name, f) #    Guardar en esta ruta, esta imagen.
+            else:
+                file = "RUN/imagProductos/default.png"
+            
+            q = Imagenes(
+                id_imagen = request.POST['idImagen'],
+                imagen = file,
+                productos = Productos.objects.get(pk = request.POST['producto']),
+            ) 
+            q.save()
+            messages.success(request, "Imagen guardadada correctamente!!!")
+        except Exception as e:
+            messages.error(request, f"Ha ocurrido un error {e}")
+            return redirect('paginaWeb:reg_imagenes_form')
+    else:
+        messages.warning(request, "Estás haciendo cosas raras...")
+    
+    return redirect('paginaWeb:list_imagenes')
+
+def listImagenes(request):
+    """Método para listar las imagenes"""
+    q = Imagenes.objects.all()
+    contexto = {'imagenes': q}
+    return render(request, 'run/imagenes/listar_imagenes.html', contexto)
+    
 
 #Inventario
 @decoradorPermitirAE

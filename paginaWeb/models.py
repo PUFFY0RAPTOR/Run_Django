@@ -57,7 +57,7 @@ class Productos(models.Model):
     categoria = models.ForeignKey(Categorias, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.nombre_producto
+        return f"{self.id_producto}"
 
 
 class Imagenes(models.Model):
