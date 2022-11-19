@@ -1,24 +1,25 @@
 from django.urls import path
 from . import views
-from .views import decoradorPermitirAE, decoradorDenegarAEC, decoradorPermitirAEC, decoradorPermitirA, decoradorPermitirC, decoradorPermitirAC
+from .views import decoradorPermitirAE, decoradorDenegarAEC, decoradorPermitirAEC, decoradorPermitirA, \
+    decoradorPermitirC, decoradorPermitirAC
 
-app_name="paginaWeb"
+app_name = "paginaWeb"
 urlpatterns = [
     path('', views.index, name='index'),
 
-    #Login
+
+    # Login
     path('loginForm/', decoradorDenegarAEC(views.loginForm), name='login_form'),
     path('login/', decoradorDenegarAEC(views.login), name='login'),
     path('logout/', decoradorPermitirAEC(views.logout), name='logout'),
 
-    #Nuevo código
+    # Nuevo código
     # path('personasForm/', views.registrarPersonasForm, name='personas_form'),
     # path('registrarPersonas/', views.registrarPersonas, name='reg_personas'),
-    
-    #perfil
+
+    # perfil
     path('perfil/', views.perfil, name='perfil'),
 
-    
     path('registroPersona/', decoradorDenegarAEC(views.registro), name='registro'),
     path('guardarPersona/', decoradorDenegarAEC(views.guardarPersona), name='guardarPersona'),
     path('eliminarPersona/<int:id>', decoradorPermitirAC(views.eliminarPersona), name='delPersona'),
@@ -28,8 +29,7 @@ urlpatterns = [
     path('updatePersona/', decoradorPermitirC(views.updatePersona), name='updPersona'),
     path('listarPersonas/', decoradorPermitirAE(views.listarPersonas), name='list_usu'),
 
-
-    #Empleados
+    # Empleados
     path('formuEmpleados/', decoradorPermitirA(views.formEmpleados), name='form_empleados'),
     path('listarEmpleados/', decoradorPermitirA(views.listarEmpleados), name='list_empleados'),
     path('addEmpleados/', decoradorPermitirA(views.addEmpleados), name='add_empleados'),
@@ -39,7 +39,7 @@ urlpatterns = [
     path('updateEmpleadosForm/', views.sinId, name='upd_empleados_form_sin_id'),
     path('updateEmpleados/', decoradorPermitirA(views.updateEmpleados), name='upd_empleados'),
 
-    #Usuarios
+    # Usuarios
     path('formuUsuarios/', decoradorPermitirA(views.formUsuarios), name='form_usuarios'),
     path('listarUsuarios/', decoradorPermitirA(views.listarUsuarios), name='list_usuarios'),
     path('addUsuarios/', decoradorPermitirA(views.addUsuarios), name='add_usuarios'),
@@ -49,7 +49,7 @@ urlpatterns = [
     path('updateUsuariosForm/', views.sinId, name='upd_usuarios_form_sin_id'),
     path('updateUsuarios/', decoradorPermitirA(views.updateUsuarios), name='upd_usuarios'),
 
-    #Ventas 
+    # Ventas
     path('formuVentas/', decoradorPermitirAE(views.formVentas), name='form_ventas'),
     path('listarVentas/', decoradorPermitirAE(views.listarVentas), name='list_ventas'),
     path('addVentas/', decoradorPermitirAE(views.addVentas), name='add_ventas'),
@@ -59,8 +59,7 @@ urlpatterns = [
     path('updateVentasForm/', views.sinId, name='upd_ventas_form_sin_id'),
     path('updateVentas/', decoradorPermitirAE(views.updateVentas), name='upd_ventas'),
 
-
-    #Historial 
+    # Historial
     path('formuHistorial/', decoradorPermitirA(views.formHistorial), name='form_historial'),
     path('listarHistorial/', decoradorPermitirAE(views.listarHistorial), name='list_historial'),
     path('addHistorial/', decoradorPermitirA(views.addHistorial), name='add_historial'),
@@ -70,8 +69,7 @@ urlpatterns = [
     path('updateHistorialForm/', views.sinId, name='upd_historial_form_sin_id'),
     path('updateHistorial/', decoradorPermitirA(views.updateHistorial), name='upd_historial'),
 
-
-    #Pedidos
+    # Pedidos
     path('formuPedidos/', decoradorPermitirAE(views.formPedidos), name='form_pedidos'),
     path('listarPedidos/', decoradorPermitirAE(views.listarPedidos), name='list_pedidos'),
     path('addPedidos/', decoradorPermitirAE(views.addPedidos), name='add_pedidos'),
@@ -81,7 +79,7 @@ urlpatterns = [
     path('updatePedidosForm/', views.sinId, name='upd_pedidos_form_sin_id'),
     path('updatePedidos/', decoradorPermitirAE(views.updatePedidos), name='upd_pedidos'),
 
-    #Marcas
+    # Marcas
     path('formuMarcas/', decoradorPermitirAE(views.formMarcas), name='form_marcas'),
     path('listarMarcas/', views.listarMarcas, name='list_marcas'),
     path('addMarcas/', decoradorPermitirAE(views.addMarcas), name='add_marcas'),
@@ -91,16 +89,15 @@ urlpatterns = [
     path('updateMarcasForm/', views.sinId, name='upd_marcas_form_sin_id'),
     path('updateMarcas/', decoradorPermitirAE(views.updateMarcas), name='upd_marcas'),
 
-    #Imagenes
+    # Imagenes
     path('regImagenesForm/', views.regImagenesForm, name='reg_imagenes_form'),
     path('regImagenes/', views.regImagenes, name='reg_imagenes'),
     path('listImagenes/', views.listImagenes, name='list_imagenes'),
 
-
-    #Compras
+    # Compras
     path('verProductos/', views.verProductos, name='ver_prod'),
 
-    #Inventario
+    # Inventario
     path('regInventario/', decoradorPermitirAE(views.registroInventario), name='reg_inv'),
     path('inventario/', decoradorPermitirAE(views.listarInventario), name='list_inv'),
     path('crearInv/', decoradorPermitirAE(views.crearInventario), name='crear_inv'),
@@ -110,30 +107,31 @@ urlpatterns = [
     path('updateInvForm/', views.sinId, name='upd_inv_form_sin_id'),
     path('updateInv/', decoradorPermitirAE(views.updateInventario), name='upd_inv'),
 
-    #PedidosProductos (inventario)
+    # PedidosProductos (inventario)
     path('formuPediProduc/', decoradorPermitirA(views.formPedidosProductos), name='form_pedidos_productos'),
     path('listarPediProduc/', decoradorPermitirA(views.listarPedidosProductos), name='list_pedidos_productos'),
     path('addPediProduc/', decoradorPermitirA(views.addPedidosProductos), name='add_pedidos_productos'),
     path('elimPediProduc/<id>', decoradorPermitirA(views.deletePedidosProductos), name='del_pedidos_productos'),
     path('elimPediProduc/', views.sinId, name='del_pedidos_productos_sin_id'),
-    path('updatePediProducForm/<id>', decoradorPermitirA(views.updatePedidosProductosForm), name='upd_pedidos_productos_form'),
+    path('updatePediProducForm/<id>', decoradorPermitirA(views.updatePedidosProductosForm),
+         name='upd_pedidos_productos_form'),
     path('updatePediProducForm/', views.sinId, name='upd_pedidos_productos_form_sin_id'),
     path('updatePediProduc/', decoradorPermitirA(views.updatePedidosProductos), name='upd_pedidos_productos'),
 
-    #Ayuda
+    # Ayuda
     path('ayuda/', views.ayuda, name='ayuda'),
 
-    #Marcas
+    # Marcas
     path('marcas/', views.marcas, name='marcas'),
 
-    #Carrito
+    # Carrito
     path('carritoCompras/', decoradorPermitirC(views.mostrarCarrito), name='carrito'),
     path('addCarrito/<int:id>', decoradorPermitirC(views.addCarrito), name='add_carrito'),
     path('vaciarCarrito/', decoradorPermitirC(views.vaciarCarrito), name='vaciar_carrito'),
-    path('borrarElementoCarrito/<int:id>', decoradorPermitirC(views.borrarElementoCarrito), name='borrar_elemento_carrito'),
+    path('borrarElementoCarrito/<int:id>', decoradorPermitirC(views.borrarElementoCarrito),
+         name='borrar_elemento_carrito'),
 
-
-    #Admin - Roles
+    # Admin - Roles
     path('listarRoles/', decoradorPermitirAE(views.listRoles), name='list_roles'),
     path('regRolesForm/', decoradorPermitirA(views.regRolesForm), name='reg_roles_form'),
     path('registroRoles/', decoradorPermitirA(views.rolRegistro), name='reg_roles'),
@@ -143,8 +141,7 @@ urlpatterns = [
     path('updateRolesForm/', views.sinId, name='upd_roles_form_sin_id'),
     path('updateRoles/', decoradorPermitirA(views.updateRol), name='upd_roles'),
 
-
-    #Envios
+    # Envios
     path('listarEnvios/', decoradorPermitirAE(views.listEnvios), name='list_envios'),
     path('FormEnvios/', decoradorPermitirAE(views.formEnvios), name='form_envios'),
     path('addEnvios/', decoradorPermitirAE(views.addEnvios), name='add_envios'),
@@ -153,9 +150,8 @@ urlpatterns = [
     path('updateEnviosForm/<int:id>', decoradorPermitirAE(views.updateEnviosForm), name='upd_envios_form'),
     path('updateEnviosForm/', views.sinId, name='upd_envios_form_sin_id'),
     path('updateEnvios/', decoradorPermitirAE(views.updateEnvios), name='upd_envios'),
-    
 
-    #MediosDePago
+    # MediosDePago
     path('listarMediosPago/', decoradorPermitirA(views.listMediosPagos), name='list_mediosPagos'),
     path('formMediosPago/', decoradorPermitirA(views.formMediosPagos), name='form_mediosPagos'),
     path('addMedioPago/', decoradorPermitirA(views.addMediosPagos), name='add_medioPago'),
@@ -165,8 +161,7 @@ urlpatterns = [
     path('updateMedioPagoForm/', views.sinId, name='upd_mediosPagos_form_sin_id'),
     path('updateMedioPagos/', decoradorPermitirA(views.updateMediosPagos), name='upd_mediosPagos'),
 
-
-    #Pagos
+    # Pagos
     path('listarPagos/', decoradorPermitirAE(views.listPagos), name='list_pagos'),
     path('formPagos/', decoradorPermitirA(views.formPagos), name='form_pagos'),
     path('addPagos/', decoradorPermitirA(views.addPagos), name='add_pagos'),
