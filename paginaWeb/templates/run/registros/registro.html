@@ -1,0 +1,76 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Registrarse {% endblock %}
+
+{% block body %}
+
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
+
+        <h1 class="text-center">Registro</h1>
+        <div>
+            <form action="{% url 'paginaWeb:guardarPersona' %}" method="post" enctype="multipart/form-data" class="row">
+
+                {% csrf_token %}
+
+                <div class="col-4">
+                    <label for="cedula" class="form-label">Cédula: </label>
+                    <input type="number" id="cedula" name="Id" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="nombre" class="form-label">Nombre: </label>
+                    <input type="text" id="nombre" name="Nombre" class="form-control">
+                </div>
+
+                <div class="col-4 flex-wrap-reverse">
+                    <label for="apellido" class="form-label">Apellido: </label>
+                    <input type="text" id="apellido" name="Apellidos" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="celular" class="form-label">Celular: </label>
+                    <input type="number" id="celular" name="Celular" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="nacimiento" class="form-label">Fecha de nacimiento: </label>
+                    <input type="date" id="nacimiento" name="FechaNacim" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="direccion" class="form-label">Dirección: </label>
+                    <input type="text" id="direccion" name="Direccion" class="form-control">
+                </div><br>
+
+                {% if request.session.auth.2 == 3 %}
+                    <div class="col-4">
+                        <label for="rol" class="form-label">Dirección: </label>
+                        <select id="rol" name="rol" class="form-select">
+                            <option value="" selected>Seleccione el rol</option>
+                                {% for i in roles %}
+                                    <option value="{{ i.id_roles }}">{{ i.nombre_rol }}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+
+                <div class="col-4">
+                    <label for="correo" class="form-label">Correo electrónico: </label>
+                    <input type="email" id="correo" name="Correo" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="password" class="form-label">Contraseña: </label>
+                    <input type="password" id="password" name="contrasena" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="perfil" class="form-label">Foto de perfil: </label>
+                    <input type="file" id="perfil" name="imagen" class="form-control">
+                </div><br>
+
+                <br><input type="submit" class="btn btn-primary mt-4 col-1" value="Crear">
+            </form>
+        </div>
+    </div>
+
+{% endblock  %}

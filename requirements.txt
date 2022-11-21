@@ -1,0 +1,6 @@
+#pip install -r requirements.txt
+#Version comprobada para la aplicacion. Pero podría  funcionar con una mas actualizada
+Django == 4.0.6
+
+#libreria para tratamiento de imagenes en Python
+Pillow >= 9.2.0

@@ -1,0 +1,31 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Registrar roles {% endblock %}
+{% block body %}
+
+    {% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><h1>Registro de roles</h1><br/>
+    
+    <div>
+        <form action="{% url 'paginaWeb:reg_roles' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+
+                <label for="codigo">Código: </label>
+                <input type="number" name="idRol" size="auto" placeholder="Código del rol"/><br>
+
+                <br><label for="nombreRes">Nombre rol: </label>
+                <input type="text" name="nameRol" placeholder="Nombre del rol" /> <br>
+
+                <br><label for="desc">Descripción: </label>
+                <textarea name="descripcion" id="desc" cols="30" rows="5" placeholder="Descripción del rol..."></textarea>
+
+            </div>
+            <div class="text-center">
+                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+            </div>
+
+        </form>
+    </div><br>
+
+{% endblock  %}

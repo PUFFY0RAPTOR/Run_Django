@@ -1,0 +1,40 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Medios de pago Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Añadir medio de pago</h1>
+
+        <form action="{% url 'paginaWeb:add_medioPago' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+
+                <label for="idMedio">Código: </label>
+                <input type="number" name="idMedio" placeholder="Código del medio de pago: "/><br>
+
+                <br><label for="nombreMedio">Nombre del medio de pago: </label>
+                <input type="text" name="nombreMedio" placeholder="Nombre: "/> <br><br>
+ 
+                {% comment %} <label for="estado">Estado: </label></br>
+                <input type="text" name="estado" placeholder="Estado del medio de pago:" /> <br><br> {% endcomment %}
+                <label for="estado">Estado: </label>
+                <select name="estado" id="estado">
+                    <option selected>Seleccione un estado</option>
+                    <option value="Habilitado">Habilitado</option>
+                    <option value="Deshabilitado">Deshabilitado</option>
+                </select>
+
+                <!-- Hay que cambiar esto para que cuando se agreguen roles, se muestren, lo hice muy mecanico-->
+
+            </div>
+            <div class="text-center">
+                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+            </div>
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

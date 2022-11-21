@@ -1,0 +1,39 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Registrar imagenes {% endblock %}
+
+{% block body %}
+
+    {% block motos %}{% endblock%}
+
+    <br/><div class="container">
+        <form action="{% url 'paginaWeb:reg_imagenes' %}" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="datosDiv">
+
+                <h1 class="text-primary">Añadir imagenes</h1><br>
+
+                <label for="idImagen">Código de imagen: </label>
+                <input type="number" name="idImagen" id="idImagen" placeholder="Código de la imagen: "/><br>
+
+                <br><label for="imagen">Imagen: </label>
+                <input type="file" id="imagen" name="imagen"><br>
+
+
+                <br><label for="producto">Producto asociado: </label>
+                <select name="producto" id="producto">
+                    <option selected>Seleccione un producto para asociar </option>
+                    {% for i in productos %}
+                        <option value="{{i.id_producto}}"> {{i.id_producto}} - {{i.nombre_producto}} </option>
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="text-center">
+                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+            </div>
+        </form>
+
+    </div><br/>
+
+{% endblock  %}

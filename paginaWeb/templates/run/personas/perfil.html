@@ -1,0 +1,52 @@
+{% extends 'run/base.html' %} {% load static  %}
+{% block tituloPage %}Perfil{% endblock tituloPage %}
+
+{% block body %}
+<h1>Perfil</h1>
+    <div class="card mb-3" style="max-width: 940px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{usuario.foto.url}}" class="img-fluid rounded-start" alt="{{usuario.nombre}}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
+              <p class="card-text">
+                <form action="{% url 'paginaWeb:updPersona' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="number" name="cedula" value="{{ usuario.cedula }}" hidden>
+
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" value="{{usuario.nombre}}" ><br>
+
+                    <label for="apellido">Apellido</label>
+                    <input type="text" name="apellidos" class="form-control" value="{{usuario.apellido}}" ><br>
+
+                    <label for="apellido">Celular</label>
+                    <input type="text" name="celular" class="form-control" value="{{usuario.celular}}" ><br>
+
+                    <label for="apellido">Dirección</label>
+                    <input type="text" name="direccion" class="form-control" value="{{usuario.direccion}}" ><br>
+
+                    <label for="correo">Correo</label>
+                    <input type="email" name="correo" class="form-control" value="{{usuario.correo}}" ><br>
+
+                    <p class="card-text"><small class="text-muted">dejar sin cambios para mantener</small></p>
+                    <label for="password">Contraseña</label>
+                    <input type="password" name="password" class="form-control" value="" ><br>
+
+                    <label for="foto">Foto nueva</label>
+                    <input type="file" class="form-control" name="foto"><br>
+
+
+                    <button type="submit" class="btn btn-success">Submit</button>
+
+                </form>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
