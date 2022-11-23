@@ -857,8 +857,7 @@ def addVentas(request):
             else:
                 q = Ventas(
                     id_venta=request.POST['id_venta'],
-                    pedido=Pedidos.objects.get(pk=request.POST['pedido']),
-                    envio=Envios.objects.get(pk=request.POST['envio']))
+
                 q.save()
                 messages.success(request, "Venta registrada exitosamente")
                 return redirect('paginaWeb:list_ventas')
