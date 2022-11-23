@@ -8,7 +8,7 @@
         <br>
         <h1 id="tituloFormularios"> Editar producto {{productos.nombre_producto}} con Id: {{productos.id_producto}} </h1>
 
-        <form action="{% url 'paginaWeb:upd_inv' %}" method="post">
+        <form action="{% url 'paginaWeb:upd_inv' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="datosDiv">
 
@@ -49,6 +49,12 @@
 
                 <label for="desc">Descripción: </label>
                 <textarea name="descripcion" id="desc" cols="30" rows="5">{{productos.descripcion}}</textarea>
+
+                <label for="desc">Imagen Actual: </label>
+                <a href="{{productos.imagen.url}}" target="_blank" ><img src="{{productos.imagen.url}}"  width="20%" /></a>
+
+                <label for="imagen">Imagen: </label>
+                <input type="file" name="imagen">
 
             </div>
             <div class="text-center">

@@ -1,0 +1,52 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Ventas Formulario {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Editar Venta con id: {{ventas.id_venta}}</h1>
+
+        <form action="{% url 'paginaWeb:upd_ventas' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+                
+                <label for="id_venta"> id de la venta: </label>
+                <input type="number" name="id_venta" value="{{ventas.id_venta}}" readonly /> <br>
+
+                <label for="">id de pedido actual es:</label>
+                <select class="form-select" id="" name="">
+                    <option value="">{{ventas.pedido.id_pedido}}</option>
+                </select><br>
+
+                <label for="pedido">escoja su nuevo id pedido:</label>
+                <select class="form-select" id="pedido" name="pedido" >
+                    {% for i in pedidos %}
+                    <option value="{{i.id_pedido}}">{{i.id_pedido}}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <label for="">Su envio actual es:</label>
+                <select class="form-select" id="" name="">
+                    <option value="">{{ventas.envio.id_envios}}--fecha:{{ventas.envio.fecha_envio}}</option>
+                </select><br>
+                
+                <label for="envio">escoja el nuevo envio</label></br>
+                <select class="form-select" id="envio" name="envio" >
+                    {% for i in envios %}
+                    <option value="{{i.id_envios}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="text-center">
+                    <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+                </div>
+                
+            
+            </div>
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

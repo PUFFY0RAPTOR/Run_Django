@@ -72,7 +72,7 @@ class Pedidos(models.Model):
     cliente = models.ForeignKey(Clientes, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return "Pedidos"
+        return "Pedidos"  #what?
 
 class Marcas(models.Model):
     id_marca = models.IntegerField(primary_key=True)
@@ -88,6 +88,7 @@ class Productos(models.Model):
     precio = models.DecimalField(max_digits=8, decimal_places=2)
     marca = models.ForeignKey(Marcas, on_delete = models.DO_NOTHING)
     descripcion = models.TextField(default="")
+    imagen = models.ImageField(upload_to = 'RUN/imagProductos', default='RUN/imagProductos/default.png')
 
     def __str__(self):
         return self.nombre_producto
@@ -131,7 +132,7 @@ class Pagos(models.Model):
     fecha_pagos = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.fecha_pagos
+        return str(self.fecha_pagos)
 
 class Historial(models.Model):
     id_historial = models.IntegerField(primary_key=True)

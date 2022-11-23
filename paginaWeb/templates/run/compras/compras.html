@@ -6,366 +6,73 @@
     {% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
 
     <div id="padre">
-        <!-- Compras -->
-        <div id="opciones">
-            <ul>
-                <h3> Productos </h3>
-                <span> 4.789 resultados</span><br>
-
-                <br>
+        <!-- Compras filtros-->     
+        <div class="container p-4 bg-light col-4 col-lg-2 ml-3 mr-4 ml-5 rounded">
+            <div>
+                <p class="h4 text-primary fw-normal">Productos</p>
+                <span class="text-muted fw-light">4.786 productos encontrados</span>
+                <hr>
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="customSwitch1">
                     <label class="custom-control-label" for="customSwitch1">Publicados hoy</label>
                 </div>
-
-                <br><a href="#">
-                    <h5>Categorias</h5>
-                </a>
-                <a href="compras.html">
-                    <li> Accesorios</li>
-                </a>
-                <a href="compras.html">
-                    <li> Herramientas </li>
-                </a>
-                <a href="compras.html">
-                    <li> Iluminación </li>
-                </a>
-                <a href="compras.html">
-                    <li> Lubricantes </li>
-                </a>
-                <a href="compras.html">
-                    <li> Descuentos </li>
-                </a>
-            </ul>
-            <ul>
-                <br><a href="marcas.html">
-                    <h5>Marcas</h5>
-                </a>
-                <a href="marcas.html">
-                    <li> YAMAHA <span> (987) </span>
+                <hr>
+                <ul class="mt-3">
+                    <p class="h4 text-primary fw-normal">Categorias</p>
+                    <li><a class="text-decoration-none text-dark" href="#">Accesorios</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">Iluminación</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">Lubricantes</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">Herramientas</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">Descuentos</a></li>
+                </ul>
+                <hr>
+                <ul class="mt-3">
+                    <p class="h4 text-primary fw-normal">Marcas</p>
+                    <li><a class="text-decoration-none text-dark" href="#">YAMAHA</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">TVS</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">Kymco</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">Honda</a></li>
+                    <li><a class="text-decoration-none text-dark" href="#">AKT</a></li>
+                    <li><a class="text-decoration-none" href="#">mostrar más...</a></li>
+                </ul>
+                <hr>
+                <ul>
+                    <p class="h4 text-primary fw-normal"> Precios </p>
+                    <li>
+                        <p> Escoge el rango de precios de tú preferencia</p>
                     </li>
-                </a>
-                <a href="marcas.html">
-                    <li> TVS <span> (654) </span>
-                    </li>
-                </a>
-                <a href="marcas.html">
-                    <li> AKT <span> (354) </span>
-                    </li>
-                </a>
-                <a href="marcas.html">
-                    <li> KYMCO <span> (401) </span>
-                    </li>
-                </a>
-                <a href="marcas.html">
-                    <li> HONDA <span> (804) </span>
-                    </li>
-                </a>
-                <a href="marcas.html">
-                    <li> Mostrar más </li>
-                </a><br>
-            </ul>
-            <ul>
-                <h5> Precios </h5>
-                <li>
-                    <p> Escoge el rango de <br> precios de tú preferencia</p>
-                </li>
-                <label for="customRange1">Rango de precio</label>
-                <input type="range" class="custom-range" min="0" max="1000000" id="customRange1">
-            </ul>
-        </div>
-
-        <div id="productos">
-            <div>
-                <div id="galeriaProductos">
-                    <div id="producto1">
-                        <a href="" data-toggle="modal" data-target="#producto1Modal"><img src="{% static 'run/img/aceiteScooter.jpg' %}" alt="Scooter aceite" width="75%" height="220px">
-                        <div id="espaciosIzq">
-                            <h4>$ 25.999</h4>
-                            Aceite para Scooter <br></a>
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-                        </div>
-                    </div>
-                    <div id="producto2">
-                        <a href="" data-toggle="modal" data-target="#producto2Modal"><img src="{% static 'run/img/amortiguadorScooter.jpg' %}" alt="Amortiguador" width="75%" height="220px">
-                        <div id="espaciosIzq">
-                            <h4>$ 260.000</h4>
-                            Amortiguador de Scooter<br></a>
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-                        </div>
-                    </div>
-                    <div id="producto3">
-                        <a href="" data-toggle="modal" data-target="#producto3Modal"><img src="{% static 'run/img/bujia.jpg' %}" alt="Bujía" width="75%" height="220px">
-                        <div id="espaciosIzq">
-                            <h4>$ 54.450</h4>
-                            Bujía NS 200<br></a>
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-                        </div>
-                    </div>
-                </div>
-                <div id="galeriaProductos">
-                    <div id="producto4">
-                        <a href="" data-toggle="modal" data-target="#producto4Modal"><img src="{% static 'run/img/carburador.jpg' %}" alt="Carburador" width="75%" height="220px">
-                        <div id="espaciosIzq">
-                            <h4>$ 178.699</h4>
-                            Carburador Apache RTR 200<br></a>
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-                        </div>
-                    </div>
-                    <div id="producto5">
-                        <a href="" data-toggle="modal" data-target="#producto5Modal"><img src="{% static 'run/img/llantasAKT.jpg' %}" alt="Llantas AKT" width="75%" height="220px">
-                        <div id="espaciosIzq">
-                            <h4>$ 160.500</h4>
-                            Llantas AKT<br></a>
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-                        </div>
-                    </div>
-                    <div id="producto6">
-                        <a href="" data-toggle="modal" data-target="#producto6Modal"><img src="{% static 'run/img/reflectorTrasero.jpg' %}" alt="Reflector trasero" width="75%" height="220px">
-                        <div id="espaciosIzq">
-                            <h4>$ 79.300</h4>
-                            Reflector trasero NKD<br></a>
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-                        </div>
-                    </div>
-                </div>
+                    <label class="fw-light" for="customRange1">Rango de precio</label>
+                    <input type="range" class="custom-range" min="0" max="1000000" id="customRange1">
+                </ul>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="producto3Modal">
-        <!--Inicio de sesión-->
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Descripción de productos</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="conteProducto1">
-                        <img src="imagenes/bujia.jpg" alt="Aceite de Scooter" id="imagenProducto" width="50%" height="450px">
-                        <div id="descProducto">
-                            <h5> Bujía NS 200 - Nueva</h5>
-                            <p>Bujía de NS 200 Fi recién salida del horno, 
-                                disponible sólo para los modelos 2021 en adelante</p>
-                            <h4>$ 54.450</h4>
-                            <p>Stock: Disponible (1245 disponibles)</p>
-                            
-                            <label for="cantidad"></label>
-                            <input type="number" id="cantidad" value="1"><br>
-
-                            <br><button class="btn btn-outline-success">Comprar ahora</button>
-                            
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-
-                            <img src="imagenes/Pagos.png" alt="Métodos de pago" width="100%" height="140px" id="modalImagen">
-
+        <!--Productos responsive-->
+        <div class="container p-3 border mr-3 bg-light mr-5 rounded">
+            <div class="row row-cols-1 row-cols-md-3">
+                {% if productos %}
+                    {% for i in productos %}
+                        <div class="col mb-4 col-12">
+                            <div class="card">
+                                <img src="{{i.imagen.url}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{i.nombre_producto}} - {{i.marca}}</h5>
+                                    <p class="card-text h2 font-weight-bold text-primary">${{i.precio}}</p>
+                                    <p class="card-text fw-light">{{i.descripcion}}</p>
+                                    <p class="card-text fw-bold">Cantidad: <span class="text-primary fw-light">{{i.stock}}</span></p>
+                                    <a href="{% url 'paginaWeb:add_carrito' i.id_producto %}" class="btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                      </svg> Añadir al carrito</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    {% endfor %}
+                {% else %}
+                    <h1 class="text-center">No hay productos</h1>
+                {% endif %}
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" id="producto4Modal">
-        <!--Inicio de sesión-->
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Descripción de productos</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="conteProducto1">
-                        <img src="imagenes/carburador.jpg" alt="Carburador" id="imagenProducto" width="50%" height="450px">
-                        <div id="descProducto">
-                            <h5> Carburador para moto cilindrada</h5>
-                            <p>Carburador para motos cilindradas, desde 100 cc hasta 200 cc,
-                                preferiblemente usar en motos de las marcas TVS, AKT, YAMAHA, BAJAJ y HONDA </p>
-                            <h4>$ 178.699</h4>
-                            <p>Stock: Disponible (12 disponibles)</p>
-                            
-                            <label for="cantidad"></label>
-                            <input type="number" id="cantidad" value="1"><br>
-
-                            <br><button class="btn btn-outline-success">Comprar ahora</button>
-                            
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-
-                            <img src="imagenes/Pagos.png" alt="Métodos de pago" width="100%" height="140px" id="modalImagen">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="producto5Modal">
-        <!--Inicio de sesión-->
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Descripción de productos</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="conteProducto1">
-                        <img src="imagenes/llantasAKT.jpg" alt="Llantas de AKT" id="imagenProducto" width="50%" height="450px">
-                        <div id="descProducto">
-                            <h5> Llantas para motos AKT cilindradas</h5>
-                            <p>Pack de llantas delantera y trasera para motos AKT de 125 cc hasta 150 cc</p>
-                            <h4>$ 160.500</h4>
-                            <p>Stock: Disponible (263 disponibles)</p>
-                            
-                            <label for="cantidad"></label>
-                            <input type="number" id="cantidad" value="1"><br>
-
-                            <br><button class="btn btn-outline-success">Comprar ahora</button>
-                            
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-
-                            <img src="imagenes/Pagos.png" alt="Métodos de pago" width="100%" height="140px" id="modalImagen">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="producto6Modal">
-        <!--Inicio de sesión-->
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Descripción de productos</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="conteProducto1">
-                        <img src="imagenes/reflectorTrasero.jpg" alt="Reflector trasero" id="imagenProducto" width="50%" height="450px">
-                        <div id="descProducto">
-                            <h5> Reflector trasero - NKD</h5>
-                            <p>Refelctor trasero de NKD, hecha a la medida para modelos desde 2012 a 2016</p>
-                            <h4>$ 79.300</h4>
-                            <p>Stock: Disponible (200 disponibles)</p>
-                            
-                            <label for="cantidad"></label>
-                            <input type="number" id="cantidad" value="1"><br>
-
-                            <br><button class="btn btn-outline-success">Comprar ahora</button>
-                            
-                            <a href="carritoCompras.html"><button class="btn btn-outline-info">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-                                  </svg> Añadir al carrito
-                            </button></a>
-
-                            <img src="imagenes/Pagos.png" alt="Métodos de pago" width="100%" height="140px" id="modalImagen">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="iniciarSesion">
-        <!--Inicio de sesión-->
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Inicio de sesión</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="inicioSesion">
-                        <div id="intoInicio">
-                            <form class="form-group" action="">
-
-                                <input type="email" name="correo" size="auto" placeholder="Correo electrónico o número"
-                                    id="iniciarSesion1" />
-                                <br>
-
-                                <br> <input type="password" name="contrasena" placeholder="Contraseña"
-                                    id="contrasena1" /> <br>
-
-                                <br><button type="submit" onclick="cookieSesion()" class="btn btn-outline-primary">
-                                    Iniciar sesión </button><br>
-
-                                <br> <a href="olvcontra.html"> ¿Olvidaste tu contraseña? </a> <br>
-
-                                <br> <a href="registro.html"> Registrarse </a>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    </div> 
 
 {% endblock  %}

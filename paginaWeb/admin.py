@@ -50,8 +50,15 @@ class PedidosAdmin(admin.ModelAdmin):
 
 @admin.register(Productos)
 class ProductosAdmin(admin.ModelAdmin):
-    list_display = ('id_producto','nombre_producto', 'stock', 'precio', 'marca')
+    list_display = ('id_producto','nombre_producto', 'stock', 'precio', 'marca', 'verImagen')
     search_fields = ['id_producto','nombre_producto', 'stock', 'precio', 'marca']
+    def verImagen(self, obj):
+        #general codigo html en el admin
+        from django.utils.html import format_html
+        imagen = obj.imagen.url
+        return format_html(
+            f"<a href='{imagen}' target='_blank' ><img src='{imagen}'  width='20%' /></a>"
+        )
 
 @admin.register(PedidosProductos)
 class PedidosProductosAdmin(admin.ModelAdmin):

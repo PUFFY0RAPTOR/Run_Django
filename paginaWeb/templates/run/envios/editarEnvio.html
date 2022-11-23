@@ -1,0 +1,34 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Envios Formulario editar {% endblock %}
+
+{% block body %}
+
+{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+
+    <br/><div class="container">
+        <h1>Editar envio --- {{envios.id_envios}}</h1>
+
+        <form action="{% url 'paginaWeb:upd_envios' %}" method="post">
+            {% csrf_token %}
+            <div class="datosDiv">
+
+                <label for="idEnvio">Código: </label>
+                <input type="number" name="idEnvio" value="{{envios.id_envios}}" readonly/><br>
+
+                <br><label for="fecha">Fecha del envio: </label>
+                <input type="date" name="fecha" value="{{envios.fecha_envio|date:'Y-m-d'}}"/> <br><br>
+ 
+                <label for="dir">Dirección: </label></br>
+                <input type="text" name="dir" value="{{envios.direccion_envio}}" /> <br><br>
+
+                <!-- Hay que cambiar esto para que cuando se agreguen roles, se muestren, lo hice muy mecanico-->
+
+            </div>
+            <div class="text-center">
+                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
+            </div>
+        </form>
+
+    </div><br/>
+        
+{% endblock  %}

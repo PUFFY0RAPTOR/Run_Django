@@ -8,7 +8,7 @@
     <div class="container">
         <br />
         <h2 id="tituloTables">Lista de Usuarios</h2>
-        <table class="table" id="usuariosTable">
+        <table id="usuariosTable" class="table table-responsive">
             <thead class="thead-dark">
                 <tr>
                     <th>Correo</th>
@@ -20,10 +20,10 @@
             <tbody>
                 {% for i in datos%}
                 <tr>
-                    <td>{{i.id_correo}}</td>
-                    <td>{{i.contrasena}}</td>
-                    <td>{{i.roles}}</td>
-                    <td>
+                    <td class="col-3">{{i.id_correo}}</td>
+                    <td class="col-3">{{i.contrasena}}</td>
+                    <td class="col-3">{{i.roles}}</td>
+                    <td class="col-3">
                         <a href="{% url 'paginaWeb:upd_usuarios_form' i.id_correo %}" class="btn btn-warning"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
