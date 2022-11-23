@@ -190,7 +190,7 @@ def registro(request):
 
 @decoradorPermitirAEC
 def guardarPersona(request):
-    """Autentica y guarda nuevo registro de usuario(Persona) en el sistema 
+    """Autentica y guarda nuevo registro de usuario(Persona) en el sistema.
     """
     if request.method == 'POST':
         try:
