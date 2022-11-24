@@ -143,7 +143,7 @@ def login(request):
 
             request.session['auth'] = [q.correo, q.contrasena, q.roles.id_roles]
 
-            messages.success(request, f'Bienvenid@ {q.correo}')
+            messages.success(request, f'Bienvenid@ {q.nombre}')
         except Exception as e:
             messages.error(request, f'Correo o contraseña incorrectos...')
             return redirect('paginaWeb:login_form')
@@ -185,12 +185,12 @@ def registro(request):
     """
     q = Roles.objects.all()
     contexto = {'roles':q}
-    return render(request, 'run/registros/registro.html', contexto)
+    return render(request, 'run/personas/registro.html', contexto)
 
 
 @decoradorPermitirAEC
 def guardarPersona(request):
-    """Autentica y guarda nuevo registro de usuario(Persona) en el sistema.
+    """Autentica y guarda nuevo registro de usuario(Persona) en el sistema
     """
     if request.method == 'POST':
         try:
@@ -198,10 +198,10 @@ def guardarPersona(request):
             ceduExistente = Personas.objects.filter(cedula=request.POST['Id'])
             if CoExistente:
                 messages.error(request, "Correo ya registrado, ingrese uno diferente por favor")
-                return render(request, 'run/registros/registro.html')
+                return render(request, 'run/personas/registro.html')
             elif ceduExistente:
                 messages.error(request, "cedula ya registrada, ingrese una diferente por favor")
-                return render(request, 'run/registros/registro.html')
+                return render(request, 'run/personas/registro.html')
             else:
                 if request.FILES:
                     # crear instancia de File System Storage
@@ -233,7 +233,7 @@ def guardarPersona(request):
                 return redirect('paginaWeb:list_usu')
         except Exception as e:
             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return render(request, 'run/registros/registro.html')
+            return render(request, 'run/personas/registro.html')
     else:
         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
         return render(request, 'run/index.html')
@@ -345,18 +345,33 @@ def buscarPersonaEditar(request,id):
 
 
 # Marcas
+
+def marcas(request):
+    """Método para acceder a visualizar
+    las marcas.
+    """
+    return render(request, 'run/marcas/marcas.html')
+
 @decoradorPermitirAE
 def formMarcas(request):
+    """Método para acceder al formulario
+    de registro de marcas.
+    """
     return render(request, 'run/marcas/marcasForm.html')
 
 @decoradorPermitirAEC
 def listarMarcas(request):
+    """Método para acceder al formulario
+        de registro de marcas.
+    """
     q = Marcas.objects.all()
     contexto = {'datos': q}
     return render(request, 'run/marcas/listarMarcas.html', contexto)
 
 @decoradorPermitirAE
 def addMarcas(request):
+    """Método para añadir marcas.
+    """
     try:
         if request.FILES:
             fss = FileSystemStorage()
@@ -379,7 +394,14 @@ def addMarcas(request):
 
 @decoradorPermitirAE
 def deleteMarcas(request, id):
+    """Método para eliminar marcas.
+    """
     try:
+        validation = Productos.objects.filter(marca = id)
+        if validation:
+            messages.warning(request, f'Marca asociada a otros registros, borralos y luego intentarlo de nuevo')
+            return redirect('paginaWeb:list_marcas')
+
         marca = Marcas.objects.get(pk=id)
         from pathlib import Path
         from os import remove, path
@@ -411,28 +433,34 @@ def deleteMarcas(request, id):
 
 @decoradorPermitirAE
 def updateMarcasForm(request, id):
+    """Método para acceder al formulario
+    para editar las marcas.
+    """
     q = Marcas.objects.get(pk=id)
 
-    contexto = {'marcas': q}
+    contexto = {'marca': q}
 
     return render(request, 'run/marcas/editarMarcas.html', contexto)
 
 
 @decoradorPermitirAE
 def updateMarcas(request):
+    """Método para acceder a las actualizaciones
+    de las marcas.
+    """
     if request.method == "POST":
         try:
             marca = Marcas.objects.get(pk=request.POST['id'])
             if request.FILES:
                 fss = FileSystemStorage()
-                f = request.FILES["foto"]
+                f = request.FILES["imagen"]
                 file = fss.save("RUN/fotoMarcas/" + f.name, f)
                 # Mi manera de borrar
                 import os
                 from django.conf import settings
                 # base = str()
                 # Borrar imagen anterior
-                if marca.imagen.url != "RUN/fotoMarcas/default.png":
+                if marca.imagen.url != "/uploads/RUN/fotoMarcas/default.png":
                     fotoVieja = str(settings.BASE_DIR) + marca.imagen.url
                     os.remove(fotoVieja)
                     print("imagen borrada correctamente.")
@@ -462,6 +490,7 @@ def verProductos(request):
 
     producto = q
     s = Imagenes.objects.filter(productos=producto)
+    # aqui hay que manipular los datos que se envian en el contexto
     i = Imagenes.objects.all()
 
     contexto = {'productos': q, 'imagenes': i}
@@ -521,16 +550,22 @@ def listImagenes(request):
 # Inventario
 @decoradorPermitirAE
 def registroInventario(request):
+    """Método para acceder al formulario
+    del registro de los productos.
+    """
     q = Marcas.objects.all()
+    c = Categorias.objects.all()
 
-    contexto = {'dataMarcas': q}
-    # print(contexto)
+    contexto = {'marcas': q, 'categorias': c}
 
-    return render(request, 'run/registros/registroInventario.html', contexto)
+    return render(request, 'run/inventario/registroInventario.html', contexto)
 
 
 @decoradorPermitirAE
 def listarInventario(request):
+    """Método para mostrar la lista
+    de los productos.
+    """
     q = Productos.objects.all()
 
     contexto = {'productos': q}
@@ -540,127 +575,177 @@ def listarInventario(request):
 
 @decoradorPermitirAE
 def crearInventario(request):
+    """Método para registrar productos.
+    """
     try:
-        if request.FILES:
-            # crear instancia de File System Storage
-            fss = FileSystemStorage()
-            # capturar la foto del formulario
-            f = request.FILES["imagen"]
-            # cargar archivos al servidor
-            file = fss.save("RUN/imagProductos/" + f.name, f)
-        else:
-            file = "RUN/imagProductos/default.png"
-
         q = Productos(
             id_producto=request.POST['codigo'],
             nombre_producto=request.POST['nombreRes'],
             stock=request.POST['stock'],
             precio=request.POST['precio'],
+            palabras_clave=request.POST['palabClave'],
             marca=Marcas.objects.get(pk=request.POST['marca']),
+            categoria=Categorias.objects.get(pk=request.POST['categoria']),
             descripcion=request.POST['descripcion'],
-            imagen=file
         )
         q.save()
-        return redirect('paginaWeb:list_inv')
+        messages.success(request, 'Producto agregado correctamente!!!')
 
     except Exception as e:
-        messages.error(request, f'Hubo un problema al intentar agregar : {e}')
-        return redirect('paginaWeb:list_inv')
+        messages.error(request, f'Hubo un problema al intentar agregar un producto: {e}')
+
+    return redirect('paginaWeb:list_inv')
 
 
 @decoradorPermitirAE
 def deleteInventario(request, id):
+    """Método para eliminar productos del inventario.
+    """
     try:
         producto = Productos.objects.get(pk=id)
-        from pathlib import Path
-        from os import remove, path
-        # Build paths inside the project like this: BASE_DIR / 'subdir'.
-        BASE_DIR = Path(__file__).resolve().parent.parent
-
-        ruta_imagen = str(BASE_DIR) + str(producto.imagen.url)
-
-        # buscamos si existe la ruta
-        if path.exists(ruta_imagen):
-            # si es diferente a la default la borramos, ya que no podemos borrar la imagen por predeterminado
-
-            print("Este es el nuevo url")
-
-            print(producto.imagen.url)
-            if producto.imagen.url != "/uploads/RUN/imagProductos/default.png":
-                remove(ruta_imagen)
-                messages.success(request, "Foto borrada correctamente.")
-            else:
-                messages.warning(request,
-                                 "No se puede borrar la foto debido a que es la que tiene por pre--determinado.")
-
         producto.delete()
         messages.success(request, 'Producto eliminado correctamente')
-        return redirect('paginaWeb:list_inv')
     except Exception as e:
         messages.error(request, f'Hubo un problema al intentareliminar : {e}')
-        return redirect('paginaWeb:list_inv')
+
+    return redirect('paginaWeb:list_inv')
 
 
 @decoradorPermitirAE
 def updateInventarioForm(request, id):
+    """Método para acceder al formulario para
+    editar los productos.
+    """
     q = Productos.objects.get(pk=id)
     m = Marcas.objects.all()
+    c = Categorias.objects.all()
 
-    contexto = {'productos': q, 'dataMarcas': m}
-
+    contexto = {'productos': q, 'marcas': m, 'categorias': c}
     return render(request, 'run/inventario/editarInventario.html', contexto)
 
 
 @decoradorPermitirAE
 def updateInventario(request):
+    """Método para actualizar los productos.
+    """
     if request.method == "POST":
         try:
             productos = Productos.objects.get(pk=request.POST['codigo'])
-            if request.FILES and request.FILES["imagen"]:
-
-                # crear instancia de File System Storage
-                fss = FileSystemStorage()
-                # capturar la foto del formulario
-                f = request.FILES["imagen"]
-                # cargar archivos al servidor
-                file = fss.save("RUN/imagProductos/" + f.name, f)
-
-                # Mi manera de borrar
-                import os
-                from django.conf import settings
-                # Borrar imagen anterior
-                if productos.imagen.url != "territorio/fotos/default.png":
-                    fotoVieja = str(settings.BASE_DIR) + productos.imagen.url
-                    os.remove(fotoVieja)
-                    # messages.success(request,"Foto borrada correctamente.")
-
-                # asignamos la foto
-                productos.imagen = file
 
             productos.nombre_producto = request.POST['nombreRes']
             productos.stock = request.POST['stock']
             productos.precio = request.POST['precio']
+            productos.palabras_clave = request.POST['palabClave']
             productos.marca = Marcas.objects.get(pk=request.POST['marca'])
+            productos.categoria = Categorias.objects.get(pk=request.POST['categoria'])
             productos.descripcion = request.POST['descripcion']
+
             productos.save()
             messages.success(request, 'Producto correctamente editado')
 
         except Exception as e:
             messages.error(request, f'Ha ocurrido un error al intenar editar: {e}')
     else:
-        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        messages.warning(request, '¿Estás intentado hackear al ganador del SENASOFT? En serio?')
 
     return redirect('paginaWeb:list_inv')
+
+# Categorias
+
+@decoradorPermitirAE
+def formCategorias(request):
+    """Método para acceder al formulario
+    de registro de categorias.
+    """
+    return render(request, 'run/categorias/categoriasForm.html')
+
+
+@decoradorPermitirAEC
+def listarCategorias(request):
+    """Método para acceder al formulario
+    de registro de categorias.
+    """
+    q = Categorias.objects.all()
+    contexto = {'datos': q}
+    return render(request, 'run/categorias/listarCategorias.html', contexto)
+
+
+@decoradorPermitirAE
+def addCategorias(request):
+    """Método para añadir categorias.
+    """
+    try:
+        q = Categorias(
+            id_categoria=request.POST['id'],
+            categoria=request.POST['nombre'],
+        )
+        q.save()
+        messages.success(request, "Categoria guardada Correctamente")
+    except Exception as e:
+        messages.warning(request, f"Hubo un error guardando la categoria{e}")
+
+    return redirect('paginaWeb:list_categorias')
+
+
+@decoradorPermitirAE
+def deleteCategorias(request, id):
+    """Método para eliminar categorias.
+    """
+    try:
+        validation = Productos.objects.filter(categoria = id)
+        if validation:
+            messages.warning(request, f'Categoria asociada a otros registros, borralos y luego intentarlo de nuevo')
+            return redirect('paginaWeb:list_categorias')
+
+        categoria = Categorias.objects.get(pk=id)
+        categoria.delete()
+        messages.success(request, 'Categoria eliminada correctamente')
+    except Exception as e:
+        if str(e) == "FOREIGN KEY constraint failed":
+            messages.error(request, f'La categoría esta vinculada a otros registros, eliminelos y luego vuelva a '
+                                    f'intentarlo')
+        else:
+            messages.error(request, f'Hubo un problema al eliminar una categoria: {e}')
+
+    return redirect('paginaWeb:list_categorias')
+
+
+@decoradorPermitirAE
+def updateCategoriasForm(request, id):
+    """Método para acceder al formulario
+    para editar las categoras.
+    """
+    q = Categorias.objects.get(pk=id)
+
+    contexto = {'categoria': q}
+
+    return render(request, 'run/categorias/editarCategorias.html', contexto)
+
+
+@decoradorPermitirAE
+def updateCategorias(request):
+    """Método para acceder a las actualizaciones
+    de las categorias.
+    """
+    if request.method == "POST":
+        try:
+            categoria = Categorias.objects.get(pk=request.POST['id'])
+            categoria.categoria = request.POST['categoria']
+            categoria.save()
+            messages.success(request, 'Categoria actualizada correctamente')
+            return redirect('paginaWeb:list_categorias')
+
+        except Exception as e:
+            messages.error(request, f'Ha ocurrido un error al intentar editar una categoria: {e}')
+            return redirect('paginaWeb:list_categorias')
+    else:
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:list_categorias')
 
 
 # Ayuda
 def ayuda(request):
     return render(request, 'run/ayuda/ayuda.html')
-
-
-# Marcas
-def marcas(request):
-    return render(request, 'run/marcas/marcas.html')
 
 
 # Carrito
@@ -680,7 +765,6 @@ def addCarrito(request, id):
         listaCarrito = request.session.get('carrito', False)
 
         if listaCarrito:
-
             listaCarrito.append(id)
             request.session['carrito'] = listaCarrito
         else:
@@ -690,14 +774,14 @@ def addCarrito(request, id):
         return redirect('paginaWeb:ver_prod')
     except Exception as e:
         messages.error(request,
-                       f'Ha ocurrido un error al agregara el producto al carrito, vuelvalo a intentar mas tarde {e}')
-        return redirect('paginaWeb:ver_prod')
+                       f'Ha ocurrido un error al agregar el producto al carrito, vuélvalo a intentar mas tarde {e}')
+
+    return redirect('paginaWeb:ver_prod')
 
 
 @decoradorPermitirC
 def mostrarCarrito(request):
     try:
-
         carrito = request.session.get('carrito', False)
         listaCarrito = []
 
@@ -758,7 +842,10 @@ def listRoles(request):
 
 @decoradorPermitirA
 def regRolesForm(request):
-    return render(request, 'run/registros/registroRoles.html')
+    """Método para acceder al formulario
+    para listar los roles.
+    """
+    return render(request, 'run/roles/registroRoles.html')
 
 
 @decoradorPermitirA
@@ -889,11 +976,7 @@ def deleteVentas(request, id):
 @decoradorPermitirAE
 def updateVentasForm(request, id):
     q = Ventas.objects.get(pk=id)
-    e = Envios.objects.all()
-    p = Pedidos.objects.all()
-
-    contexto = {'ventas': q, 'envios': e, 'pedidos': p}
-
+    contexto = {'ventas': q}
     return render(request, 'run/ventas/editarVentas.html', contexto)
 
 
@@ -902,172 +985,67 @@ def updateVentas(request):
     if request.method == "POST":
         try:
             venta = Ventas.objects.get(id_venta=request.POST['id_venta'])
-            pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
-            envioExistente = Envios.objects.filter(id_envios=request.POST['envio'])
-            if not pedidoExistente:
-                messages.error(request, "id de pedido inexistente, ingrese uno que exista")
-                return redirect('paginaWeb:upd_ventas_form')
-            elif not envioExistente:
-                messages.error(request, "id de producto inexistente, ingrese un que exista")
-                return redirect('paginaWeb:upd_ventas_form')
-            else:
-                venta.pedido = Pedidos.objects.get(pk=request.POST['pedido'])
-                venta.envio = Envios.objects.get(pk=request.POST['envio'])
-                venta.save()
-                # print(Productos.objects.get(pk = request.POST['producto']))
-                messages.success(request, "Venta actualizada exitosamente")
-                return redirect('paginaWeb:list_ventas')
+            venta.save()
+            messages.success(request, "Venta actualizada exitosamente")
+            return redirect('paginaWeb:list_ventas')
         except Exception as e:
             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
             return redirect('paginaWeb:upd_ventas_form')
 
 
-# Pedidos
-@decoradorPermitirAE
+# PedidosProductos
+@decoradorPermitirA
 def formPedidos(request):
-    q = Clientes.objects.all()
-
-    contexto = {'clientes': q}
-
+    """Método para acceder al formulario
+    para crear pedidos.
+    """
+    productos = Productos.objects.all()
+    ventas = Ventas.objects.all()
+    contexto = {'productos': productos, 'ventas': ventas}
     return render(request, 'run/pedidos/pedidosForm.html', contexto)
 
 
-@decoradorPermitirAE
+@decoradorPermitirA
 def listarPedidos(request):
+    """Método para listar los pedidos.
+    """
     q = Pedidos.objects.all()
-
     contexto = {'datos': q}
-
     return render(request, 'run/pedidos/listarPedidos.html', contexto)
-
-
-@decoradorPermitirAE
-def addPedidos(request):
-    if request.method == 'POST':
-        try:
-            CoExistente = Clientes.objects.filter(id=request.POST['cliente'])
-            pediExistente = Pedidos.objects.filter(id_pedido=request.POST['id_pedido'])
-            if not CoExistente:
-                messages.error(request, "usuario no encontrado, ingrese uno diferente por favor")
-                return render(request, 'run/pedidos/pedidosForm.html')
-            elif pediExistente:
-                messages.error(request, "id de pedido ya registrada, ingrese una diferente por favor")
-                return render(request, 'run/pedidos/pedidosForm.html')
-            else:
-                q = Pedidos(
-                    id_pedido=request.POST['id_pedido'],
-                    cliente=Clientes.objects.get(pk=request.POST['cliente']))
-
-                q.save()
-                messages.success(request, "Pedido registrado exitosamente")
-                return redirect('paginaWeb:list_pedidos')
-        except Exception as e:
-            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return redirect('paginaWeb:form_pedidos')
-    else:
-        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
-        return redirect('paginaWeb:list_pedidos')
-
-
-@decoradorPermitirAE
-def deletePedidos(request, id):
-    try:
-        pedido = Pedidos.objects.get(pk=id)
-        pedido.delete()
-        messages.success(request, 'pedido eliminado correctamente')
-        return redirect('paginaWeb:list_pedidos')
-    except Exception as e:
-        if str(e) == "FOREIGN KEY constraint failed":
-            messages.error(request,
-                           f'El empleado esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
-            return redirect('paginaWeb:list_pedidos')
-        else:
-            messages.error(request, f'Hubo un problema al eliminar un pedido: {e}')
-            return redirect('paginaWeb:list_pedidos')
-
-
-@decoradorPermitirAE
-def updatePedidosForm(request, id):
-    q = Pedidos.objects.get(pk=id)
-    c = Clientes.objects.all()
-    contexto = {'pedidos': q, 'clientes': c}
-
-    return render(request, 'run/pedidos/editarPedidos.html', contexto)
-
-
-@decoradorPermitirAE
-def updatePedidos(request):
-    if request.method == "POST":
-        try:
-            cliente = Clientes.objects.get(pk=request.POST['id_cliente'])
-            # editamos primero la contraseña y su rol
-            pedido = Pedidos.objects.get(id_pedido=request.POST['id_pedido'])
-            pedido.cliente = cliente
-            pedido.save()
-
-            messages.success(request, "Actualizado correctamente")
-            return redirect('paginaWeb:list_pedidos')
-        except Exception as e:
-            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
-            return redirect('paginaWeb:list_pedidos')
-
-    else:
-        messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
-        return redirect('paginaWeb:list_pedidos')
-
-
-# PedidosProductos
-@decoradorPermitirA
-def formPedidosProductos(request):
-    p = Pedidos.objects.all()
-
-    pr = Productos.objects.all()
-
-    contexto = {'pedidos': p, 'productos': pr}
-
-    return render(request, 'run/pedidosProductos/pedidosProductosForm.html', contexto)
-
-
-@decoradorPermitirA
-def listarPedidosProductos(request):
-    q = PedidosProductos.objects.all()
-
-    contexto = {'datos': q}
-
-    return render(request, 'run/pedidosProductos/listarPedidosProductos.html', contexto)
 
 
 @decoradorPermitirA
 def addPedidosProductos(request):
     if request.method == 'POST':
         try:
-            pedidoProExistente = PedidosProductos.objects.filter(
-                id_pedidos_productos=request.POST['id_pedidos_productos'])
             pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
             productoExistente = Productos.objects.filter(id_producto=request.POST['producto'])
-            if pedidoProExistente:
-                messages.error(request, "id de pedidoProducto ya existente, ingrese uno diferente")
-                return redirect('paginaWeb:form_pedidos_productos')
-            elif not pedidoExistente:
-                messages.error(request, "id de pedido inexistente, ingrese uno que exista")
-                return redirect('paginaWeb:form_pedidos_productos')
+            ventaExistente = Ventas.objects.filter(id_venta=request.POST['venta'])
+            if pedidoExistente:
+                messages.error(request, "id de pedido ya existente, ingrese uno diferente")
+                return redirect('paginaWeb:form_pedidos')
             elif not productoExistente:
-                messages.error(request, "cedula ya registrada, ingrese una diferente por favor")
-                return redirect('paginaWeb:form_pedidos_productos')
-            else:
-                q = PedidosProductos(
-                    id_pedidos_productos=request.POST['id_pedidos_productos'],
-                    pedido=Pedidos.objects.get(pk=request.POST['pedido']),
-                    producto=Productos.objects.get(pk=request.POST['producto']))
-                q.save()
-                messages.success(request, "Empleado registrado exitosamente")
-                return redirect('paginaWeb:list_pedidos_productos')
+                messages.error(request, "producto inexistente, ingrese uno diferente")
+                return redirect('paginaWeb:form_pedidos')
+            elif not ventaExistente:
+                messages.error(request, "venta inexistente, ingrese una que exista")
+                return redirect('paginaWeb:form_pedidos')
+
+            q = Pedidos(
+                id_pedido=request.POST['pedido'],
+                producto=Productos.objects.get(pk=request.POST['producto']),
+                venta=Ventas.objects.get(pk=request.POST['venta']),
+                cantidad=request.POST['cantidad'],
+            )
+            q.save()
+            messages.success(request, "Pedido registrado exitosamente")
+            return redirect('paginaWeb:list_pedidos')
         except Exception as e:
             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return redirect('paginaWeb:form_pedidos_productos')
+            return redirect('paginaWeb:form_pedidos')
     else:
         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
-        return redirect('paginaWeb:list_pedidos_productos')
+        return redirect('paginaWeb:list_pedidos')
 
 
 @decoradorPermitirA
@@ -1078,125 +1056,46 @@ def deletePedidosProductos(request, id):
         messages.success(request, 'pedidoProducto eliminado correctamente')
         return redirect('paginaWeb:list_pedidos_productos')
     except Exception as e:
-        messages.error(request, f'Hubo un problema al eliminar un pedidoProducto: {e}')
-        return redirect('paginaWeb:list_pedidos_productos')
+        messages.error(request, f'Hubo un problema al eliminar un pedido: {e}')
+        return redirect('paginaWeb:list_pedidos')
 
 
 @decoradorPermitirA
-def updatePedidosProductosForm(request, id):
-    pp = PedidosProductos.objects.get(pk=id)
-    p = Pedidos.objects.all()
-
-    pr = Productos.objects.all()
-
-    contexto = {'pedidoProducto': pp, 'pedidos': p, 'productos': pr}
-
-    return render(request, 'run/pedidosProductos/editarPedidosProductos.html', contexto)
+def updatePedidosForm(request, id):
+    """Método para acceder al
+    formulario para editar pedidos.
+    """
+    pedido = Pedidos.objects.get(pk=id)
+    productos = Productos.objects.all()
+    ventas = Ventas.objects.all()
+    contexto = {'pedido': pedido, 'productos': productos, 'ventas': ventas}
+    return render(request, 'run/pedidos/editarPedidos.html', contexto)
 
 
 @decoradorPermitirA
 def updatePedidosProductos(request):
     if request.method == "POST":
         try:
-            pedidoProducto = PedidosProductos.objects.get(id_pedidos_productos=request.POST['id_pedidos_productos'])
-            pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
+            pedido = Pedidos.objects.get(id_pedidos_productos=request.POST['id_pedidos_productos'])
             productoExistente = Productos.objects.filter(id_producto=request.POST['producto'])
-            if not pedidoExistente:
-                messages.error(request, "id de pedido inexistente, ingrese uno que exista")
-                return redirect('paginaWeb:upd_pedidos_productos_form')
-            elif not productoExistente:
-                messages.error(request, "id de producto inexistente, ingrese un que exista")
-                return redirect('paginaWeb:upd_pedidos_productos_form')
-            else:
-                print(pedidoProducto.pedido, pedidoProducto.producto)
-                pedidoProducto.pedido = Pedidos.objects.get(pk=request.POST['pedido'])
-                pedidoProducto.producto = Productos.objects.get(pk=request.POST['producto'])
-                pedidoProducto.save()
-                # print(Productos.objects.get(pk = request.POST['producto']))
-                messages.success(request, "pedidoProducto registrado exitosamente")
-                return redirect('paginaWeb:list_pedidos_productos')
+            ventaExistente = Ventas.objects.filter(id_venta=request.POST['venta'])
+            if not productoExistente:
+                messages.error(request, "id de producto inexistente, ingrese uno que exista")
+                return redirect('paginaWeb:upd_pedidos_form')
+            elif not ventaExistente:
+                messages.error(request, "id de venta inexistente, ingrese una que exista")
+                return redirect('paginaWeb:upd_pedidos_form')
+
+            pedido.producto = Productos.objects.get(pk=request.POST['producto'])
+            pedido.venta = Ventas.objects.get(pk=request.POST['venta'])
+            pedido.cantidad = request.POST['producto']
+
+            pedido.save()
+            messages.success(request, "pedido registrado exitosamente")
+            return redirect('paginaWeb:list_pedidos')
         except Exception as e:
             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return redirect('paginaWeb:upd_pedidos_productos_form')
-
-
-# Envios
-@decoradorPermitirAE
-def listEnvios(request):
-    q = Envios.objects.all()
-
-    contexto = {'envios': q}
-
-    return render(request, 'run/envios/listarEnvios.html', contexto)
-
-
-@decoradorPermitirAE
-def formEnvios(request):
-    return render(request, 'run/envios/enviosForm.html')
-
-
-@decoradorPermitirAE
-def addEnvios(request):
-    if request.method == 'POST':
-        try:
-            q = Envios(
-                id_envios=request.POST['idEnvio'],
-                fecha_envio=request.POST['fecha'],
-                direccion_envio=request.POST['dir'],
-            )
-            q.save()
-            messages.success(request, "Envio registrado exitosamente")
-            return redirect('paginaWeb:list_envios')
-        except Exception as e:
-            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return redirect('paginaWeb:form_envios')
-    else:
-        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
-        return redirect('paginaWeb:list_envios')
-
-
-@decoradorPermitirAE
-def deleteEnvios(request, id):
-    try:
-        envio = Envios.objects.get(pk=id)
-        envio.delete()
-        messages.success(request, 'Envio eliminado correctamente')
-        return redirect('paginaWeb:list_envios')
-    except Exception as e:
-        if str(e) == "FOREIGN KEY constraint failed":
-            messages.error(request,
-                           f'El Envio esta vinculado a otros registros, eliminelos y luego vuelva a intentarlo')
-            return redirect('paginaWeb:list_envios')
-        else:
-            messages.error(request, f'Hubo un problema al eliminar un Envio: {e}')
-            return redirect('paginaWeb:list_envios')
-
-
-@decoradorPermitirAE
-def updateEnviosForm(request, id):
-    q = Envios.objects.get(pk=id)
-    contexto = {'envios': q}
-    return render(request, 'run/envios/editarEnvio.html', contexto)
-
-
-@decoradorPermitirAE
-def updateEnvios(request):
-    if request.method == "POST":
-        try:
-            envio = Envios.objects.get(id_envios=request.POST['idEnvio'])
-
-            envio.fecha_envio = request.POST['fecha']
-            envio.direccion_envio = request.POST['dir']
-            envio.save()
-
-            messages.success(request, "Actualizado correctamente")
-            return redirect('paginaWeb:list_envios')
-        except Exception as e:
-            messages.error(request, f"Hubo un error al momento de actualizar: {e}")
-            return redirect('paginaWeb:list_envios')
-    else:
-        messages.warning(request, "No sabemos por donde se esta metiendo pero no puedes avanzar, puerco")
-        return redirect('paginaWeb:list_envios')
+            return redirect('paginaWeb:upd_pedidos_form')
 
 
 # MediosDePago
@@ -1362,98 +1261,3 @@ def updatePagos(request):
 
     # Historial
 
-
-@decoradorPermitirA
-def formHistorial(request):
-    v = Ventas.objects.all()
-    p = Pagos.objects.all()
-
-    contexto = {'ventas': v, 'pagos': p}
-
-    return render(request, 'run/historial/historialForm.html', contexto)
-
-
-@decoradorPermitirAE
-def listarHistorial(request):
-    q = Historial.objects.all()
-
-    contexto = {'datos': q}
-
-    return render(request, 'run/historial/listarHistorial.html', contexto)
-
-
-@decoradorPermitirA
-def addHistorial(request):
-    if request.method == 'POST':
-        try:
-            historialExistente = Historial.objects.filter(id_historial=request.POST['id_historial'])
-            if historialExistente:
-                messages.error(request, "id de Historial ya registrada, ingrese una diferente por favor")
-                return redirect('paginaWeb:form_historial')
-            else:
-                q = Historial(
-                    id_historial=request.POST['id_historial'],
-                    venta=Ventas.objects.get(pk=request.POST['venta']),
-                    pago=Pagos.objects.get(pk=request.POST['pago']))
-                q.save()
-                messages.success(request, "Registro de historial registrado exitosamente")
-                return redirect('paginaWeb:list_historial')
-        except Exception as e:
-            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return redirect('paginaWeb:form_historial')
-    else:
-        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
-        return redirect('paginaWeb:list_historial')
-
-
-@decoradorPermitirA
-def deleteHistorial(request, id):
-    try:
-        historial = Historial.objects.get(pk=id)
-        historial.delete()
-        messages.success(request, 'Registro de historial eliminado correctamente')
-        return redirect('paginaWeb:list_historial')
-    except Exception as e:
-        if str(e) == "FOREIGN KEY constraint failed":
-            messages.error(request,
-                           f'El historial esta vinculadao a otros registros, eliminelos y luego vuelva a intentarlo')
-            return redirect('paginaWeb:list_historial')
-        else:
-            messages.error(request, f'Hubo un problema al eliminar un historial: {e}')
-            return redirect('paginaWeb:list_historial')
-
-
-@decoradorPermitirA
-def updateHistorialForm(request, id):
-    h = Historial.objects.get(pk=id)
-    v = Ventas.objects.all()
-    p = Pagos.objects.all()
-
-    contexto = {'historial': h, 'ventas': v, 'pagos': p}
-
-    return render(request, 'run/historial/editarHistorial.html', contexto)
-
-
-@decoradorPermitirA
-def updateHistorial(request):
-    if request.method == "POST":
-        try:
-            historial = Historial.objects.get(id_historial=request.POST['id_historial'])
-            ventaExistente = Ventas.objects.filter(id_venta=request.POST['venta'])
-            pagoExistente = Pagos.objects.filter(id_pago=request.POST['pago'])
-            if not ventaExistente:
-                messages.error(request, "id de pedido inexistente, ingrese uno que exista")
-                return redirect('paginaWeb:upd_historial_form')
-            elif not pagoExistente:
-                messages.error(request, "id de producto inexistente, ingrese un que exista")
-                return redirect('paginaWeb:upd_historial_form')
-            else:
-                historial.Venta = Ventas.objects.get(pk=request.POST['venta'])
-                historial.pago = Pagos.objects.get(pk=request.POST['pago'])
-                historial.save()
-                # print(Productos.objects.get(pk = request.POST['producto']))
-                messages.success(request, "Historial actualizado exitosamente")
-                return redirect('paginaWeb:list_historial')
-        except Exception as e:
-            messages.error(request, f"Hubo un error en el proceso de registro: {e}")
-            return redirect('paginaWeb:upd_historial_form')

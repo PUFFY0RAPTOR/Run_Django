@@ -1,0 +1,31 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Categorias Formulario {% endblock %}
+
+{% block body %}
+
+    <div class="card mb-3" style="max-width: 940px;">
+        <h1>Editar Categoria {{categoria.categoria}}</h1>
+        <div class="row g-0">
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{categoria.categoria}}</h5>
+              <p class="card-text">
+                <form action="{% url 'paginaWeb:upd_categorias' %}" method="post" >
+                    {% csrf_token %}
+                    <input type="password" name="password" hidden >
+                    <input type="number" name="id" value="{{ categoria.id_categoria }}" hidden>
+
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="categoria" class="form-control" value="{{categoria.categoria}}" ><br>
+
+                    <button type="submit" class="btn btn-success">Submit</button>
+
+                </form>
+              </p>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock  %}

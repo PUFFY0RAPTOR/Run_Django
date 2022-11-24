@@ -13,21 +13,32 @@
             <div class="datosRegistro">
                 <h4>Ingresa los siguientes datos</h4><br>
                 
-                <label for="id_pedido">Pedido: </label>
-                <input class="inputregis" type="number" name="id_pedido" size="20" placeholder="id del pedido" />
+                <label for="id_pedidos_productos">id del Pedido: </label>
+                <input class="inputregis" type="number" name="pedido" size="20" placeholder="id del Pedido" /><br>
     
 
-                <label for="cliente">escoja cliente</label></br>
-                <select class="form-select" id="cliente" name="cliente" >
-                    {% for i in clientes %}
-                    <option value="{{i.id_cliente}}">{{i}}</option>
+                <label for="pedido">escoja la venta</label></br>
+                <select class="form-select" id="venta" name="venta" >
+                    {% for i in ventas %}
+                    <option value="{{i.id_venta}}">{{i.id_venta}}</option>
+                    {% endfor %}
+                </select><br><br>
+                
+                <label for="producto">escoja el producto</label></br>
+                <select class="form-select" id="producto" name="producto" >
+                    {% for i in productos %}
+                    <option value="{{i.id_producto}}">{{i.nombre_producto}}</option>
                     {% endfor %}
                 </select>
-                
+
+                <label for="cantidad">cantidad: </label>
+                <input class="inputregis" id="cantidad" type="number" name="cantidad" size="20" placeholder="id del Pedido" /><br>
+
+
             </div>
     
             <div class="text-center">
-                <br> <input class="btn btn-primary" type="submit" value="Crear Cuenta" /><br>
+                <br> <input class="btn btn-primary" type="submit" value="Crear pedidoProducto" /><br>
             </div><br>
     
     

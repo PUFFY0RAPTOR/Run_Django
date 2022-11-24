@@ -11,8 +11,10 @@
         <table class="table table-responsive" id="pedidosTable">
             <thead class="thead-dark">
                 <tr>
-                    <th>id Pedido</th>
-                    <th>Cliente</th>
+                    <th>Id Pedido</th>
+                    <th>Cliente asociado al pedido</th>
+                    <th>Id de la venta</th>
+                    <th>Id del producto</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -21,9 +23,12 @@
                     {% for i in datos%}
                     <tr>
                         <td class="col-lg-6">{{i.id_pedido}}</td>
-                        <td class="col-lg-6">{{i.cliente}}</td>
-                        <td class="col-lg-6">
-                            <a href="{% url 'paginaWeb:upd_pedidos_form' i.id_pedido %}" class="btn btn-warning"><svg
+                        <td>{{i.venta.persona}}</td>
+                        <td>{{i.producto.nombre_producto}}</td>
+                        <td>{{i.venta.id_venta}}</td>
+                        <td>{{i.producto}}</td>
+                        <td>
+                            <a href="{% url 'paginaWeb:upd_pedidos_productos_form' i.id_pedido %}" class="btn btn-warning"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path
@@ -42,7 +47,7 @@
 
                 {% else %}
                     <tr>
-                        <td>No hay pedidos que mostrar</td><br>
+                        <td>No hay pedidos que mostrar</td>
                     </tr>
                 {% endif %}
             </tbody>

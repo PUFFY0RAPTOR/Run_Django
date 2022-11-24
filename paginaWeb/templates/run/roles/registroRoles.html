@@ -1,0 +1,34 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Registrar roles {% endblock %}
+{% block body %}
+
+    <br/><h1>Registro de roles</h1><br/>
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
+
+        <h1 class="text-center">Registro de Rol</h1>
+        <div>
+            <form action="{% url 'paginaWeb:reg_roles' %}" method="post" class="row">
+
+                {% csrf_token %}
+
+                <div class="col-4">
+                    <label for="codigo" class="form-label">Código: </label>
+                    <input type="number" name="idRol" size="auto" class="form-control"><br>
+                </div>
+
+                <div class="col-4">
+                    <br><label for="nombreRes" class="form-label">Nombre rol: </label>
+                    <input type="text" name="nameRol" class="form-control" placeholder="Nombre del rol" /> <br>
+                </div>
+
+                <div class="col-4">
+                    <br><label for="desc" class="form-label">Descripción: </label>
+                    <textarea name="descripcion" id="desc" cols="30" rows="5" class="form-control" placeholder="Descripción del rol..."></textarea>
+                </div>
+                <br><input type="submit" class="btn btn-primary mt-4 col-4 mx-auto" value="Crear">
+            </form>
+        </div>
+    </div>
+
+
+{% endblock  %}

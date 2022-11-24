@@ -45,7 +45,6 @@ class Categorias(models.Model):
     def __str__(self):
         return self.categoria
 
-
 class Productos(models.Model):
     id_producto = models.IntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=100)
@@ -79,9 +78,9 @@ class Ventas(models.Model):
         return f"{self.fecha_envio}"
 
 
-class PedidosProductos(models.Model):
-    id_pedidos_productos = models.IntegerField(primary_key=True)
-    ventas = models.ForeignKey(Ventas, on_delete=models.DO_NOTHING)
+class Pedidos(models.Model):
+    id_pedido = models.IntegerField(primary_key=True)
+    venta = models.ForeignKey(Ventas, on_delete=models.DO_NOTHING)
     producto = models.ForeignKey(Productos, on_delete=models.DO_NOTHING)
     cantidad = models.IntegerField()
 

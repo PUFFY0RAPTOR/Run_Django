@@ -29,14 +29,14 @@ urlpatterns = [
     path('listarPersonas/', decoradorPermitirAE(views.listarPersonas), name='list_usu'),
 
     # Empleados
-    path('formuEmpleados/', decoradorPermitirA(views.formEmpleados), name='form_empleados'),
-    path('listarEmpleados/', decoradorPermitirA(views.listarEmpleados), name='list_empleados'),
-    path('addEmpleados/', decoradorPermitirA(views.addEmpleados), name='add_empleados'),
-    path('elimEmpleados/<id>', decoradorPermitirA(views.deleteEmpleados), name='del_empleados'),
-    path('elimEmpleados/', views.sinId, name='del_empleados_sin_id'),
-    path('updateEmpleadosForm/<id>', decoradorPermitirA(views.updateEmpleadosForm), name='upd_empleados_form'),
-    path('updateEmpleadosForm/', views.sinId, name='upd_empleados_form_sin_id'),
-    path('updateEmpleados/', decoradorPermitirA(views.updateEmpleados), name='upd_empleados'),
+    # path('formuEmpleados/', decoradorPermitirA(views.formEmpleados), name='form_empleados'),
+    # path('listarEmpleados/', decoradorPermitirA(views.listarEmpleados), name='list_empleados'),
+    # path('addEmpleados/', decoradorPermitirA(views.addEmpleados), name='add_empleados'),
+    # path('elimEmpleados/<id>', decoradorPermitirA(views.deleteEmpleados), name='del_empleados'),
+    # path('elimEmpleados/', views.sinId, name='del_empleados_sin_id'),
+    # path('updateEmpleadosForm/<id>', decoradorPermitirA(views.updateEmpleadosForm), name='upd_empleados_form'),
+    # path('updateEmpleadosForm/', views.sinId, name='upd_empleados_form_sin_id'),
+    # path('updateEmpleados/', decoradorPermitirA(views.updateEmpleados), name='upd_empleados'),
 
     # Usuarios
     path('formuUsuarios/', decoradorPermitirA(views.formUsuarios), name='form_usuarios'),
@@ -58,25 +58,7 @@ urlpatterns = [
     path('updateVentasForm/', views.sinId, name='upd_ventas_form_sin_id'),
     path('updateVentas/', decoradorPermitirAE(views.updateVentas), name='upd_ventas'),
 
-    # Historial
-    path('formuHistorial/', decoradorPermitirA(views.formHistorial), name='form_historial'),
-    path('listarHistorial/', decoradorPermitirAE(views.listarHistorial), name='list_historial'),
-    path('addHistorial/', decoradorPermitirA(views.addHistorial), name='add_historial'),
-    path('elimHistorial/<id>', decoradorPermitirA(views.deleteHistorial), name='del_historial'),
-    path('elimHistorial/', views.sinId, name='del_historial_sin_id'),
-    path('updateHistorialForm/<id>', decoradorPermitirA(views.updateHistorialForm), name='upd_historial_form'),
-    path('updateHistorialForm/', views.sinId, name='upd_historial_form_sin_id'),
-    path('updateHistorial/', decoradorPermitirA(views.updateHistorial), name='upd_historial'),
 
-    # Pedidos
-    path('formuPedidos/', decoradorPermitirAE(views.formPedidos), name='form_pedidos'),
-    path('listarPedidos/', decoradorPermitirAE(views.listarPedidos), name='list_pedidos'),
-    path('addPedidos/', decoradorPermitirAE(views.addPedidos), name='add_pedidos'),
-    path('elimPedidos/<id>', decoradorPermitirAE(views.deletePedidos), name='del_pedidos'),
-    path('elimPedidos/', views.sinId, name='del_pedidos_sin_id'),
-    path('updatePedidosForm/<id>', decoradorPermitirAE(views.updatePedidosForm), name='upd_pedidos_form'),
-    path('updatePedidosForm/', views.sinId, name='upd_pedidos_form_sin_id'),
-    path('updatePedidos/', decoradorPermitirAE(views.updatePedidos), name='upd_pedidos'),
 
     # Marcas
     path('formuMarcas/', decoradorPermitirAE(views.formMarcas), name='form_marcas'),
@@ -87,6 +69,17 @@ urlpatterns = [
     path('updateMarcasForm/<int:id>', decoradorPermitirAE(views.updateMarcasForm), name='upd_marcas_form'),
     path('updateMarcasForm/', views.sinId, name='upd_marcas_form_sin_id'),
     path('updateMarcas/', decoradorPermitirAE(views.updateMarcas), name='upd_marcas'),
+
+    # Categorias
+    path('formuCate/', decoradorPermitirAE(views.formCategorias), name='form_categorias'),
+    path('listarCategorias/', views.listarCategorias, name='list_categorias'),
+    path('addCategorias/', decoradorPermitirAE(views.addCategorias), name='add_categorias'),
+    path('elimCategorias/<int:id>', decoradorPermitirAE(views.deleteCategorias), name='del_categorias'),
+    path('elimCategorias/', views.sinId, name='del_categorias_sin_id'),
+    path('updateCategoriasForm/<int:id>', decoradorPermitirAE(views.updateCategoriasForm), name='upd_categorias_form'),
+    path('updateCategoriasForm/', views.sinId, name='upd_categorias_form_sin_id'),
+    path('updateCategoria/', decoradorPermitirAE(views.updateCategorias), name='upd_categorias'),
+
 
     # Imagenes
     path('regImagenesForm/', views.regImagenesForm, name='reg_imagenes_form'),
@@ -106,13 +99,13 @@ urlpatterns = [
     path('updateInvForm/', views.sinId, name='upd_inv_form_sin_id'),
     path('updateInv/', decoradorPermitirAE(views.updateInventario), name='upd_inv'),
 
-    # PedidosProductos (inventario)
-    path('formuPediProduc/', decoradorPermitirA(views.formPedidosProductos), name='form_pedidos_productos'),
-    path('listarPediProduc/', decoradorPermitirA(views.listarPedidosProductos), name='list_pedidos_productos'),
-    path('addPediProduc/', decoradorPermitirA(views.addPedidosProductos), name='add_pedidos_productos'),
-    path('elimPediProduc/<id>', decoradorPermitirA(views.deletePedidosProductos), name='del_pedidos_productos'),
-    path('elimPediProduc/', views.sinId, name='del_pedidos_productos_sin_id'),
-    path('updatePediProducForm/<id>', decoradorPermitirA(views.updatePedidosProductosForm),
+    # Pedidos
+    path('formuPedi/', decoradorPermitirA(views.formPedidos), name='form_pedidos'),
+    path('listarPedi/', decoradorPermitirA(views.listarPedidos), name='list_pedidos'),
+    path('addPedi/', decoradorPermitirA(views.addPedidos), name='add_pedidos'),
+    path('elimPedi/<id>', decoradorPermitirA(views.deletePedidos), name='del_pedidos'),
+    path('elimPedi/', views.sinId, name='del_pedidos_sin_id'),
+    path('updatePediForm/<id>', decoradorPermitirA(views.updatePedidosForm),
          name='upd_pedidos_productos_form'),
     path('updatePediProducForm/', views.sinId, name='upd_pedidos_productos_form_sin_id'),
     path('updatePediProduc/', decoradorPermitirA(views.updatePedidosProductos), name='upd_pedidos_productos'),
@@ -140,15 +133,6 @@ urlpatterns = [
     path('updateRolesForm/', views.sinId, name='upd_roles_form_sin_id'),
     path('updateRoles/', decoradorPermitirA(views.updateRol), name='upd_roles'),
 
-    # Envios
-    path('listarEnvios/', decoradorPermitirAE(views.listEnvios), name='list_envios'),
-    path('FormEnvios/', decoradorPermitirAE(views.formEnvios), name='form_envios'),
-    path('addEnvios/', decoradorPermitirAE(views.addEnvios), name='add_envios'),
-    path('deleteEnvios/<int:id>', decoradorPermitirAE(views.deleteEnvios), name='del_envios'),
-    path('deleteEnvios/', views.sinId, name='del_envios_sin_id'),
-    path('updateEnviosForm/<int:id>', decoradorPermitirAE(views.updateEnviosForm), name='upd_envios_form'),
-    path('updateEnviosForm/', views.sinId, name='upd_envios_form_sin_id'),
-    path('updateEnvios/', decoradorPermitirAE(views.updateEnvios), name='upd_envios'),
 
     # MediosDePago
     path('listarMediosPago/', decoradorPermitirA(views.listMediosPagos), name='list_mediosPagos'),

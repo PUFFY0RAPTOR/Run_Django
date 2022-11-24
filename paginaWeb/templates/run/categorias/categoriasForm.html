@@ -1,0 +1,30 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Categorias Formulario {% endblock %}
+
+{% block body %}
+
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
+
+        <h1 class="text-center">Registro de categoria</h1>
+        <div>
+            <form action="{% url 'paginaWeb:add_categorias' %}" method="post" enctype="multipart/form-data" class="row">
+
+                {% csrf_token %}
+
+                <div class="col-4">
+                    <label for="cedula" class="form-label">Código de la categoria: </label>
+                    <input type="number" id="cedula" name="id" class="form-control">
+                </div>
+
+                <div class="col-4">
+                    <label for="nombre" class="form-label">Nombre de la categoria: </label>
+                    <input type="text" id="nombre" name="nombre" class="form-control">
+                </div>
+
+
+                <br><input type="submit" class="btn btn-primary mt-4 col-4 mx-auto" value="Crear">
+            </form>
+        </div>
+    </div>
+        
+{% endblock  %}
