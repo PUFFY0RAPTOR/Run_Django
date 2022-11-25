@@ -2,65 +2,80 @@
 {% block tituloPage %} Registro de productos {% endblock %}
 {% block body %}
 
-    {% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
 
-    <div>
-        <br>
-        <h1 id="tituloFormularios"> Editar producto {{productos.nombre_producto}} con Id: {{productos.id_producto}} </h1>
+        <h1 class="text-center text-primary">Editando productos</h1>
 
-        <form action="{% url 'paginaWeb:upd_inv' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'paginaWeb:upd_inv' %}" method="post" enctype="multipart/form-data" class="row p-3">
+
             {% csrf_token %}
-            <div class="datosDiv">
 
-                <label for="codigo">Código: </label>
-                <input type="text" name="codigo" value="{{productos.id_producto}}" readonly/><br>
+            <div class="col-4">
+                <label for="codigo" class="form-label">Código: </label>
+                <input type="number" id="codigo" name="codigo" class="form-control" value="{{ productos.id_producto }}">
+            </div>
 
-                <label for="nombreRes">Nombre <br>repuesto: </label>
-                <input type="text" name="nombreRes" value="{{productos.nombre_producto}}" /> <br>
+            <div class="col-4">
+                <label for="nombre" class="form-label">Nombre: </label>
+                <input type="text" id="nombre" name="nombreRes" class="form-control"
+                       value="{{ productos.nombre_producto }}">
+            </div>
 
-                <label for="stock">Stock: </label>
-                <input type="number" name="stock" value="{{productos.stock}}" /> <br>
+            <div class="col-4 flex-wrap-reverse">
+                <label for="stock" class="form-label">Stock: </label>
+                <input type="number" id="stock" name="stock" class="form-control" value="{{ productos.stock }}">
+            </div>
 
-                <!-- <label for="costo">Costo: </label>
-                <input type="number" name="costo" value="15000" /> <br> -->
+            <div class="col-4">
+                <label for="precio" class="form-label">Precio: </label>
+                <input type="number" id="precio" name="precio" class="form-control" value="{{ productos.precio }}">
+            </div>
 
-                <label for="precio">Precio: </label>
-                <input type="number" name="precio" value="{{productos.precio}}" /> <br>
-                
-                <label for="marca">Marcas: </label>
-                <select value="{{ productos.marca }}" name="marca">
-                {% if dataMarcas %}    
-                    {% for i in dataMarcas %}
-                    <option value="{{i.id_marca}}">{{i.nombre_marca}}</option>
-                    {% endfor %}
-                {% endif %}
+            <div class="col-4">
+                <label for="palabClave" class="form-label">Palabras clave: </label>
+                <input type="text" id="palabClave" name="palabClave" class="form-control"
+                       value="{{ productos.palabras_clave }}" />
+            </div><br>
+
+            <div class="col-4">
+                <label for="marcaAct" class="form-label">Marca actual: </label>
+                <input type="text" id="marcaAct" name="" class="form-control"
+                       value="{{ m.nombre_marca }}" readonly/>
+            </div><br>
+
+            <div class="col-4">
+                <label for="marca" class="form-label">Nueva marca: </label>
+                <select id="marca" name="marca" class="form-select">
+                    <option value="" selected>Seleccione una marca</option>
+                        {% for i in marcas %}
+                            <option value="{{ i.id_marca }}">{{ i.nombre_marca }}</option>
+                        {% endfor %}
                 </select>
-
-                <!-- <label for="categ">Categorias: </label>
-                <select name="categ" id="">
-
-                    <option value="acce">Accesorios</option>
-                    <option value="herr">Herramientas</option>
-                    <option value="ilum">Iluminación</option>
-                    <option value="lubr">Lubricantes</option>
-                    <option value="descue">Descuentos</option>
-
-                </select> -->
-
-                <label for="desc">Descripción: </label>
-                <textarea name="descripcion" id="desc" cols="30" rows="5">{{productos.descripcion}}</textarea>
-
-                <label for="desc">Imagen Actual: </label>
-                <a href="{{productos.imagen.url}}" target="_blank" ><img src="{{productos.imagen.url}}"  width="20%" /></a>
-
-                <label for="imagen">Imagen: </label>
-                <input type="file" name="imagen">
-
-            </div>
-            <div class="text-center">
-                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
             </div>
 
+            <div class="col-4">
+                <label for="categAct" class="form-label">Categoria actual: </label>
+                <input type="text" id="categAct" name="" class="form-control"
+                       value="{{ c.categoria }}" readonly/>
+            </div><br>
+
+            <div class="col-4">
+                <label for="categoria" class="form-label">Categoría: </label>
+                <select id="categoria" name="categoria" class="form-select">
+                    <option value="" selected>Seleccione la categoría</option>
+                        {% for i in categorias %}
+                            <option value="{{ i.id_categoria }}">{{ i.categoria }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-4">
+                <label for="desc" class="form-label">Descripción: </label>
+                <textarea name="descripcion" id="desc" class="form-control" rows="10" cols="50"
+                >{{ productos.descripcion }}</textarea>
+            </div>
+
+            <input type="submit" class="btn btn-primary mt-4 col-5 mx-auto" value="Actualizar producto">
         </form>
     </div><br>
 

@@ -1,31 +1,35 @@
 {% extends 'run/base.html' %}{% load static %}
 {% block tituloPage %} Editar roles {% endblock %}
+
 {% block body %}
 
-    {% block motos %}{% endblock%} 
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
 
-    <br/><h1>Edición del rol --- {{ roles.nombre_rol }}</h1><br/>
-    
-    <div>
-        <form action="{% url 'paginaWeb:upd_roles' %}" method="post">
-            {% csrf_token %}
-            <div class="datosDiv">
+        <h1 class="text-center text-primary">Actualizar rol</h1>
+        <div>
+            <form action="{% url 'paginaWeb:upd_roles' %}" method="post" class="row p-3">
 
-                <label for="codigo">Código: </label>
-                <input type="number" name="idRol" value="{{ roles.id_roles }}" readonly/><br>
+                {% csrf_token %}
 
-                <br><label for="nombreRes">Nombre rol: </label>
-                <input type="text" name="nameRol" value="{{ roles.nombre_rol }}" /> <br>
+                <div class="col-4">
+                    <label for="codigo" class="form-label">Código: </label>
+                    <input type="number" name="idRol" size="auto" class="form-control" value="{{ roles.id_roles }}">
+                </div>
 
-                <br><label for="desc">Descripción: </label>
-                <textarea name="descripcion" id="desc" cols="30" rows="5">{{ roles.descripcion }}</textarea>
+                <div class="col-4">
+                    <label for="nombreRes" class="form-label">Nombre rol: </label>
+                    <input type="text" name="nameRol" class="form-control" value="{{ roles.nombre_rol }}" />
+                </div>
 
-            </div>
-            <div class="text-center">
-                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
-            </div>
-
-        </form>
-    </div><br>
+                <div class="col-4">
+                    <label for="desc" class="form-label">Descripción: </label>
+                    <textarea name="descripcion" id="desc" cols="30"
+                              rows="5" class="form-control">{{ roles.descripcion }}
+                    </textarea>
+                </div>
+                <br><input type="submit" class="btn btn-primary mt-4 col-4 mx-auto" value="Actualizar rol">
+            </form>
+        </div>
+    </div>
 
 {% endblock  %}

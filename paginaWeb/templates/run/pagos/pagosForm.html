@@ -3,37 +3,42 @@
 
 {% block body %}
 
-{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+    <div class="container bg-light py-5 mt-5 mb-5">
 
-    <br/><div class="container">
-        <h1>Añadir pago</h1>
+        <h1 class="text-center text-primary">Registro de pagos</h1>
+        <div>
+            <form action="{% url 'paginaWeb:add_pagos' %}" method="post" enctype="multipart/form-data" class="row p-4">
 
-        <form action="{% url 'paginaWeb:add_pagos' %}" method="post">
-            {% csrf_token %}
-            <div class="datosDiv">
+                {% csrf_token %}
 
-                <label for="idPago">Código: </label>
-                <input type="number" name="idPago" placeholder="Código del pago: "/><br>
+                <div class="col-4">
+                    <label for="idPago" class="form-label">Código del pago: </label>
+                    <input type="number" id="idPago" name="idPago" class="form-control">
+                </div>
 
-                <br><label for="medioPago">Medio de pago: </label>
-                <select name="medioPago" id="medioPago">
-                    <option selected>Seleccione un medio de pago</option>
-                    {% for i in medPagos %}
-                        <option value="{{i.id_medio_pago}}"> {{i.nombre_medio_pago}} </option>
-                    {% endfor %}
-                </select>
- 
-                <br/><br/><label for="fecha">Fecha del pago: </label><br/>
-                <input type="date" name="fecha" /> <br><br>
+                <div class="col-4">
+                    <label for="venta" class="form-label">Nombre de la venta: </label>
+                    <select name="venta" id="venta" class="form-select">
+                        <option selected>Seleccione una venta</option>
+                        {% for i in ventas %}
+                            <option value="{{i.id_venta}}"> {{i.id_venta}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-                <!-- Hay que cambiar esto para que cuando se agreguen roles, se muestren, lo hice muy mecanico-->
+                <div class="col-4">
+                    <label for="medioPago" class="form-label">Nombre del medio de pago: </label>
+                    <select name="medioPago" id="medioPago" class="form-select">
+                        <option selected>Seleccione un medio de pago</option>
+                        {% for i in medPagos %}
+                            <option value="{{i.id_medio_pago}}"> {{i.nombre_medio_pago}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            </div>
-            <div class="text-center">
-                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
-            </div>
-        </form>
-
-    </div><br/>
+                <br><input type="submit" class="btn btn-primary mt-4 col-4 mx-auto" value="Añadir pago">
+            </form>
+        </div>
+    </div>
         
 {% endblock  %}

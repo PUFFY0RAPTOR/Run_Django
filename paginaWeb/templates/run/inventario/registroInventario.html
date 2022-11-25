@@ -1,0 +1,67 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} Registro de productos {% endblock %}
+{% block body %}
+
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
+
+        <h1 class="text-center">Registro de productos</h1>
+
+        <form action="{% url 'paginaWeb:crear_inv' %}" method="post" enctype="multipart/form-data" class="row p-3">
+
+            {% csrf_token %}
+
+            <div class="col-4">
+                <label for="codigo" class="form-label">Código: </label>
+                <input type="number" id="codigo" name="codigo" class="form-control">
+            </div>
+
+            <div class="col-4">
+                <label for="nombre" class="form-label">Nombre: </label>
+                <input type="text" id="nombre" name="nombreRes" class="form-control">
+            </div>
+
+            <div class="col-4 flex-wrap-reverse">
+                <label for="stock" class="form-label">Stock: </label>
+                <input type="number" id="stock" name="stock" class="form-control">
+            </div>
+
+            <div class="col-4">
+                <label for="precio" class="form-label">Precio: </label>
+                <input type="number" id="precio" name="precio" class="form-control">
+            </div>
+
+            <div class="col-4">
+                <label for="palabClave" class="form-label">Palabras clave: </label>
+                <input type="text" id="palabClave" name="palabClave" class="form-control">
+            </div><br>
+
+            <div class="col-4">
+                <label for="marca" class="form-label">Marcas: </label>
+                <select id="marca" name="marca" class="form-select">
+                    <option value="" selected>Seleccione la marca</option>
+                        {% for i in marcas %}
+                            <option value="{{ i.id_marca }}">{{ i.nombre_marca }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-4">
+                <label for="categoria" class="form-label">Categoría: </label>
+                <select id="categoria" name="categoria" class="form-select">
+                    <option value="" selected>Seleccione la categoría</option>
+                        {% for i in categorias %}
+                            <option value="{{ i.id_categoria }}">{{ i.categoria }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-4">
+                <label for="desc" class="form-label">Descripción: </label>
+                <textarea name="descripcion" id="desc" class="form-control" rows="10" cols="50" placeholder="Descripción del
+                 producto..."></textarea>
+            </div>
+
+            <input type="submit" class="btn btn-primary mt-4 col-5 mx-auto" value="Añadir producto">
+        </form>
+    </div><br>
+{% endblock  %}

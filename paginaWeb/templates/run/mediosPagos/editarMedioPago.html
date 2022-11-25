@@ -1,40 +1,47 @@
-{% extends 'run/base.html' %}{% load static %}
+{% extends 'run/base.html' %}{% load static %}habil
 {% block tituloPage %} Medios de pago Formulario editar {% endblock %}
 
 {% block body %}
 
-{% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
+    <div class="container bg-light py-5 mt-5 mb-5">
 
-    <br/><div class="container">
-        <h1>Editar medio de pago --- {{medios.id_medio_pago}}</h1>
+        <h1 class="text-center text-primary">Actualizar medios de pagos</h1>
+        <div>
+            <form action="{% url 'paginaWeb:upd_mediosPagos' %}" method="post" enctype="multipart/form-data"
+                  class="row p-3">
 
-        <form action="{% url 'paginaWeb:upd_mediosPagos' %}" method="post">
-            {% csrf_token %}
-            <div class="datosDiv">
+                {% csrf_token %}
 
-                <label for="idMedio">Código: </label>
-                <input type="number" name="idMedio" value="{{medios.id_medio_pago}}" readonly/><br>
+                <div class="col-4">
+                    <label for="idMedioPago" class="form-label">Código del medio de pago: </label>
+                    <input type="number" id="idMedioPago" name="idMedio" class="form-control"
+                           value="{{ medios.id_medio_pago}}">
+                </div>
 
-                <br><label for="nombreMedio">Nombre del medio de pago: </label>
-                <input type="text" name="nombreMedio" value="{{medios.nombre_medio_pago}}"/> <br><br>
- 
-                <label for="estado">Estado: </label>
-                <select name="estado" id="estado">
-                    {% if medPagos %}
-                        {% for i in medPagos %}
-                            <option>{{i.estado_medio_pago}}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
+                <div class="col-4">
+                    <label for="nombreMedio" class="form-label">Nombre del medio de pago: </label>
+                    <input type="text" id="nombreMedio" name="nombreMedio" class="form-control"
+                           value="{{ medios.nombre_medio_pago}}">
+                </div>
 
-                <!-- Hay que cambiar esto para que cuando se agreguen roles, se muestren, lo hice muy mecanico-->
+                <div class="col-4">
+                    <label for="medioAct" class="form-label">Estado medio de pago actual: </label>
+                    <input type="text" id="medioAct" name="" class="form-control"
+                           value="{{ medios.estado_medio_pago}}" readonly>
+                </div>
 
-            </div>
-            <div class="text-center">
-                <br> <input class="btn btn-primary" type="submit" value="Listo"/><br>
-            </div>
-        </form>
+                <div class="col-4">
+                    <label for="estado" class="form-label">Estado del medio de pago: </label>
+                    <select name="estado" id="estado" class="form-select">
+                        <option value="" selected>Seleccione un estado</option>
+                        <option value="Habilitado">Habilitado</option>
+                        <option value="Deshabilitado">Deshabilitado</option>
+                    </select>
+                </div>
 
-    </div><br/>
+                <br><input type="submit" class="btn btn-primary mt-4 col-4 mx-auto" value="Actualizar medio de pago">
+            </form>
+        </div>
+    </div>
         
 {% endblock  %}

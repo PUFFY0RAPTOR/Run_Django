@@ -62,10 +62,10 @@ class ImagenesAdmin(admin.ModelAdmin):
         )
 
 
-@admin.register(PedidosProductos)
-class PedidosProductosAdmin(admin.ModelAdmin):
-    list_display = ('id_pedidos_productos','ventas', 'producto', 'cantidad')
-    search_fields = ['id_pedidos_productos','ventas__venta', 'producto_producto', 'cantidad']
+@admin.register(Pedidos)
+class PedidosAdmin(admin.ModelAdmin):
+    list_display = ('id_pedido','venta', 'producto', 'cantidad')
+    search_fields = ['id_pedido','venta__venta', 'producto_producto', 'cantidad']
 
 
 @admin.register(Ventas)

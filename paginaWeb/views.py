@@ -66,6 +66,7 @@ def decoradorPermitirA(funcionPrincipal):
 
     return autenticar
 
+
 # Solo un administrador y alguien que no este logueado, puede entrar
 def decoradorPermitirAV(funcionPrincipal):
     def autenticar(request, *args, **kwargs):
@@ -79,6 +80,7 @@ def decoradorPermitirAV(funcionPrincipal):
             return redirect('paginaWeb:index')
 
     return autenticar
+
 
 # Solo un Cliente puede entrar
 def decoradorPermitirC(funcionPrincipal):
@@ -118,13 +120,16 @@ def sinId(request):
 
 # Create your views here.
 def index(request):
+    """Método para ir a la página de inicio
+    """
     return render(request, 'run/index.html')
 
 
 # Login
 @decoradorDenegarAEC
 def loginForm(request):
-    """Método para acceder al formulario de logueo"""
+    """Método para acceder al formulario de logueo
+    """
     return render(request, 'run/login/login.html')
 
 
@@ -249,7 +254,7 @@ def registro(request):
     de los usuarios del sistema 
     """
     q = Roles.objects.all()
-    contexto = {'roles':q}
+    contexto = {'roles': q}
     return render(request, 'run/personas/registro.html', contexto)
 
 
@@ -302,6 +307,7 @@ def guardarPersona(request):
     else:
         messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
         return render(request, 'run/index.html')
+
 
 @decoradorPermitirAC
 def eliminarPersona(request, id):
@@ -389,7 +395,8 @@ def updatePersona(request):
 # hubo problemas con el nombre, luego se cambian
 @decoradorPermitirAE
 def listarPersonas(request):
-    """Trae todos los usuarios activos en el momento para mostrarlos en un html
+    """Trae todos los usuarios activos en
+    el momento para mostrarlos en un html.
     """
     q = Personas.objects.all()
 
@@ -399,12 +406,13 @@ def listarPersonas(request):
 
 
 @decoradorPermitirAEC
-def buscarPersonaEditar(request,id):
-    """No lo sé
+def buscarPersonaEditar(request, id):
+    """Método para encontrar una persona 
+    para editarla.
     """
     q = Personas.objects.get(pk=id)
     r = Roles.objects.all()
-    contexto = {'persona': q, 'roles':r}
+    contexto = {'persona': q, 'roles': r}
 
     return render(request, 'run/personas/editarPersonas.html', contexto)
 
@@ -417,12 +425,14 @@ def marcas(request):
     """
     return render(request, 'run/marcas/marcas.html')
 
+
 @decoradorPermitirAE
 def formMarcas(request):
     """Método para acceder al formulario
     de registro de marcas.
     """
     return render(request, 'run/marcas/marcasForm.html')
+
 
 @decoradorPermitirAEC
 def listarMarcas(request):
@@ -432,6 +442,7 @@ def listarMarcas(request):
     q = Marcas.objects.all()
     contexto = {'datos': q}
     return render(request, 'run/marcas/listarMarcas.html', contexto)
+
 
 @decoradorPermitirAE
 def addMarcas(request):
@@ -462,7 +473,7 @@ def deleteMarcas(request, id):
     """Método para eliminar marcas.
     """
     try:
-        validation = Productos.objects.filter(marca = id)
+        validation = Productos.objects.filter(marca=id)
         if validation:
             messages.warning(request, f'Marca asociada a otros registros, borralos y luego intentarlo de nuevo')
             return redirect('paginaWeb:list_marcas')
@@ -489,7 +500,8 @@ def deleteMarcas(request, id):
         return redirect('paginaWeb:list_marcas')
     except Exception as e:
         if str(e) == "FOREIGN KEY constraint failed":
-            messages.error(request, f'La marca esta vinculada a otros registros, eliminelos y luego vuelva a intentarlo')
+            messages.error(request,
+                           f'La marca esta vinculada a otros registros, eliminelos y luego vuelva a intentarlo')
             return redirect('paginaWeb:list_marcas')
         else:
             messages.error(request, f'Hubo un problema al eliminar una marca: {e}')
@@ -549,7 +561,9 @@ def updateMarcas(request):
 
 # Compras
 def verProductos(request):
-    """Método para visualizar los productos ofrecidos en la tienda"""
+    """Método para visualizar los 
+    productos ofrecidos en la tienda.
+    """
 
     q = Productos.objects.all()
 
@@ -566,7 +580,7 @@ def verProductos(request):
 # Images
 def regImagenesForm(request):
     """Formulario para acceder al registro
-    de imagenes nuevas para los productos
+    de imagenes nuevas para los productos.
     """
     p = Productos.objects.all()
     contexto = {'productos': p}
@@ -605,8 +619,38 @@ def regImagenes(request):
     return redirect('paginaWeb:list_imagenes')
 
 
+def eliminarImagenes(request, id):
+    """Método para eliminar las imagenes
+    de los productos.
+    """
+    try:
+        imagenes = Imagenes.objects.get(pk=id)
+        from pathlib import Path
+        from os import remove, path
+        # Build paths inside the project like this: BASE_DIR / 'subdir'.
+        BASE_DIR = Path(__file__).resolve().parent.parent
+
+        ruta_imagen = str(BASE_DIR) + str(imagenes.imagen.url)
+
+        # Buscamos si la ruta existe
+        if path.exists(ruta_imagen):
+            # si es diferente a la default la borramos, ya que no podemos borrar la imagen por predeterminado
+            if imagenes.imagen.url != "/uploads/RUN/imagProductos/default.png":
+                remove(ruta_imagen)
+                messages.success(request, "Imagen eliminada correctamente.")
+            else:
+                print("La foto es la predeterminada")
+        imagenes.delete()
+        messages.success(request, "Eliminado correctamente")
+    except Exception as e:
+        messages.error(request, f"Hubo un error al eliminar la imagen : {e}")
+
+    return redirect('paginaWeb:list_imagenes')
+
+
 def listImagenes(request):
-    """Método para listar las imagenes"""
+    """Método para listar las imagenes
+    """
     q = Imagenes.objects.all()
     contexto = {'imagenes': q}
     return render(request, 'run/imagenes/listar_imagenes.html', contexto)
@@ -683,9 +727,11 @@ def updateInventarioForm(request, id):
     """
     q = Productos.objects.get(pk=id)
     m = Marcas.objects.all()
+    marcas = Marcas.objects.get(pk=id)
     c = Categorias.objects.all()
+    categorias = Categorias.objects.get(pk=id)
 
-    contexto = {'productos': q, 'marcas': m, 'categorias': c}
+    contexto = {'productos': q, 'marcas': m, 'categorias': c, 'm': marcas, 'c': categorias}
     return render(request, 'run/inventario/editarInventario.html', contexto)
 
 
@@ -714,6 +760,7 @@ def updateInventario(request):
         messages.warning(request, '¿Estás intentado hackear al ganador del SENASOFT? En serio?')
 
     return redirect('paginaWeb:list_inv')
+
 
 # Categorias
 
@@ -757,7 +804,7 @@ def deleteCategorias(request, id):
     """Método para eliminar categorias.
     """
     try:
-        validation = Productos.objects.filter(categoria = id)
+        validation = Productos.objects.filter(categoria=id)
         if validation:
             messages.warning(request, f'Categoria asociada a otros registros, borralos y luego intentarlo de nuevo')
             return redirect('paginaWeb:list_categorias')
@@ -810,21 +857,26 @@ def updateCategorias(request):
 
 # Ayuda
 def ayuda(request):
+    """Método para ir al apartado de ayudas.
+    """
     return render(request, 'run/ayuda/ayuda.html')
 
 
 # Carrito
 @decoradorPermitirC
 def carritoCompras(request):
+    """Método para acceder al carrito de compras.
+    """
     q = Productos.objects.all()
-
     contexto = {'datos': q}
-
     return render(request, 'run/carritoCompras.html', contexto)
 
 
 @decoradorPermitirC
 def addCarrito(request, id):
+    """Método para añadir productos 
+    al carrito de compras.
+    """
     try:
         q = Productos.objects.get(pk=id)
         listaCarrito = request.session.get('carrito', False)
@@ -836,7 +888,6 @@ def addCarrito(request, id):
             request.session['carrito'] = [id]
 
         messages.success(request, 'Producto agregado correctamente al carrito')
-        return redirect('paginaWeb:ver_prod')
     except Exception as e:
         messages.error(request,
                        f'Ha ocurrido un error al agregar el producto al carrito, vuélvalo a intentar mas tarde {e}')
@@ -846,6 +897,9 @@ def addCarrito(request, id):
 
 @decoradorPermitirC
 def mostrarCarrito(request):
+    """Método para mostrar los productos en
+    el carrito de compras.
+    """
     try:
         carrito = request.session.get('carrito', False)
         listaCarrito = []
@@ -867,6 +921,9 @@ def mostrarCarrito(request):
 
 @decoradorPermitirC
 def vaciarCarrito(request):
+    """Método para vaciar el carrito
+    de compras.
+    """
     try:
         if request.session.get('carrito', False):
             del request.session['carrito']
@@ -881,6 +938,9 @@ def vaciarCarrito(request):
 
 @decoradorPermitirC
 def borrarElementoCarrito(request, id):
+    """Método para elminar productos
+    del carrito de compras.
+    """
     try:
         if request.session.get('carrito', False):
             carrito = request.session.get('carrito', False)
@@ -898,10 +958,10 @@ def borrarElementoCarrito(request, id):
 # Admin - Roles
 @decoradorPermitirAE
 def listRoles(request):
+    """Método para listar los roles.
+    """
     q = Roles.objects.all()
-
     contexto = {'roles': q}
-
     return render(request, 'run/roles/listarRoles.html', contexto)
 
 
@@ -915,6 +975,8 @@ def regRolesForm(request):
 
 @decoradorPermitirA
 def rolRegistro(request):
+    """Método para registrar roles.
+    """
     if request.method == 'POST':
         try:
             q = Roles(
@@ -936,27 +998,32 @@ def rolRegistro(request):
 
 @decoradorPermitirA
 def deleteRol(request, id):
+    """Método para eliminar roles.
+    """
     try:
         rol = Roles.objects.get(pk=id)
         rol.delete()
         messages.success(request, 'Rol eliminado correctamente')
-        return redirect('paginaWeb:list_roles')
     except Exception as e:
         messages.error(request, f'Hubo un error al intentar eliminar un rol: {e}')
-        return redirect('paginaWeb:list_roles')
+
+    return redirect('paginaWeb:list_roles')
 
 
 @decoradorPermitirA
 def updateRolForm(request, id):
+    """Método para acceder al formulario
+    para editar los roles.
+    """
     q = Roles.objects.get(pk=id)
-
     contexto = {'roles': q}
-
     return render(request, 'run/roles/editarRoles.html', contexto)
 
 
 @decoradorPermitirA
 def updateRol(request):
+    """Método para actualizar los roles.
+    """
     if request.method == 'POST':
         try:
             roles = Roles.objects.get(pk=request.POST['idRol'])
@@ -974,41 +1041,41 @@ def updateRol(request):
         return redirect('paginaWeb:list_roles')
 
 
-
-
 # Ventas
 @decoradorPermitirAE
 def formVentas(request):
-
+    """Método para acceder al fomulario
+    de las ventas.
+    """
     p = Personas.objects.all()
-
     contexto = {'personas': p}
-
     return render(request, 'run/ventas/ventasForm.html', contexto)
 
 
 @decoradorPermitirAE
 def listarVentas(request):
+    """Método para listar las ventas
+    """
     q = Ventas.objects.all()
-
     contexto = {'datos': q}
-
     return render(request, 'run/ventas/listarVentas.html', contexto)
 
 
 @decoradorPermitirAE
 def addVentas(request):
+    """Método para añadir ventas.
+    """
     if request.method == 'POST':
         try:
             ventaExistente = Ventas.objects.filter(id_venta=request.POST['id_venta'])
-            # pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
-            # envioExistente = Envios.objects.filter(id_envio= request.POST['envio'])
             if ventaExistente:
                 messages.error(request, "id de Venta ya registrada, ingrese una diferente por favor")
                 return redirect('paginaWeb:form_ventas')
             else:
                 q = Ventas(
                     id_venta=request.POST['id_venta'],
+                    direccion=request.POST['direccion'],
+                    persona=Personas.objects.get(pk=request.POST['persona']),
                 )
                 q.save()
                 messages.success(request, "Venta registrada exitosamente")
@@ -1017,12 +1084,14 @@ def addVentas(request):
             messages.error(request, f"Hubo un error en el proceso de registro: {e}")
             return redirect('paginaWeb:form_ventas')
     else:
-        messages.warning(request, "No hay datos para registrar, que estas tratando de hacer?")
+        messages.warning(request, "No hay datos para registrar, que estás tratando de hacer?")
         return redirect('paginaWeb:list_ventas')
 
 
 @decoradorPermitirAE
 def deleteVentas(request, id):
+    """Método para eliminar las ventas.
+    """
     try:
         venta = Ventas.objects.get(pk=id)
         venta.delete()
@@ -1040,16 +1109,25 @@ def deleteVentas(request, id):
 
 @decoradorPermitirAE
 def updateVentasForm(request, id):
+    """Método para acceder al formulario para
+    actualizar las ventas.
+    """
     q = Ventas.objects.get(pk=id)
-    contexto = {'ventas': q}
+    p = Personas.objects.all()
+
+    contexto = {'ventas': q, 'personas': p}
     return render(request, 'run/ventas/editarVentas.html', contexto)
 
 
 @decoradorPermitirAE
 def updateVentas(request):
+    """Método para actualizar las ventas.
+    """
     if request.method == "POST":
         try:
             venta = Ventas.objects.get(id_venta=request.POST['id_venta'])
+            venta.direccion = request.POST['direccion']
+            venta.persona = Personas.objects.get(pk=request.POST['persona'])
             venta.save()
             messages.success(request, "Venta actualizada exitosamente")
             return redirect('paginaWeb:list_ventas')
@@ -1080,7 +1158,9 @@ def listarPedidos(request):
 
 
 @decoradorPermitirA
-def addPedidosProductos(request):
+def addPedidos(request):
+    """Método para añadir nuevos pedidos.
+    """
     if request.method == 'POST':
         try:
             pedidoExistente = Pedidos.objects.filter(id_pedido=request.POST['pedido'])
@@ -1114,12 +1194,14 @@ def addPedidosProductos(request):
 
 
 @decoradorPermitirA
-def deletePedidosProductos(request, id):
+def deletePedidos(request, id):
+    """Método para eliminar pedidos.
+    """
     try:
-        pedidoProducto = PedidosProductos.objects.get(id_pedidos_productos=id)
-        pedidoProducto.delete()
-        messages.success(request, 'pedidoProducto eliminado correctamente')
-        return redirect('paginaWeb:list_pedidos_productos')
+        pedido = Pedidos.objects.get(id_pedido=id)
+        pedido.delete()
+        messages.success(request, 'pedido eliminado correctamente')
+        return redirect('paginaWeb:list_pedidos')
     except Exception as e:
         messages.error(request, f'Hubo un problema al eliminar un pedido: {e}')
         return redirect('paginaWeb:list_pedidos')
@@ -1138,7 +1220,9 @@ def updatePedidosForm(request, id):
 
 
 @decoradorPermitirA
-def updatePedidosProductos(request):
+def updatePedidos(request):
+    """Método para actualizar los pedidos.
+    """
     if request.method == "POST":
         try:
             pedido = Pedidos.objects.get(id_pedido=request.POST['id_pedido'])
@@ -1166,20 +1250,27 @@ def updatePedidosProductos(request):
 # MediosDePago
 @decoradorPermitirA
 def listMediosPagos(request):
+    """Método para listar
+    los medios de pagos.
+    """
     q = MediosDePagos.objects.all()
-
     contexto = {'medios': q}
-
     return render(request, 'run/mediosPagos/listarMediosPagos.html', contexto)
 
 
 @decoradorPermitirA
 def formMediosPagos(request):
+    """Método para acceder al formulario
+    de los medios de pagos.
+    """
     return render(request, 'run/mediosPagos/mediosPagosForm.html')
 
 
 @decoradorPermitirA
 def addMediosPagos(request):
+    """Método para añadir
+    los medios de pago.
+    """
     if request.method == 'POST':
         try:
             q = MediosDePagos(
@@ -1200,6 +1291,9 @@ def addMediosPagos(request):
 
 @decoradorPermitirA
 def deleteMediosPagos(request, id):
+    """Método para eliminar
+    los medios de pagos.
+    """
     try:
         medioPago = MediosDePagos.objects.get(pk=id)
         medioPago.delete()
@@ -1217,6 +1311,9 @@ def deleteMediosPagos(request, id):
 
 @decoradorPermitirA
 def updateMediosPagosForm(request, id):
+    """Método para acceder al formualrio
+    de los medios de pagos.
+    """
     q = MediosDePagos.objects.get(pk=id)
     a = MediosDePagos.objects.all()
     contexto = {'medios': q, 'medPagos': a}
@@ -1225,6 +1322,9 @@ def updateMediosPagosForm(request, id):
 
 @decoradorPermitirA
 def updateMediosPagos(request):
+    """Método para actualizar
+    los medios de pagos.
+    """
     if request.method == "POST":
         try:
             medioPago = MediosDePagos.objects.get(id_medio_pago=request.POST['idMedio'])
@@ -1246,29 +1346,34 @@ def updateMediosPagos(request):
 # Pagos
 @decoradorPermitirAE
 def listPagos(request):
+    """Método para listar los pagos.
+    """
     q = Pagos.objects.all()
-
     contexto = {'pagos': q}
-
     return render(request, 'run/pagos/listarPagos.html', contexto)
 
 
 @decoradorPermitirA
 def formPagos(request):
+    """Método para acceder al formulario
+    para crear pagos.
+    """
     q = MediosDePagos.objects.all()
-
-    contexto = {'medPagos': q}
+    v = Ventas.objects.all()
+    contexto = {'medPagos': q, 'ventas': v}
     return render(request, 'run/pagos/pagosForm.html', contexto)
 
 
 @decoradorPermitirA
 def addPagos(request):
+    """Método para crear nuevos pagos.
+    """
     if request.method == 'POST':
         try:
             q = Pagos(
                 id_pago=request.POST['idPago'],
+                venta=Ventas.objects.get(pk=request.POST['venta']),
                 medio_pago=MediosDePagos.objects.get(pk=request.POST['medioPago']),
-                fecha_pagos=request.POST['fecha'],
             )
             q.save()
             messages.success(request, "Pago registrado exitosamente")
@@ -1283,6 +1388,8 @@ def addPagos(request):
 
 @decoradorPermitirA
 def deletePagos(request, id):
+    """Método para eliminar pagos
+    """
     try:
         pagos = Pagos.objects.get(pk=id)
         pagos.delete()
@@ -1299,14 +1406,20 @@ def deletePagos(request, id):
 
 @decoradorPermitirA
 def updatePagosForm(request, id):
+    """Método para acceder al formulario
+     para actualizar pagos.
+    """
     q = Pagos.objects.get(pk=id)
+    v = Ventas.objects.all()
     a = MediosDePagos.objects.all()
-    contexto = {'pagos': q, 'medPagos': a}
+    contexto = {'pagos': q, 'medPagos': a, 'ventas': v}
     return render(request, 'run/pagos/editarPagos.html', contexto)
 
 
 @decoradorPermitirA
 def updatePagos(request):
+    """Métodos para actualizar los pagos.
+    """
     if request.method == "POST":
         try:
             pagos = Pagos.objects.get(id_pago=request.POST['idPago'])
@@ -1316,13 +1429,9 @@ def updatePagos(request):
             pagos.save()
 
             messages.success(request, "Actualizado correctamente")
-            return redirect('paginaWeb:list_pagos')
         except Exception as e:
             messages.error(request, f"Hubo un error al momento de actualizar: {e}")
-            return redirect('paginaWeb:list_pagos')
     else:
         messages.warning(request, "No sabemos por donde se está metiendo pero no puedes avanzar, puerco")
-        return redirect('paginaWeb:list_pagos')
 
-    # Historial
-
+    return redirect('paginaWeb:list_pagos')
