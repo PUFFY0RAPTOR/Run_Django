@@ -136,7 +136,7 @@ def login(request):
     if request.method == 'POST':
         try:
             correo = request.POST['email']
-            passw = request.POST['passw']
+            passw = claveEncriptada(request.POST['passw'])
 
             q = Personas.objects.get(correo=correo, contrasena=passw)
             print(correo)
@@ -166,6 +166,71 @@ def logout(request):
     return redirect('paginaWeb:index')
 
 
+@decoradorDenegarAEC
+def recuperarContraForm(request):
+    """Método para acceder al formulario de recuperar contraseña
+    """
+    return render(request, 'run/login/recuperarContraForm.html')
+
+
+@decoradorDenegarAEC
+def enviarCorreo(request):
+    """Método para enviar correo de recuperación
+    """
+    if request.method == "POST":
+        try:
+            variable = "Hola"
+            persona = Personas.objects.get(correo=request.POST['correo'])
+            from django.core.mail import send_mail
+            try:
+                cuerpoCorreo = 'Correo Para recuperar contraseña:/n http://127.0.0.1:8000/run/changePassForm/'+(claveEncriptada(str(persona.cedula)))+" si usted no solicitó este cambio entonces debería cambiar su contraseña," + \
+                               "en RUN siempre queremos lo mejor para nuestros usuarios, hasta una proxima"
+                send_mail(
+                    'Correo de Recuperación de contraseña',
+                    cuerpoCorreo,
+                    'mateoortiz202@gmail.com',
+                    ['mateo.ortiz54@gmail.com', request.POST['correo']],
+                    fail_silently=False,
+                )
+                messages.success(request, "Correo enviado!")
+                print("Correo Enviado")
+                return redirect('paginaWeb:index')
+            except Exception as e:
+                messages.error(request, "Error!: " + str(e))
+                print(e)
+                return redirect('paginaWeb:index')
+        except Exception as e:
+            print(f"Persona con ese correo no existe{e}")
+            return redirect('paginaWeb:index')
+    else:
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:index')
+
+
+def changePassForm(request, id):
+    personas = Personas.objects.all()
+    for i in personas:
+        if claveEncriptada(str(i.cedula)) == id:
+            contexto = {'persona': i}
+            messages.success(request, "Se encontró la id")
+            return render(request, 'run/login/changePassword.html', contexto)
+    messages.error(request, "No encontró la id")
+    return redirect('paginaWeb:index')
+
+@decoradorDenegarAEC
+def savePassword(request):
+    if request.method == "POST":
+        try:
+            persona = Personas.objects.get(pk=request.POST['cedula'])
+            persona.contrasena = claveEncriptada(request.POST['contrasena'])
+            persona.save()
+            return redirect('paginaWeb:login_form')
+        except Exception as e:
+            messages.error(request, f'Hubo un error {e}')
+            return redirect('paginaWeb:index')
+    else:
+        messages.warning(request, 'Estás intentado hackear al ganador del SENASOFT? En serio?')
+        return redirect('paginaWeb:index')
 # Personas
 def perfil(request):
     """retorna acceso al perfil del usuario
@@ -1076,7 +1141,7 @@ def updatePedidosForm(request, id):
 def updatePedidosProductos(request):
     if request.method == "POST":
         try:
-            pedido = Pedidos.objects.get(id_pedidos_productos=request.POST['id_pedidos_productos'])
+            pedido = Pedidos.objects.get(id_pedido=request.POST['id_pedido'])
             productoExistente = Productos.objects.filter(id_producto=request.POST['producto'])
             ventaExistente = Ventas.objects.filter(id_venta=request.POST['venta'])
             if not productoExistente:
@@ -1088,7 +1153,7 @@ def updatePedidosProductos(request):
 
             pedido.producto = Productos.objects.get(pk=request.POST['producto'])
             pedido.venta = Ventas.objects.get(pk=request.POST['venta'])
-            pedido.cantidad = request.POST['producto']
+            pedido.cantidad = request.POST['cantidad']
 
             pedido.save()
             messages.success(request, "pedido registrado exitosamente")

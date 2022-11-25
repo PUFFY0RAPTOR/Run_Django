@@ -15,6 +15,8 @@
                     <th>Cliente asociado al pedido</th>
                     <th>Id de la venta</th>
                     <th>Id del producto</th>
+                    <th>Cantidad</th>
+
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -27,6 +29,8 @@
                         <td>{{i.producto.nombre_producto}}</td>
                         <td>{{i.venta.id_venta}}</td>
                         <td>{{i.producto}}</td>
+                        <td>{{i.cantidad}}</td>
+
                         <td>
                             <a href="{% url 'paginaWeb:upd_pedidos_productos_form' i.id_pedido %}" class="btn btn-warning"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

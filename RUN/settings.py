@@ -132,3 +132,13 @@ MEDIA_URL = 'uploads/'
 
 
 STATIC_ROOT = 'static/'
+
+#Configuracion para enviar correos
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mateoortiz202@gmail.com'
+EMAIL_HOST_PASSWORD = 'scyltuvyifinkulu'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

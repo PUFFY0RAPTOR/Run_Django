@@ -11,10 +11,10 @@ urlpatterns = [
     path('loginForm/', decoradorDenegarAEC(views.loginForm), name='login_form'),
     path('login/', decoradorDenegarAEC(views.login), name='login'),
     path('logout/', decoradorPermitirAEC(views.logout), name='logout'),
-
-    # Nuevo código
-    # path('personasForm/', views.registrarPersonasForm, name='personas_form'),
-    # path('registrarPersonas/', views.registrarPersonas, name='reg_personas'),
+    path('recuperarContraForm/', decoradorDenegarAEC(views.recuperarContraForm), name='recuperarContraForm'),
+    path('enviarCorreo/', decoradorDenegarAEC(views.enviarCorreo), name='enviar_correo'),
+    path('changePassForm/<id>', decoradorDenegarAEC(views.changePassForm), name='changePassForm'),
+    path('savePass/', decoradorDenegarAEC(views.savePassword), name='upd_contrasena'),
 
     # perfil
     path('perfil/', views.perfil, name='perfil'),

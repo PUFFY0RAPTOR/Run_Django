@@ -1,0 +1,37 @@
+{% extends 'run/base.html' %}{% load static %}
+{% block tituloPage %} recuperar Contraseña {% endblock %}
+
+{% block body %}
+    {% block header %}{% endblock %}
+    <div class="card mb-5 container mt-5 p-3"  style="max-width: 940px;">
+        <div class="row g-0">
+          <div class="col-md-8 mx-auto">
+            <div class="card-body">
+              <h5 class="card-title text-primary h4 text-center">Recuperando Contraseña</h5>
+              <p class="card-text">
+                <form action="{% url 'paginaWeb:enviar_correo' %}" method="post">
+                    {% csrf_token %}
+                    <p class="card-text">Ingrese el correo que tenga asociado a la cuenta
+                        que desea recuperar, si se tiene guardado en la base de datos se le enviará un código de
+                        recuperación</p>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="correo" id="floatingInput"
+                                 placeholder="Cantidad de productos">
+                        <label for="floatingInput">Correo Electrónico</label>
+                    </div>
+                    <hr class="container mb-4">
+
+                    <button type="submit" class="btn btn-success">Enviar</button>
+
+                </form>
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {%block ayuda%}{% endblock %}
+
+    {%block footer%}{% endblock %}
+{% endblock  %}
