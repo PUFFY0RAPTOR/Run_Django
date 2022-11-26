@@ -33,7 +33,7 @@
 </head>
 
 
-<body onload="interface()">
+<body>
 
     {% block header %}
         <div>
@@ -465,7 +465,7 @@
         </div>
         <div class="offcanvas-body">
             <div>
-              {% if request.session.carrito.nombre_producto %}
+              {% if request.session.carrito %}
                   <h4>Hay productos ({{ request.session.carrito }})</h4>
               {% else %}
                   <h4>No hay productos en el carrito...</h4>

@@ -1,67 +1,37 @@
 {% extends 'run/base.html' %}{% load static %}
 {% block tituloPage %} Login {% endblock %}
+
 {% block body %}
 
-    {# Hola quitar los bloques de header y motos arregla el error de la barra de navegacion en el login, aqui hay que restringir la barra de navegacion #}
     {% block header %}{% endblock  %}
 
-    <section class="h-100 gradient-form" style="background-color: #eee;">
-        <div class="container py-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
-              <div class="card rounded-3 text-black mb-5">
-                <div class="row g-0">
-                  <div class="col-lg-6">
-                    <div class="card-body p-md-5 mx-md-4">
 
-                      <div class="text-center">
-                        <img src="{% static 'run/img/logo.png' %}"
-                          style="width: 300px;" alt="logo">
-                      </div>
-
-                      <form action="{% url 'paginaWeb:login' %}" method="post">
-                        {% csrf_token %}
-                        <p>Coloca los datos de tú cuenta</p>
-
+    <div class="card mb-5 container mt-5 p-3"  style="max-width: 940px; border-radius: 10px; margin-top: 5em;">
+        <div class="row g-0">
+          <div class="col-md-8 mx-auto">
+            <div class="card-body">
+              <h5 class="card-title text-primary h4 text-center">Iniciar sesión</h5>
+              <p class="card-text">
+                <form action="{% url 'paginaWeb:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
                         <div class="form-outline mb-4">
-                          <input type="email" id="cor" name="email" class="form-control"
-                            placeholder="Correo electrónico" />
-                          <label class="form-label" for="cor">Correo</label>
+                          <input type="text" class="form-control" name="email" id="floatingInput">
+                            <label for="floatingInput">Correo Electrónico</label>
                         </div>
-
                         <div class="form-outline mb-4">
-                          <input type="password" id="passw" name="passw" class="form-control" />
-                          <label class="form-label" for="passw">Contraseña</label>
+                            <input type="password" class="form-control" name="passw" id="floatingInput">
+                            <label for="floatingInput">Contraseña</label>
                         </div>
-
-                        <div class="text-center pt-1 mb-5 pb-1">
-                          <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Entrar</button>
-                          <a class="text-muted" href="{% url 'paginaWeb:recuperarContraForm' %}">¿Olvidaste la contraseña?</a>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center pb-4">
-                          <p class="mb-0 me-2">¿No tienes cuenta?</p>
-                          <a type="button" href="{% url 'paginaWeb:registro' %}" class="btn btn-outline-primary">Crear cuenta</a>
-                        </div>
-
-                      </form>
-
                     </div>
-                  </div>
-                  <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                      <h4 class="mb-4">La mejor tienda de repuestos para moto en el país</h4>
-                      <p class="small mb-0">Motos de alto, medio y bajo cilindraje. Encontrarás lo que necesites
-                        para tú moto en R' Unitall. Con nuestros bajos precios ganarás más de lo que gastas.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    <hr class="container mb-4">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+              </p>
             </div>
           </div>
         </div>
-    </section>
+      </div>
     
     {%block ayuda%}{% endblock %}
 

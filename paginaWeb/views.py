@@ -419,7 +419,6 @@ def buscarPersonaEditar(request, id):
 
 
 # Marcas
-
 def marcas(request):
     """Método para acceder a visualizar
     las marcas.
