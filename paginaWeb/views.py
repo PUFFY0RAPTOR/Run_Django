@@ -3,7 +3,7 @@ from urllib import request
 from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from .cryp import claveEncriptada
 
@@ -142,7 +142,7 @@ def login(request):
         try:
             correo = request.POST['email']
             passw = claveEncriptada(request.POST['passw'])
-
+            print(request.POST['passw'])
             q = Personas.objects.get(correo=correo, contrasena=passw)
             print(correo)
 
@@ -375,14 +375,15 @@ def updatePersona(request):
             persona.apellido = request.POST['apellidos']
             persona.celular = request.POST['celular']
             persona.direccion = request.POST['direccion']
-            if request.POST['rol']:
-                persona.roles = Roles.objects.get(pk=request.POST['rol'])
-            if request.POST['fecha']:
-                persona.fecha = request.POST['fecha']
+            #if request.POST['rol'] != "no aplica":
+            #    persona.roles = Roles.objects.get(pk=request.POST['rol'])
+            #if request.POST['fecha'] :
+            #    persona.fecha = request.POST['fecha']
             # La fecha no aactualiza, se puede arreglar, creo
             persona.save()
             messages.success(request, "Actualizado correctamente")
-            return redirect('paginaWeb:list_usu')
+            return redirect('paginaWeb:index')
+            #return redirect('paginaWeb:list_usu')
         except UserWarning as e:
             messages.error(request, f"Hubo un error al momento de actualizar: {e}")
             return redirect('paginaWeb:list_usu')
@@ -571,8 +572,11 @@ def verProductos(request):
     s = Imagenes.objects.filter(productos=producto)
     # aqui hay que manipular los datos que se envian en el contexto
     i = Imagenes.objects.all()
-
-    contexto = {'productos': q, 'imagenes': i}
+    cont = request.session.get('carrito', False)
+    if cont:
+        cont = len(cont)
+    print(f"el tamaño es {cont}")
+    contexto = {'productos': q, 'imagenes': i, 'contador': cont}
 
     return render(request, 'run/compras/compras.html', contexto)
 
@@ -893,6 +897,30 @@ def addCarrito(request, id):
                        f'Ha ocurrido un error al agregar el producto al carrito, vuélvalo a intentar mas tarde {e}')
 
     return redirect('paginaWeb:ver_prod')
+
+@decoradorPermitirC
+def addCarritoAjax(request, id):
+    """Método para añadir productos
+    al carrito de compras.
+    """
+    try:
+        q = Productos.objects.get(pk=id)
+        listaCarrito = request.session.get('carrito', False)
+
+        if listaCarrito:
+            listaCarrito.append(id)
+            request.session['carrito'] = listaCarrito
+        else:
+            request.session['carrito'] = [id]
+        contexto = {'message': "success"}
+        return JsonResponse(contexto)
+        # messages.success(request, 'Producto agregado correctamente al carrito')
+    except Exception as e:
+        # messages.error(request,
+        #               f'Ha ocurrido un error al agregar el producto al carrito, vuélvalo a intentar mas tarde {e}')
+        contexto = {'message': "Hubo error"}
+
+        return JsonResponse(contexto)
 
 
 @decoradorPermitirC

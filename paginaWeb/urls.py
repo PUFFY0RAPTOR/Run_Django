@@ -100,6 +100,8 @@ urlpatterns = [
     # Carrito
     path('carritoCompras/', decoradorPermitirC(views.mostrarCarrito), name='carrito'),
     path('addCarrito/<int:id>', decoradorPermitirC(views.addCarrito), name='add_carrito'),
+    path('addCarritoAjax/<int:id>', decoradorPermitirC(views.addCarritoAjax), name='add_carrito_ajax'),
+
     path('vaciarCarrito/', decoradorPermitirC(views.vaciarCarrito), name='vaciar_carrito'),
     path('borrarElementoCarrito/<int:id>', decoradorPermitirC(views.borrarElementoCarrito),
          name='borrar_elemento_carrito'),
