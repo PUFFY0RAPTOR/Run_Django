@@ -3,17 +3,16 @@
 
 {% block body %}
     {% block header %}{% endblock %}
-    <div class="card mb-5 container mt-5 p-3"  style="max-width: 940px;">
+
+    <div class="card mb-5 container mt-5 p-3 rounded shadow-lg" style="max-width: 940px;">
         <div class="row g-0">
           <div class="col-md-8 mx-auto">
             <div class="card-body">
-              <h5 class="card-title text-primary h4 text-center">Recuperando Contraseña</h5>
+              <h5 class="card-title text-primary h4 text-center">Recuperando contraseña</h5>
               <p class="card-text">
                 <form action="{% url 'paginaWeb:enviar_correo' %}" method="post">
                     {% csrf_token %}
-                    <p class="card-text">Ingrese el correo que tenga asociado a la cuenta
-                        que desea recuperar, si se tiene guardado en la base de datos se le enviará un código de
-                        recuperación</p>
+                    <p class="card-text text-center">Ingrese el correo electrónico registrado para buscar su cuenta.</p>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="correo" id="floatingInput"
                                  placeholder="Cantidad de productos">
@@ -22,6 +21,7 @@
                     <hr class="container mb-4">
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
+                    <a href="{% url 'paginaWeb:login_form' %}" class="btn btn-secondary">Cancelar</a>
 
                 </form>
               </p>

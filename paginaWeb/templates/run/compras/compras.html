@@ -3,11 +3,9 @@
 
 {% block body %}
 
-    {% block motos %}{% endblock%} <!--Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más-->
-
     <div id="padre">
         <!-- Compras filtros-->     
-        <div class="container p-4 bg-light col-4 col-lg-2 ml-3 mr-4 ml-5 rounded">
+        <div class="container p-4 bg-light col-2 ml-3 mr-4 ml-5 rounded shadow-lg tarjetas">
             <div>
                 <p class="h4 text-primary fw-normal">Productos</p>
                 <span class="text-muted fw-light">4.786 productos encontrados</span>
@@ -48,16 +46,20 @@
         </div>
 
         <!--Productos responsive-->
-        <div class="container p-3 border mr-3 bg-light mr-5 rounded">
-            <div class="row row-cols-1 row-cols-md-3 tarjetas">
+        <div class="container p-3 border mr-3 bg-light mr-5 rounded shadow-lg">
+            <div class="row row-cols-1 row-cols-md-3">
                 {% if productos %}
                     {% for i in productos %}
                         <div class="col mb-4 col-12">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalProductos" class="text-decoration-none text-black">
-                                <div class="card">    
-                                    {% if imagenes %}
-                                        <img src="{{imagenes.imagen.url}}" class="card-img-top" alt="{{i.nombre_producto}}">
-                                    {% endif %}
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalProductos"
+                               class="text-decoration-none text-black">
+                                <div class="card shadow">
+                                    {% for ima in imagenes %}
+                                        {% if i.id_producto == ima.productos.id_producto  %}
+                                            <img src="{{ima.imagen.url}}" class="card-img-top"
+                                                 alt="{{i.nombre_producto}}">
+                                        {% endif %}
+                                    {% endfor %}
                                     <div class="card-body">
                                         <h5 class="card-title">{{i.nombre_producto}} - {{i.marca}}</h5>
                                         <p class="card-text h2 font-weight-bold text-primary">${{i.precio}}</p>

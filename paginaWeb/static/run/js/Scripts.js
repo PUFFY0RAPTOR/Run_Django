@@ -28,10 +28,16 @@ function contador(url, contador){
         }
     }
     valorFuncion();
-    //aqui se agrega el producto al carrito sin recargar la pagina, y luego se agrega el nuevo valor
-    //al contador del carrito, el cual funciona al recargar la pagina, pero si se esto no ocurriera y pudiera
-    //modificar ese contador con ajax entonces, y solo entonces, obtendria luego el valor de este y lo cambiaria y luego
-    //lo corrijo
+    //agregar campo a la variable session
+    //agregar condicional y proceso de búsqueda por id repetida en lista
+    //asignar el item aquí, aunque creo que esto no es necesario
+    //agregar función en el campo cantidad, ademas de id personalizada
+
+
+
+
+
+    //ajax.................................. No terminado
     //let contador1 = document.getElementById('contador_carrito').innerHTML
     //let newContador = parseInt(contador1)
     //console.log("Este es el contador: ", newContador+100)

@@ -566,8 +566,6 @@ def verProductos(request):
 
     q = Productos.objects.all()
 
-    producto = q
-    s = Imagenes.objects.filter(productos=producto)
     # aqui hay que manipular los datos que se envian en el contexto
     i = Imagenes.objects.all()
     cont = request.session.get('carrito', False)

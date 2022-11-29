@@ -22,7 +22,7 @@
                 <tr>
                     <td class="col-5 col-lg-5">{{i.id_imagen}}</td>
                     <td class="col-5 col-lg-5"><img src="{{i.imagen.url}}" alt="imagenes de los productos" width="210px" height="125px"></td>
-                    <td class="col-5 col-lg-5">{{i.productos}}</td>
+                    <td class="col-5 col-lg-5">{{i.productos.nombre_producto}}</td>
                     <td class="col-5 col-lg-5">
                         <button onclick="confirmarEliminar('{% url 'paginaWeb:del_imagenes' i.id_imagen %}')" type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                 height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">

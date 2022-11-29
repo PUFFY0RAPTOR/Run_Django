@@ -1,11 +1,10 @@
 {% extends 'run/base.html' %}{% load static %}
 {% block tituloPage %} Index {% endblock %}
+
 {% block body %}
 
-    <!-- {% block motos %}{% endblock%} Quité las motos porque en la base de datos no tenemos una tabla para ellas, aunque teo dijo que iban a ser un producto más -->
-
     <!-- Carrusel -->
-    <div class="container p-5 mt-5 bg-light rounded">
+    <div class="container p-5 mt-5 bg-light rounded shadow-lg">
         <h1>Buscar otras datatables</h1>
 
         <br/><div id="carruselRun" class="carousel slide container rounded" data-ride="carousel">
@@ -52,7 +51,7 @@
             <br><div class="row row-cols-1 row-cols-md-5">
                     <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
                     <div class="col mb-4">
-                        <div class="card">
+                        <div class="card shadow-lg">
                             <img src="{% static 'run/img/accesorios.jpg' %}" class="card-img-top" alt="...">
                             <div class="card-body">
                             <h5 class="card-title">Accesorios</h5>
@@ -62,7 +61,7 @@
                     </a>
                     <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
                         <div class="col mb-4">
-                            <div class="card">
+                            <div class="card shadow-lg">
                                 <img src="{% static 'run/img/herramientas.jpg' %}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                 <h5 class="card-title">Herramientas</h5>
@@ -72,7 +71,7 @@
                     </a>
                     <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;" >
                         <div class="col mb-4">
-                            <div class="card">
+                            <div class="card shadow-lg">
                                 <img src="{% static 'run/img/luces.jpeg' %}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                 <h5 class="card-title">Iluminación</h5>
@@ -82,7 +81,7 @@
                     </a>
                     <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
                         <div class="col mb-4">
-                            <div class="card">
+                            <div class="card shadow-lg">
                                 <img src="{% static 'run/img/muchosAceites.jpg' %}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                 <h5 class="card-title">Lubricantes</h5>
@@ -92,7 +91,7 @@
                     </a>
                     <a href="{% url 'paginaWeb:ver_prod' %}" class="linkIndex" style="text-decoration: none; color: #000000;">
                         <div class="col mb-4">
-                            <div class="card">
+                            <div class="card shadow-lg">
                                 <img src="{% static 'run/img/descuentos.webp' %}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                 <h5 class="card-title">Descuentos</h5>
@@ -105,21 +104,4 @@
         </div><br/><br/>
     </div>
 
-    {% comment %} {# aqui deberiamos de agregar algo mas para que sea mas agradable #}
-    <h1>Hay que agregar algo mas...</h1>
-
-    <!--Voy a hacer el resto de los cruds en el index ya que en la barra de navegacion no tengo espacio y no se como hacer para que sigan mostrandose abajo y no seguidamente-->
-    <h1>Otras Listas</h1> {% endcomment %}
-
-
-    {% comment %} <h4>pedidos</h4>
-    <a class="btn btn-primary" href="{% url 'paginaWeb:list_pedidos' %}" role="button">Listar Pedidos</a>
-    <a class="btn btn-primary" href="{% url 'paginaWeb:form_pedidos' %}"role="button">Crear Pedido</a>
-    <!-- <a class="btn btn-primary" href="#" role="button">Editar Pedido</a><br><br> --> {% endcomment %}
-
-    {% if request.session.auth %} <!--Cambiar nombre de la variable-->
-        Bienvenido usuario <strong>{{request.session.auth.0}}</strong>
-    {% else %}
-        No has iniciado sesión
-    {% endif %}
 {% endblock  %}

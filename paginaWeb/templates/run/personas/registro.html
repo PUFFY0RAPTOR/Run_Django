@@ -3,11 +3,12 @@
 
 {% block body %}
 
-    <div class="container bg-light py-5 mt-5 mt-5 mb-5">
+    <div class="container bg-light py-5 mt-5 mt-5 mb-5 shadow-lg" style="border-radius: 10px;">
 
-        <h1 class="text-center">Registro</h1>
+        <h1 class="text-center text-primary">Registro</h1>
         <div>
-            <form action="{% url 'paginaWeb:guardarPersona' %}" method="post" enctype="multipart/form-data" class="row">
+            <form action="{% url 'paginaWeb:guardarPersona' %}" method="post"
+                  enctype="multipart/form-data" class="row p-5">
 
                 {% csrf_token %}
 

@@ -5,8 +5,7 @@
 
     {% block header %}{% endblock  %}
 
-
-    <div class="card mb-5 container mt-5 p-3"  style="max-width: 940px; border-radius: 10px; margin-top: 5em;">
+    <div class="card mb-5 container mt-5 p-3 shadow-lg" style="max-width: 500px; border-radius: 10px;>
         <div class="row g-0">
           <div class="col-md-8 mx-auto">
             <div class="card-body">
@@ -14,16 +13,14 @@
               <p class="card-text">
                 <form action="{% url 'paginaWeb:login' %}" method="post">
                     {% csrf_token %}
-                    <div class="form-floating mb-3">
-                        <div class="form-outline mb-4">
-                          <input type="text" class="form-control" name="email" id="floatingInput">
-                            <label for="floatingInput">Correo Electrónico</label>
-                        </div>
-                        <div class="form-outline mb-4">
-                            <input type="password" class="form-control" name="passw" id="floatingInput">
-                            <label for="floatingInput">Contraseña</label>
-                        </div>
+                    <div class="form-floating input-group mb-3">
+                        <input type="text" class="form-control" name="email" id="floatingInput">
+                        <label for="floatingInput">Correo electrónico</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" name="passw" id="floatingInputPass">
+                        <label for="floatingInputPass">Contraseña</label>
+                    <div>
                     <hr class="container mb-4">
                     <div class="text-center pt-1 mb-4 pb-1">
                         <a class="text-muted" href="{% url 'paginaWeb:recuperarContraForm' %}">

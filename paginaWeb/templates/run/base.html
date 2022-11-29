@@ -108,7 +108,6 @@
                         </ul>
                         <ul class="navbar-nav navbar-expand-lg">
                             <li class="nav-item">
-
                                 <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvaCarrito" style="color: black; padding: 0.5em;"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
                                         class="bi bi-cart3" viewBox="0 0 16 16">
@@ -248,12 +247,6 @@
         {% elif request.session.auth.2 == 3 %}
             <nav class="navbar navbar-expand-lg navbar-light p-3" style="background-color: #cccccc;">
                 <div class="container-fluid">
-                    <div class="col-2">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Buscar</button>
-                        </form>
-                    </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -367,7 +360,7 @@
                                     </svg>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="{% url 'paginaWeb:ayuda' %}"> Modificar perfil</a>
+                                    <a class="dropdown-item" href="{% url 'paginaWeb:perfil' %}"> Modificar perfil</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{% url 'paginaWeb:logout' %}">Cerrar Sesion
                                         <svg xmlns="http://www.w3.org/2000/svg" width=" 20" height="20" fill="currentColor"
@@ -383,12 +376,25 @@
                         </ul>
                         <ul class="navbar-nav navbar-expand-lg">
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'paginaWeb:carrito' %}" style="color: black; padding: 0.5em;"><svg
+                                <a class="nav-link ml-5" data-bs-toggle="offcanvas" href="#offCanvaCarrito" style="color: black;"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
                                         class="bi bi-cart3" viewBox="0 0 16 16">
                                         <path
-                                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                    </svg><sup id="contador_carrito"  style="color: blue">2</sup>
+                                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1
+                                             .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5
+                                             .5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479
+                                              9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0
+                                               0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1
+                                                1 0 0 1 0-2z" />
+                                    </svg><sup id="contador_carrito" class="bg-primary text-light rounded-circle p-2 fw-bold">
+                                    {% if request.session.carrito %}
+                                        {% with count=request.session.carrito|length %}
+                                            {{ count }}
+                                        {% endwith %}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </sup>
                                 </a>
                             </li>
                         </ul>
