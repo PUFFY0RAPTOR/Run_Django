@@ -18,10 +18,7 @@ function contador(url, contador){
             if(data.message==="success"){
                 alert("Agregado correctamente")
                 let carrito = document.getElementById('contador_carrito').innerHTML
-
                 carrito = parseInt(carrito) + 1
-
-
                 document.getElementById('contador_carrito').innerHTML = carrito
             }else{
                 alert("Hubo un error")
@@ -87,10 +84,6 @@ function contador(url, contador){
 //     }
 // }
 
-// function imprimir(){
-//     console.log("Funcion de sebas");
-//     alert("Probando las dos ramas");
-// }
 
 // function closeSession(){
 

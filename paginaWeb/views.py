@@ -142,9 +142,8 @@ def login(request):
         try:
             correo = request.POST['email']
             passw = claveEncriptada(request.POST['passw'])
-            print(request.POST['passw'])
             q = Personas.objects.get(correo=correo, contrasena=passw)
-            print(correo)
+            print(q)
 
             request.session['auth'] = [q.correo, q.contrasena, q.roles.id_roles]
 
@@ -194,7 +193,7 @@ def enviarCorreo(request):
                     'Correo de Recuperación de contraseña',
                     cuerpoCorreo,
                     'mateoortiz202@gmail.com',
-                    ['mateo.ortiz54@gmail.com', request.POST['correo']],
+                    ['mateo.ortiz54@misena.edu.co', request.POST['correo']],
                     fail_silently=False,
                 )
                 messages.success(request, "Correo enviado!")
@@ -905,7 +904,6 @@ def addCarritoAjax(request, id):
     try:
         q = Productos.objects.get(pk=id)
         listaCarrito = request.session.get('carrito', False)
-
         if listaCarrito:
             listaCarrito.append(id)
             request.session['carrito'] = listaCarrito
@@ -917,7 +915,7 @@ def addCarritoAjax(request, id):
     except Exception as e:
         # messages.error(request,
         #               f'Ha ocurrido un error al agregar el producto al carrito, vuélvalo a intentar mas tarde {e}')
-        contexto = {'message': "Hubo error"}
+        contexto = {'message': f"Hubo error{e}"}
 
         return JsonResponse(contexto)
 

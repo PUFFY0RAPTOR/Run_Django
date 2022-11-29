@@ -25,7 +25,17 @@
                         </div>
                     </div>
                     <hr class="container mb-4">
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <div class="text-center pt-1 mb-4 pb-1">
+                        <a class="text-muted" href="{% url 'paginaWeb:recuperarContraForm' %}">
+                            ¿Olvidaste tú contraseña?
+                        </a>
+                        <a class="text-muted" href="{% url 'paginaWeb:registro' %}">
+                            Registrarse
+                        </a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <a href="{% url 'paginaWeb:index' %}" class="btn btn-secondary">Volver al inicio</a>
+
                 </form>
               </p>
             </div>
